@@ -1,0 +1,20 @@
+{
+    "7e57b831-9f45-4160-9353-d8566a567977": {
+        "title": "Delta Force 1",
+        "category": "Shooting",
+        "maxLevel": "30",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/a5/DF1-game.JPG",
+        "summary": "Delta Force is a tactical first-person shooter developed and published by NovaLogic. It was released for the Windows in October 1998. Delta Force was designed to be a military simulation loosely based on the United States' Delta Force special operations army unit.",
+        "_id": "7e57b831-9f45-4160-9353-d8566a567977"
+    },
+
+    "099d2ded-4790-4288-b0ae-0ba366bf6e88": {
+        "title": "Counter Strike 1.6",
+        "category": "Shooting",
+        "maxLevel": "25",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/67/Counter-Strike_Box.jpg",
+        "summary": "Counter-Strike (also known as Half-Life: Counter-Strike or Counter-Strike 1.6) is a 2000 tactical first-person shooter game developed by Valve Corporation and published by Sierra Studios. It is the first installment in the Counter-Strike series.",
+        "_id": "099d2ded-4790-4288-b0ae-0ba366bf6e88"
+    }
+
+}
