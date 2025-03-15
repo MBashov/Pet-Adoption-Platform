@@ -12,7 +12,7 @@ export default function Header() {
                         <nav>
                             <ul className="sf-menu">
                                 <li className="current">
-                                    <a href="index.html">Home</a>
+                                    <a href="/">Home</a>
                                 </li>
                                 <li className="with_ul">
                                     <a href="about-us.html">About Us</a>

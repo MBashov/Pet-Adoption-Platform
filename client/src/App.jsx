@@ -1,3 +1,5 @@
+import { Routes, Route } from "react-router"
+
 import Bottomblock from "./components/bottom-block/BottomBlock"
 import Footer from "./components/footer/Footer"
 import Header from "./components/header/Header"
@@ -15,11 +17,14 @@ function App() {
 
   return (
     <>
-      <Header />
-      < TopBlok1 />
-      < Page1Block />
-      < Bottomblock />
-      < Footer />
+        <Header />
+      <Routes>
+        <Route path="/" element={  < TopBlok1 />} />
+      </Routes>
+      
+        < Page1Block />
+        < Bottomblock />
+        < Footer />
     </>
   )
 }

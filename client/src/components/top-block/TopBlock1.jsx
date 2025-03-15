@@ -38,6 +38,5 @@ export default function TopBlok1() {
                 </div>
             </div>
         </div>
-
     );
 }
