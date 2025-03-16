@@ -19,14 +19,14 @@ export default function Home() {
                         {/* Slide 1 */}
                         <SwiperSlide>
                             <div className="flex w-full h-[700px]">
-                                <div className="w-2/3">
+                                <div className="w-2/2">
                                     <img src="/images/slide1.jpg" alt="Slide 1" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
                                     <h2 className="text-3xl font-bold">
                                         They Need Your <span className="text-orange-400">Love</span> and <span className="text-green-400">Care</span>
                                     </h2>
-                                    <p className="text-lg text-gray-300 mt-2">It is so easy to make them happy</p>
+                                    <p className="text-lg text-gray-300 mt-3">It is so easy to make them happy</p>
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -34,12 +34,12 @@ export default function Home() {
                         {/* Slide 2 */}
                         <SwiperSlide>
                             <div className="flex w-full h-[700px]">
-                                <div className="w-2/3">
+                                <div className="w-2/2">
                                     <img src="/images/slide2.jpg" alt="Slide 2" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
                                     <h2 className="text-3xl font-bold">Join Us <span className="text-orange-400">Today!</span></h2>
-                                    <p className="text-lg text-gray-300 mt-2"><span className="text-green-400">Help usmake a difference.</span> </p>
+                                    <p className="text-lg text-gray-300 mt-2"><span className="text-green-400">Help us make a difference.</span> </p>
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -47,7 +47,7 @@ export default function Home() {
                         {/* Slide 3 */}
                         <SwiperSlide>
                             <div className="flex w-full h-[700px]">
-                                <div className="w-2/3">
+                                <div className="w-2/2">
                                     <img src="/images/slide3.jpg" alt="Slide 3" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
