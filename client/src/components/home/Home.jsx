@@ -8,35 +8,56 @@ export default function Home() {
     return (
         <section className="relative bg-gray-100">
             {/* Sliding Section */}
-            <div className="block mx-auto py-10 h-[775px] max-w-7xl"> 
-                <Swiper
-                    navigation
-                    modules={[Navigation]}
-                    loop
-                    className="blockd rounded-lg shadow-lg overflow-hidden"
-                >
-                    <SwiperSlide className="relative">
-                        <img src="/images/slide1.jpg" alt="Slide 1" className="w-full h-[700px] object-cover" /> 
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
-                            <h2 className="text-3xl font-bold">They Need Your <span className="text-yellow-400">Love</span> and <i>Care</i></h2>
-                            <p className="text-lg">It is so easy to make them happy</p>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide className="relative">
-                    <img src="/images/slide2.jpg" alt="Slide 1" className="w-full h-[700px] object-cover" /> 
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
-                            <h2 className="text-3xl font-bold">They Need Your <span className="text-yellow-400">Love</span> and <i>Care</i></h2>
-                            <p className="text-lg">It is so easy to make them happy</p>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide className="relative">
-                    <img src="/images/slide3.jpg" alt="Slide 1" className="w-full h-[700px] object-cover" /> 
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50">
-                            <h2 className="text-3xl font-bold">They Need Your <span className="text-yellow-400">Love</span> and <i>Care</i></h2>
-                            <p className="text-lg">It is so easy to make them happy</p>
-                        </div>
-                    </SwiperSlide>
-                </Swiper>
+            <div className="block mx-auto py-10 h-[775px] max-w-7xl">
+                <div className="block mx-auto py-10 max-w-7xl">
+                    <Swiper
+                        navigation
+                        modules={[Navigation]}
+                        loop
+                        className="rounded-lg shadow-lg overflow-hidden"
+                    >
+                        {/* Slide 1 */}
+                        <SwiperSlide>
+                            <div className="flex w-full h-[700px]">
+                                <div className="w-2/3">
+                                    <img src="/images/slide1.jpg" alt="Slide 1" className="w-full h-full object-cover" />
+                                </div>
+                                <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
+                                    <h2 className="text-3xl font-bold">
+                                        They Need Your <span className="text-orange-400">Love</span> and <span className="text-green-400">Care</span>
+                                    </h2>
+                                    <p className="text-lg text-gray-300 mt-2">It is so easy to make them happy</p>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+
+                        {/* Slide 2 */}
+                        <SwiperSlide>
+                            <div className="flex w-full h-[700px]">
+                                <div className="w-2/3">
+                                    <img src="/images/slide2.jpg" alt="Slide 2" className="w-full h-full object-cover" />
+                                </div>
+                                <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
+                                    <h2 className="text-3xl font-bold">Join Us <span className="text-orange-400">Today!</span></h2>
+                                    <p className="text-lg text-gray-300 mt-2"><span className="text-green-400">Help usmake a difference.</span> </p>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+
+                        {/* Slide 3 */}
+                        <SwiperSlide>
+                            <div className="flex w-full h-[700px]">
+                                <div className="w-2/3">
+                                    <img src="/images/slide3.jpg" alt="Slide 3" className="w-full h-full object-cover" />
+                                </div>
+                                <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
+                                    <h2 className="text-3xl font-bold">Every Life Matters</h2>
+                                    <p className="text-lg text-gray-300 mt-2">Give them love and care.</p>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                    </Swiper>
+                </div>
             </div>
 
 
