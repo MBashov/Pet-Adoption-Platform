@@ -65,61 +65,80 @@ export default function Home() {
                 </div>
             </div>
 
-
-
             {/* Latest Pets Section */}
-            <div id="home-page" className="py-12 bg-white">
-                <h1 className="text-3xl font-bold text-center mb-8">Latest Adoptable Pets</h1>
+            <div className="py-12 bg-white">
+                <h1 className="text-3xl text-center mb-8 font-serif font-bold text-gray-800">New Arrivals: <span className="text-blue-500">Ready to Adopt</span> Pets</h1>
 
                 {/* Container for the pets */}
                 <div className="flex justify-center gap-8">
 
                     {/* Display pet 1 */}
-                    <div className="pet flex flex-col items-center mb-8">
-                        <div className="image-wrap w-64 h-64 overflow-hidden rounded-lg shadow-lg mb-4">
+                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
+                        {/* Image Wrap */}
+                        <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
                             <img src="/images/carousel1_img3.jpg" alt="Pet 1" className="w-full h-full object-cover" />
                         </div>
-                        <h3 className="text-xl font-semibold mb-2">Buddy</h3>
-                        <div className="info text-gray-700 mb-4">
+
+                        {/* Title */}
+                        <h3 className="text-2xl font-bold mt-4">Buddy</h3>
+
+                        {/* Pet Info */}
+                        <div className="info text-gray-700 my-3">
                             <p>Breed: Labrador Retriever</p>
                             <p>Age: 2 Years</p>
                         </div>
-                        <div className="data-buttons">
-                            <Link to="/pet-details/1" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full">
+
+                        {/* Button */}
+                        <div className="data-buttons mt-4">
+                            <Link to="/pet-details/1" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
                                 View Details
                             </Link>
                         </div>
                     </div>
 
                     {/* Display pet 2 */}
-                    <div className="pet flex flex-col items-center mb-8">
-                        <div className="image-wrap w-64 h-64 overflow-hidden rounded-lg shadow-lg mb-4">
-                            <img src="/images/carousel1_img4.jpg" alt="Pet 2" className="w-full h-full object-cover" />
+                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
+                        {/* Image Wrap */}
+                        <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
+                            <img src="/images/carousel1_img4.jpg" alt="Pet 1" className="w-full h-full object-cover" />
                         </div>
-                        <h3 className="text-xl font-semibold mb-2">Whiskers</h3>
-                        <div className="info text-gray-700 mb-4">
+
+                        {/* Title */}
+                        <h3 className="text-2xl font-bold mt-4">Whiskers</h3>
+
+                        {/* Pet Info */}
+                        <div className="info text-gray-700 my-3">
                             <p>Breed: Persian</p>
-                            <p>Age: 3 Years</p>
+                            <p>Age: 2 Years</p>
                         </div>
-                        <div className="data-buttons">
-                            <Link to="/pet-details/2" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full">
+
+                        {/* Button */}
+                        <div className="data-buttons mt-4">
+                            <Link to="/pet-details/2" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
                                 View Details
                             </Link>
                         </div>
                     </div>
 
                     {/* Display pet 3 */}
-                    <div className="pet flex flex-col items-center mb-8">
-                        <div className="image-wrap w-64 h-64 overflow-hidden rounded-lg shadow-lg mb-4">
-                            <img src="/images/carousel1_img5.jpg" alt="Pet 3" className="w-full h-full object-cover" />
+                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
+                        {/* Image Wrap */}
+                        <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
+                            <img src="/images/carousel1_img5.jpg" alt="Pet 1" className="w-full h-full object-cover" />
                         </div>
-                        <h3 className="text-xl font-semibold mb-2">Fluffy</h3>
-                        <div className="info text-gray-700 mb-4">
-                            <p>Breed: Dutch Rabbit</p>
-                            <p>Age: 1 Year</p>
+
+                        {/* Title */}
+                        <h3 className="text-2xl font-bold mt-4">Whiskers</h3>
+
+                        {/* Pet Info */}
+                        <div className="info text-gray-700 my-3">
+                            <p>Breed: Persian</p>
+                            <p>Age: 2 Years</p>
                         </div>
-                        <div className="data-buttons">
-                            <Link to="/pet-details/3" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full">
+
+                        {/* Button */}
+                        <div className="data-buttons mt-4">
+                            <Link to="/pet-details/2" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
                                 View Details
                             </Link>
                         </div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 
 export default function Header() {
     return (
-        <header className="bg-black text-white py-[34px] relative z-[999] block">
+        <header className="bg-gray-900 text-white py-[34px] relative z-[999] block">
             <div className="container mx-auto flex items-center justify-between">
                 {/* Logo */}
                 <h1 className="relative z-[999] float-none">
