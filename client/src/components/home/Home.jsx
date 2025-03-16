@@ -2,18 +2,23 @@ import { Link } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 
 export default function Home() {
     return (
         <section className="relative bg-gray-100">
             {/* Sliding Section */}
-            <div className="block mx-auto py-10 h-[775px] max-w-7xl">
+            <div className="block mx-auto py-0.7 h-[775px] max-w-7xl">
                 <div className="block mx-auto py-10 max-w-7xl">
                     <Swiper
                         navigation
-                        modules={[Navigation]}
+                        modules={[Navigation, Autoplay]}
                         loop
+                        speed={1000}
+                        autoplay={{
+                            delay: 3000, // Adjust time in milliseconds (3 seconds)
+                            disableOnInteraction: false // Keeps autoplay even after user interaction
+                        }}
                         className="rounded-lg shadow-lg overflow-hidden"
                     >
                         {/* Slide 1 */}
