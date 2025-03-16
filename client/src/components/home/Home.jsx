@@ -66,14 +66,14 @@ export default function Home() {
             </div>
 
             {/* Latest Pets Section */}
-            <div className="py-12 bg-white">
+            <div className="py-12 bg-gray-200">
                 <h1 className="text-3xl text-center mb-8 font-serif font-bold text-gray-800">New Arrivals: <span className="text-blue-500">Ready to Adopt</span> Pets</h1>
 
                 {/* Container for the pets */}
                 <div className="flex justify-center gap-8">
 
                     {/* Display pet 1 */}
-                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
+                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-gray-200 text-center">
                         {/* Image Wrap */}
                         <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
                             <img src="/images/carousel1_img3.jpg" alt="Pet 1" className="w-full h-full object-cover" />
@@ -97,7 +97,7 @@ export default function Home() {
                     </div>
 
                     {/* Display pet 2 */}
-                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
+                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-gray-200 text-center">
                         {/* Image Wrap */}
                         <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
                             <img src="/images/carousel1_img4.jpg" alt="Pet 1" className="w-full h-full object-cover" />
@@ -121,7 +121,7 @@ export default function Home() {
                     </div>
 
                     {/* Display pet 3 */}
-                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
+                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-gray-200 text-center">
                         {/* Image Wrap */}
                         <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
                             <img src="/images/carousel1_img5.jpg" alt="Pet 1" className="w-full h-full object-cover" />
@@ -146,8 +146,9 @@ export default function Home() {
                 </div>
 
                 {/* Display message if no pets are available */}
-                <p className="no-articles text-center text-gray-500">No pets available for adoption yet</p>
+                <p className="no-articles text-center text-3xl text-center mb-8 font-serif font-bold text-blue-500">No pets available for adoption yet</p>
             </div>
         </section>
     );
 }
+<span className="text-blue-500"></span>
