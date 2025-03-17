@@ -151,4 +151,3 @@ export default function Home() {
         </section>
     );
 }
-<span className="text-blue-500"></span>

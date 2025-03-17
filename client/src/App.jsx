@@ -1,13 +1,20 @@
+import {Routes, Route} from 'react-router'
+
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
+import Register from './components/register/Register';
 
 function App() {
 
   return (
     <div className="h-screen flex flex-col">
       <Header />
-      <Home />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
+      
       <Footer />
     </div>
   )
