@@ -7,6 +7,7 @@ import Register from './components/register/Register';
 import Login from './components/login/Login';
 import Catalog from './components/catalog/Catalog';
 import CreatePet from './components/create/Create';
+import NotFound from './components/404/404';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/pets' element={<Catalog />} />
         <Route path='/add-pet' element={<CreatePet />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       
       <Footer />
