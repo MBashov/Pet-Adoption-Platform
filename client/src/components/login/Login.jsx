@@ -1,15 +1,19 @@
+import { useNavigate } from 'react-router'
+
 import authService from "../../services/authService";
 
 export default function Login() {
 
+    const navigate = useNavigate();
+
     const formAction = (formData) => {
         const { email, password } = Object.fromEntries(formData);
 
-        fetch('http://localhost:3030/users/login', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email, password})})
+        fetch('http://localhost:3030/users/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
             .then(res => res.json())
             .then(result => localStorage.setItem('userData', JSON.stringify(result)))
-            .catch(err => console.log(err.message))
-
+        navigate('/')
+            .catch(err => console.log(err.message));
     }
 
 
