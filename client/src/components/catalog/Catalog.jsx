@@ -29,21 +29,21 @@ export default function Catalog() {
             image: "/images/carousel1_img6.jpg"
         },
         {
-            id: 3,
+            id: 5,
             name: "Max",
             breed: "Golden Retriever",
             age: "1.5 Years",
             image: "/images/carousel1_img5.jpg"
         },
         {
-            id: 3,
+            id: 6,
             name: "Max",
             breed: "Golden Retriever",
             age: "1.5 Years",
             image: "/images/carousel1_img5.jpg"
         },
         {
-            id: 3,
+            id: 7,
             name: "Max",
             breed: "Golden Retriever",
             age: "1.5 Years",

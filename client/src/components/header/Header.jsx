@@ -26,8 +26,8 @@ export default function Header() {
                     <Link to="/pets" className="text-[24px] hover:text-gray-300">
                         Available Pets
                     </Link>
-                    <Link to="/adopt" className="text-[24px] hover:text-gray-300">
-                        How to Adopt
+                    <Link to="/add-pet" className="text-[24px] hover:text-gray-300">
+                        Add Pet
                     </Link>
 
                     {/* Logged-in users */}
