@@ -10,7 +10,7 @@ export default function PetTemplate({ pet }) {
                 <p>Age: {pet.age}</p>
             </div>
             <div className="mt-4">
-                <a href={`/pet-details/${pet.id}`} className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
+                <a href={`/pet-details/${pet._id}`} className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
                     View Details
                 </a>
             </div>
