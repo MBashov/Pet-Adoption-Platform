@@ -6,7 +6,6 @@ export default function Register() {
 
     const formAction = async (formData) => {
 
-
         const userData = Object.fromEntries(formData);
 
         try {
@@ -16,13 +15,7 @@ export default function Register() {
             
         } catch (err) {
             console.log(err.message);
-            
         }
-
-        // fetch('http://localhost:3030/users/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: userData.email, password: userData.password }) })
-        //     .then(res => res.json())
-        //     .then(result => localStorage.setItem('userData', JSON.stringify(result)))
-        //     .catch(err => console.log(err.message));
     }
 
 
