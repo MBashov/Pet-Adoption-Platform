@@ -1,19 +1,22 @@
 import { useNavigate } from 'react-router'
-import { useActionState } from 'react'
+import { useActionState, useContext } from 'react'
 
 import authService from "../../services/authService";
+import { userContext } from '../../contexts/userContext';
 
 export default function Login() {
 
     const navigate = useNavigate();
+    const { authHandler } = useContext(userContext);
 
     const loginHandler = async (previousState, formData) => {
-        
+
         const userData = Object.fromEntries(formData);
 
         try {
             const user = await authService.login(userData);
             localStorage.setItem('userData', JSON.stringify(user));
+            authHandler(user);
             navigate('/');
 
         } catch (err) {
@@ -24,7 +27,7 @@ export default function Login() {
 
     const [state, action, isPending] = useActionState(loginHandler, { email: '', password: '' });
     //TODO: Password is vissible in state
-    
+
 
     return (
         <section className="flex justify-center items-center min-h-screen bg-gray-200">
@@ -58,4 +61,4 @@ export default function Login() {
     );
 }
 
- //TODO Change button style while fetching
+//TODO Change button style while fetching

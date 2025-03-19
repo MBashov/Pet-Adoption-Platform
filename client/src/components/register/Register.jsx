@@ -1,10 +1,14 @@
 import { useNavigate } from 'react-router'
+import { useActionState, useContext } from 'react';
+
+import { userContext } from '../../contexts/userContext';
 import authService from '../../services/authService';
-import { useActionState } from 'react';
+
 
 export default function Register() {
     
     const navigate = useNavigate();
+    const {authHandler} = useContext(userContext);
 
     const registerHandler = async (previousState, formData) => {
 
@@ -13,6 +17,7 @@ export default function Register() {
         try {
             const user = await authService.register(userData);
             localStorage.setItem('userData', JSON.stringify(user));
+            authHandler(user);
             navigate('/');
 
         } catch (err) {
