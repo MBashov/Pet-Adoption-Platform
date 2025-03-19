@@ -4,8 +4,8 @@ const baseUrl = 'http://localhost:3030/users';
 
 export default {
 
-    login: (email, password) => {
-        return request.post(`${baseUrl}/login`, { email, password });
+    login: (userData) => {
+        return request.post(`${baseUrl}/login`, { email: userData.email, password: userData.password });
     },
 
     register: (userData) => {
