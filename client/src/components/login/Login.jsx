@@ -6,14 +6,16 @@ export default function Login() {
 
     const navigate = useNavigate();
 
-    const formAction = (formData) => {
+    const formAction = async (formData) => {
         const { email, password } = Object.fromEntries(formData);
 
-        fetch('http://localhost:3030/users/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
-            .then(res => res.json())
-            .then(result => localStorage.setItem('userData', JSON.stringify(result)))
-        navigate('/')
-            .catch(err => console.log(err.message));
+        try {
+            const user = await authService.login(email, password);
+            localStorage.setItem('userData', JSON.stringify(user));
+            navigate('/'); 
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 
 

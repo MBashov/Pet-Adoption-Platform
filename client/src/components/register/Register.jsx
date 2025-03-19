@@ -1,10 +1,37 @@
+import { useNavigate } from 'react-router'
+import authService from '../../services/authService';
+
 export default function Register() {
+    const navigate = useNavigate();
+
+    const formAction = async (formData) => {
+
+
+        const userData = Object.fromEntries(formData);
+
+        try {
+            const user = await authService.register(userData);
+            localStorage.setItem('userData', JSON.stringify(user));
+            navigate('/')
+            
+        } catch (err) {
+            console.log(err.message);
+            
+        }
+
+        // fetch('http://localhost:3030/users/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: userData.email, password: userData.password }) })
+        //     .then(res => res.json())
+        //     .then(result => localStorage.setItem('userData', JSON.stringify(result)))
+        //     .catch(err => console.log(err.message));
+    }
+
+
     return (
         <section className="flex justify-center items-center min-h-screen bg-gray-200">
             <div className="bg-white shadow-lg rounded-lg p-8 w-96">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Register</h1>
 
-                <form id="register" className="space-y-4">
+                <form action={formAction} id="register" className="space-y-4">
                     <div>
                         <label htmlFor="email" className="block text-gray-700 font-semibold">Email:</label>
                         <input type="email" id="email" name="email" placeholder="maria@email.com"
