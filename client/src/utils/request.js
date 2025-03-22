@@ -1,24 +1,33 @@
-const request = async (method, url, data) => {
+const request = async (method, url, data, options = {}) => {
 
-    const options = {
-        method,
-        headers: {},
+    if (method !== 'GET') {
+        options.method = method
     }
 
-    if (data !== undefined) {
-        options.headers['Content-type'] = 'application/json';
-        options.body = JSON.stringify(data);
+    if (data) {
+        options = {
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers,
+            },
+            body: JSON.stringify(data),
+        }
     }
 
     const responce = await fetch(url, options);
-    const result = await responce.json();
+    if (responce.status === 204) {
+        return
+    }
 
+    const result = await responce.json();
+    
     return result;
 }
-
 export default {
-    get: (url) => request('GET', url),
-    post: (url, data) => request('POST', url, data),
-    put: (url, data) => request('PUT', url, data),
-    del: (url) => request('DELETE', url),
+    get: request.bind(null, 'GET'),
+    post: request.bind(null, 'POST'),
+    put: request.bind(null, 'PUT'),
+    del: request.bind(null, 'DELETE'),
+    baseRequest: request
 }
