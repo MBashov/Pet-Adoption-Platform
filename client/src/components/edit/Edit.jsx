@@ -1,7 +1,26 @@
+import { useActionState } from "react";
+import { useParams, useNavigate } from "react-router";
+import { useEditPet, usePet } from "../../api/petsApi";
+
 export default function EditPet() {
+    const navigate = useNavigate();
+
+    const { petId } = useParams();
+    const { pet } = usePet(petId);
+    const { edit } = useEditPet();
+
+    const editHandler = async (_, formData) => {
+        const petData = Object.fromEntries(formData);
+
+        await edit(petData, petId);
+        navigate('/pets');
+    }
+
+    const [_, formAction, isPending] = useActionState(editHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
+
     return (
         <section id="edit-pet" className="py-12 bg-gray-200 flex justify-center">
-            <form  className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
+            <form action={formAction} className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
                 <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Edit Pet</h1>
 
                 <label htmlFor="name" className="block text-lg font-semibold text-gray-700">Pet Name:</label>
@@ -10,6 +29,7 @@ export default function EditPet() {
                     id="name"
                     name="name"
                     placeholder="Enter pet name..."
+                    defaultValue={pet.name}
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 />
@@ -20,6 +40,7 @@ export default function EditPet() {
                     id="breed"
                     name="breed"
                     placeholder="Enter pet breed..."
+                    defaultValue={pet.breed}
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 />
@@ -31,6 +52,7 @@ export default function EditPet() {
                     name="age"
                     min="0"
                     placeholder="Enter pet age..."
+                    defaultValue={pet.age}
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 />
@@ -41,6 +63,7 @@ export default function EditPet() {
                     id="imageUrl"
                     name="imageUrl"
                     placeholder="Enter image URL..."
+                    defaultValue={pet.imageUrl}
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 />
@@ -50,13 +73,14 @@ export default function EditPet() {
                     id="description"
                     name="description"
                     placeholder="Enter a short description..."
+                    defaultValue={pet.description}
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 ></textarea>
 
                 <button
                     type="submit"
-                    // disabled={isPending}
+                    disabled={isPending}
                     className="w-full mt-6 px-4 py-2 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 transition">
                     Edit Pet
                 </button>
@@ -64,3 +88,4 @@ export default function EditPet() {
         </section>
     );
 }
+//TODO: Show red block sign on edit button while fetching

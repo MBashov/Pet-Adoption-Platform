@@ -5,6 +5,7 @@ import useAuthRequest from "../hooks/useAuthRequest";
 
 const baseUrl = ' http://localhost:3030/data/pets';
 
+
 export const usePets = () => {
     const [pets, setPets] = useState([]);
 
@@ -32,15 +33,22 @@ export const usePet = (petId) => {
 };
 
 export const useCreatePet = () => {
-
+    
     const { authRequest } = useAuthRequest();
 
-    const create = (petData) => {
-
-        authRequest.post(baseUrl, petData);
-    }
-
+    const create = (petData) => authRequest.post(baseUrl, petData);
     return {
         create,
+    }
+}
+
+export const useEditPet = () => {
+    
+    const { authRequest } = useAuthRequest();
+
+    const edit = (petData, petId) => authRequest.put(`${baseUrl}/${petId}`, { ...petData, _id: petId });
+
+    return {
+        edit,
     }
 }

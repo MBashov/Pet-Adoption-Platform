@@ -1656,22 +1656,25 @@
                 _id: 1,
                 name: "Buddy",
                 breed: "Labrador Retriever",
-                age: "2 Years",
-                image: "/images/carousel1_img3.jpg"
+                age: "2",
+                imageUrl: "https://nl.bellfor.info/image/catalog/Blog/blog_pictures_multilang/labrador-merkmale.jpg",
+                description: "Some nice pets"
             },
             {
                 _id: 2,
                 name: "Whiskers",
                 breed: "Persian Cat",
-                age: "3 Years",
-                image: "/images/carousel1_img4.jpg"
+                age: "3",
+                imageUrl: "https://i.redd.it/do-you-prefer-a-silver-pompaws-persian-cat-with-blue-or-v0-o8ltjg7cps7d1.png?width=741&format=png&auto=webp&s=e2a4f52f5c757b1bd7db9213557eec4a243c2279",
+                description: "Some nice pets"
             },
             {
                 _id: 3,
                 name: "Max",
                 breed: "Golden Retriever",
-                age: "1.5 Years",
-                image: "/images/carousel1_img5.jpg"
+                age: "1.5",
+                imageUrl: "https://petsecur.nl/app/uploads/2022/05/goldenretriever-hondkopen-2020.jpg", //"/images/carousel1_img5.jpg",
+                description: "Some nice pets"
             },
         ]
 

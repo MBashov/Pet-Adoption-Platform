@@ -11,7 +11,7 @@ export default function PetDetails() {
             <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8 flex flex-col md:flex-row">
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 h-96 overflow-hidden rounded-lg shadow-md">
-                    <img src={pet.image} alt={pet.name} className="w-full h-full object-cover" />
+                    <img src={pet.imageUrl} alt={pet.name} className="w-full h-full object-cover" />
                 </div>
 
                 {/* Details Section */}
@@ -32,4 +32,4 @@ export default function PetDetails() {
             </div>
         </section>
     );
-}``
+}
