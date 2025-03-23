@@ -4,7 +4,6 @@ const request = async (method, url, data, options = {}) => {
         options.method = method
     }
 
-
     if (data) {
         options = {
             ...options,

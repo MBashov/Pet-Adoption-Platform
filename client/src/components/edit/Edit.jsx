@@ -1,27 +1,8 @@
-import { useActionState } from "react";
-import { useNavigate } from "react-router";
-
-import { useCreatePet } from "../../api/petsApi";
-
-
-export default function CreatePet() {
-    const navigate = useNavigate();
-    const { create } = useCreatePet();
-
-    const createHandler = async (_, formData) => {
-        
-        const petData = Object.fromEntries(formData);
-        await create(petData);
-        //TODO: Error handling
-        navigate('/pets');
-    }
-
-    const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
-
+export default function EditPet() {
     return (
-        <section id="create-pet" className="py-12 bg-gray-200 flex justify-center">
-            <form action={formAction} className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
-                <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Add a New Pet</h1>
+        <section id="edit-pet" className="py-12 bg-gray-200 flex justify-center">
+            <form  className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
+                <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Edit Pet</h1>
 
                 <label htmlFor="name" className="block text-lg font-semibold text-gray-700">Pet Name:</label>
                 <input
@@ -75,9 +56,9 @@ export default function CreatePet() {
 
                 <button
                     type="submit"
-                    disabled={isPending}
+                    // disabled={isPending}
                     className="w-full mt-6 px-4 py-2 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 transition">
-                    Create Pet
+                    Edit Pet
                 </button>
             </form>
         </section>

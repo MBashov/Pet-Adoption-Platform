@@ -15,7 +15,7 @@ export default function useAuthRequest() {
             }
         }
 
-        return request.baseRequest(method, url, data, optionsWrapper);
+        return request.baseRequest(method, url, data, authData.accessToken ? optionsWrapper : options);
     }
 
     return {

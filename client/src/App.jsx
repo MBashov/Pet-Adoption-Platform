@@ -13,6 +13,7 @@ import CreatePet from './components/create/Create';
 import NotFound from './components/404/404';
 import Logout from './components/logout/Logout';
 import PetDetails from './components/pet-details/PetDetails';
+import EditPet from './components/edit/Edit';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
                     <Route path='/logout' element={<Logout />} />
                     <Route path='/pets' element={<Catalog />} />
                     <Route path='/pets/:petId/details' element={<PetDetails />} />
+                    <Route path='/pets/:petId/edit' element={<EditPet />} />
                     <Route path='/add-pet' element={<CreatePet />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
