@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router'
-import { useState } from 'react';
 
 import { userContext } from './contexts/userContext'
 
@@ -14,21 +13,22 @@ import NotFound from './components/404/404';
 import Logout from './components/logout/Logout';
 import PetDetails from './components/pet-details/PetDetails';
 import EditPet from './components/edit/Edit';
+import usePersistedState from './hooks/usePersistedState';
 
 function App() {
 
-    const [auth, setAuth] = useState({});
+    const [authData, setAuthData] = usePersistedState('auth', {});
 
-    const authHandler = (authData) => {
-        setAuth(authData);
+    const authHandler = (resultData) => {
+        setAuthData(resultData);
     }
 
     const logoutHandler = () => {
-        setAuth({});
+        setAuthData({});
     }
 
     return (
-        < userContext.Provider value={{ ...auth, authHandler, logoutHandler }}>
+        < userContext.Provider value={{ ...authData, authHandler, logoutHandler }}>
             <div className="h-screen flex-col">
                 <Header />
                 <Routes>

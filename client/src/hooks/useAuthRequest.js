@@ -7,7 +7,7 @@ export default function useAuthRequest() {
 
     const requestWrapper = (method, url, data, options = {}) => {
 
-        const optionsWrapper = {
+        const authOptions = {
             ...options,
             headers: {
                 ...options.headers,
@@ -15,7 +15,7 @@ export default function useAuthRequest() {
             }
         }
 
-        return request.baseRequest(method, url, data, authData.accessToken ? optionsWrapper : options);
+        return request.baseRequest(method, url, data, authData.accessToken ? authOptions : options);
     }
 
     return {
