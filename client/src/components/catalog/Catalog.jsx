@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PetTemplate from "./pet-template/PetTemplate";
 import petService from "../../services/petService";
+import { usePets } from "../../api/petsApi";
 
 export default function Catalog() {
     // const pets = [
@@ -55,13 +56,8 @@ export default function Catalog() {
     //     },
     // ];
 
-    const [pets, setPets] = useState([]);
-
-    useEffect(() => {
-        petService.getAll()
-            .then(res => setPets(res));
-    })
-
+    const { pets } = usePets();
+    
     return (
         <section className="py-12 bg-gray-100 min-h-screen">
             <div className="text-center mb-8">
