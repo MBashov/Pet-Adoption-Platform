@@ -28,3 +28,18 @@ export const usePet = (petId) => {
         pet
     }
 };
+
+export const useCreatePet = () => {
+    const create = (petData, accessToken) => {
+        const options = {
+            headers: {
+                'X-Authorization': accessToken
+            }
+        }
+        return request.post(baseUrl, petData, options);
+    }
+
+    return {
+        create,
+    }
+}

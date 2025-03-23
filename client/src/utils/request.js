@@ -4,6 +4,7 @@ const request = async (method, url, data, options = {}) => {
         options.method = method
     }
 
+
     if (data) {
         options = {
             ...options,
@@ -21,7 +22,7 @@ const request = async (method, url, data, options = {}) => {
     }
 
     const result = await responce.json();
-    
+
     return result;
 }
 export default {
