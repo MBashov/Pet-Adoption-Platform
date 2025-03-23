@@ -3,8 +3,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
+import { useLatestPets } from '../../api/petsApi';
+import PetTemplate from '../catalog/pet-template/PetTemplate';
 
 export default function Home() {
+
+    const { pets } = useLatestPets();
+    //TODO: Add error handling (if fetching is failed)s
+    
     return (
         <section className="relative bg-gray-100">
             {/* Sliding Section */}
@@ -65,88 +71,19 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Latest Pets Section */}
             <div className="py-12 bg-gray-200">
-                <h1 className="text-3xl text-center mb-8 font-serif font-bold text-gray-800">New Arrivals: <span className="text-blue-500">Ready to Adopt</span> Pets</h1>
+                <h1 className="text-3xl text-center mb-8 font-serif font-bold text-gray-800">New Arrivals: <span className="text-blue-500">Ready to Adopt Pets</span></h1>
 
-                {/* Container for the pets */}
                 <div className="flex justify-center gap-8">
 
-                    {/* Display pet 1 */}
-                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-gray-200 text-center">
-                        {/* Image Wrap */}
-                        <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
-                            <img src="/images/carousel1_img3.jpg" alt="Pet 1" className="w-full h-full object-cover" />
-                        </div>
+                    {pets.length > 0
+                        ? pets.map(pet => <PetTemplate key={pet._id} pet={pet} />)
+                        : <p className="no-articles text-center text-3xl text-center mb-8 font-serif font-bold text-blue-500">No pets available for adoption yet</p>
+                    }
 
-                        {/* Title */}
-                        <h3 className="text-2xl font-bold mt-4">Buddy</h3>
-
-                        {/* Pet Info */}
-                        <div className="info text-gray-700 my-3">
-                            <p>Breed: Labrador Retriever</p>
-                            <p>Age: 2 Years</p>
-                        </div>
-
-                        {/* Button */}
-                        <div className="data-buttons mt-4">
-                            <Link to="/pet-details/1" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
-                                View Details
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Display pet 2 */}
-                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-gray-200 text-center">
-                        {/* Image Wrap */}
-                        <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
-                            <img src="/images/carousel1_img4.jpg" alt="Pet 1" className="w-full h-full object-cover" />
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="text-2xl font-bold mt-4">Whiskers</h3>
-
-                        {/* Pet Info */}
-                        <div className="info text-gray-700 my-3">
-                            <p>Breed: Persian</p>
-                            <p>Age: 2 Years</p>
-                        </div>
-
-                        {/* Button */}
-                        <div className="data-buttons mt-4">
-                            <Link to="/pet-details/2" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
-                                View Details
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Display pet 3 */}
-                    <div className="pet w-80 h-auto p-6 shadow-lg rounded-lg bg-gray-200 text-center">
-                        {/* Image Wrap */}
-                        <div className="image-wrap w-full h-64 overflow-hidden rounded-lg shadow-md">
-                            <img src="/images/carousel1_img5.jpg" alt="Pet 1" className="w-full h-full object-cover" />
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="text-2xl font-bold mt-4">Whiskers</h3>
-
-                        {/* Pet Info */}
-                        <div className="info text-gray-700 my-3">
-                            <p>Breed: Persian</p>
-                            <p>Age: 2 Years</p>
-                        </div>
-
-                        {/* Button */}
-                        <div className="data-buttons mt-4">
-                            <Link to="/pet-details/2" className="btn details-btn px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
-                                View Details
-                            </Link>
-                        </div>
-                    </div>
                 </div>
 
-                {/* Display message if no pets are available */}
-                <p className="no-articles text-center text-3xl text-center mb-8 font-serif font-bold text-blue-500">No pets available for adoption yet</p>
+
             </div>
         </section>
     );

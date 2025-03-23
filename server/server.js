@@ -1653,29 +1653,35 @@
         },
         pets: [
             {
-                _id: 1,
-                name: "Buddy",
-                breed: "Labrador Retriever",
-                age: "2",
-                imageUrl: "https://nl.bellfor.info/image/catalog/Blog/blog_pictures_multilang/labrador-merkmale.jpg",
-                description: "Some nice pets"
+                "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "name": "Buddy",
+                "breed": "Labrador Retriever",
+                "age": "2",
+                "imageUrl": "https://nl.bellfor.info/image/catalog/Blog/blog_pictures_multilang/labrador-merkmale.jpg",
+                "description": "Some nice pets",
+                "_createdOn": 1742760546294,
+                "_id": "8fcd7f6c-66f8-434f-8f54-a0eb942f0881"
             },
             {
-                _id: 2,
-                name: "Whiskers",
-                breed: "Persian Cat",
-                age: "3",
-                imageUrl: "https://i.redd.it/do-you-prefer-a-silver-pompaws-persian-cat-with-blue-or-v0-o8ltjg7cps7d1.png?width=741&format=png&auto=webp&s=e2a4f52f5c757b1bd7db9213557eec4a243c2279",
-                description: "Some nice pets"
+                "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+                "name": "Whiskers",
+                "breed": "Persian Cat",
+                "age": "3",
+                "imageUrl": "https://i.redd.it/do-you-prefer-a-silver-pompaws-persian-cat-with-blue-or-v0-o8ltjg7cps7d1.png?width=741&format=png&auto=webp&s=e2a4f52f5c757b1bd7db9213557eec4a243c2279",
+                "description": "Some nice pets",
+                "_createdOn": 1742760658585,
+                "_id": "a871b071-a4ad-4ea3-8327-8c3f7b745201"
             },
             {
-                _id: 3,
-                name: "Max",
-                breed: "Golden Retriever",
-                age: "1.5",
-                imageUrl: "https://petsecur.nl/app/uploads/2022/05/goldenretriever-hondkopen-2020.jpg", //"/images/carousel1_img5.jpg",
-                description: "Some nice pets"
-            },
+                "_ownerId": "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
+                "name": "Max",
+                "breed": "Golden Retriever",
+                "age": "0.5",
+                "imageUrl": "https://petsecur.nl/app/uploads/2022/05/goldenretriever-hondkopen-2020.jpg",
+                "description": "Some nice pets",
+                "_createdOn": 1742760744778,
+                "_id": "9e9a185d-0f5e-43e0-abfc-fd7017b75898"
+            }
         ]
 
     };

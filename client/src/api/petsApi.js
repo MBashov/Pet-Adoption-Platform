@@ -19,6 +19,25 @@ export const usePets = () => {
     }
 };
 
+export const useLatestPets = () => {
+    const [pets, setPets] = useState([]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams({
+            sortBy: '_createdOn desc',
+            pageSize: 3,
+            select: '_id,imageUrl,name,breed,age',
+        });
+
+        request.get(`${baseUrl}?${searchParams.toString()}`)
+            .then(setPets);
+    }, []);
+
+    return {
+        pets
+    }
+};
+
 export const usePet = (petId) => {
     const [pet, setPet] = useState({});
 
@@ -53,7 +72,7 @@ export const useEditPet = () => {
     }
 }
 
-export const useDeletePEt = () => {
+export const useDeletePet = () => {
 
     const { authRequest } = useAuthRequest();
 

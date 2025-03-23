@@ -1,11 +1,11 @@
 import { Link, useNavigate, useParams } from "react-router";
 
-import { useDeletePEt, usePet } from "../../api/petsApi";
+import { useDeletePet, usePet, } from "../../api/petsApi";
 
 export default function PetDetails() {
     const navigate = useNavigate();
     const { petId } = useParams();
-    const { del } = useDeletePEt();
+    const { del } = useDeletePet();
     const { pet } = usePet(petId);
 
     const petDeleteHandler = async () => {
@@ -21,6 +21,8 @@ export default function PetDetails() {
         navigate('/pets')
     }
 
+
+    //TODO: ADd more pet details
     return (
         <section className="py-12 bg-gray-100 flex justify-center">
             <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8 flex flex-col md:flex-row">

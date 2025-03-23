@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 
 export default function PetTemplate({ pet }) {
+    
     return (
         <div className="w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
             <div className="w-full h-64 overflow-hidden rounded-lg shadow-md">
