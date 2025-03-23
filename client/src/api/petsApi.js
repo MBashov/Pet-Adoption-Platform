@@ -52,3 +52,14 @@ export const useEditPet = () => {
         edit,
     }
 }
+
+export const useDeletePEt = () => {
+
+    const { authRequest } = useAuthRequest();
+
+    const del = (petId) => authRequest.delete(`${baseUrl}/${petId}`);
+
+    return {
+        del,
+    }
+}

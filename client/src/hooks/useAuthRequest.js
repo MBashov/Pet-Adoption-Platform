@@ -25,7 +25,7 @@ export default function useAuthRequest() {
             get: requestWrapper.bind(null, 'GET'),
             post: requestWrapper.bind(null, 'POST'),
             put: requestWrapper.bind(null, 'PUT'),
-            del: requestWrapper.bind(null, 'DELETE'),
+            delete: requestWrapper.bind(null, 'DELETE'),
         }
     };
 }

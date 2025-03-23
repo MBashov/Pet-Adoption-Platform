@@ -17,7 +17,7 @@ export default function Header() {
                         to="/"
                     >
                         <img
-                            src="images/logo.png"
+                            src="/images/logo.png"
                             alt="PetAdopt Logo"
                             className="w-full h-full object-contain"
                         />
