@@ -2,32 +2,36 @@ import { useNavigate } from 'react-router'
 import { useActionState, useContext } from 'react';
 
 import { userContext } from '../../contexts/userContext';
-import authService from '../../services/authService';
+import { useRegister } from '../../api/authApi';
 
 
 export default function Register() {
-    
+
     const navigate = useNavigate();
-    const {authHandler} = useContext(userContext);
+    const { register } = useRegister();
+    const { authHandler } = useContext(userContext);
 
-    const registerHandler = async (previousState, formData) => {
+    const registerHandler = async (_, formData) => {
 
-        const userData = Object.fromEntries(formData);
+        const { email, password, confirmPassword } = Object.fromEntries(formData);
+
+        if (password !== confirmPassword) {
+            return console.log('wrong password');
+            //TODO: Add error real handling
+        }
 
         try {
-            const user = await authService.register(userData);
-            localStorage.setItem('userData', JSON.stringify(user));
-            authHandler(user);
+            const authData = await register(email, password);
+            // localStorage.setItem('auth', JSON.stringify(user));
+            authHandler(authData);
             navigate('/');
 
         } catch (err) {
             console.log(err.message);
         }
-        return userData;
     }
 
-    const [state, action, isPending] = useActionState(registerHandler, { email: '', password: '', confirmPassword: '' })
-  //TODO: Password is vissible in state
+    const [_, action, isPending] = useActionState(registerHandler, { email: '', password: '', confirmPassword: '' })
 
     return (
         <section className="flex justify-center items-center min-h-screen bg-gray-200">
@@ -66,4 +70,4 @@ export default function Register() {
         </section>
     );
 }
- //TODO Change button style while fetching
+//TODO Change button style while fetching

@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router'
+import { useState } from 'react';
 
 import { userContext } from './contexts/userContext'
 
@@ -11,7 +12,6 @@ import Catalog from './components/catalog/Catalog';
 import CreatePet from './components/create/Create';
 import NotFound from './components/404/404';
 import Logout from './components/logout/Logout';
-import { useState } from 'react';
 
 function App() {
 
@@ -20,10 +20,13 @@ function App() {
     const authHandler = (authData) => {
         setAuth(authData);
     }
-    console.log(auth);
+
+    const logoutHandler = () => {
+        setAuth({});
+    }
 
     return (
-        < userContext.Provider value={{ ...auth, authHandler }}>
+        < userContext.Provider value={{ ...auth, authHandler, logoutHandler }}>
             <div className="h-screen flex-col">
                 <Header />
                 <Routes>

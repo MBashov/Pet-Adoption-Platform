@@ -1,33 +1,31 @@
-import { useNavigate } from 'react-router'
 import { useActionState, useContext } from 'react'
+import { Link, useNavigate } from 'react-router'
 
-import authService from "../../services/authService";
+import { useLogin } from '../../api/authApi';
 import { userContext } from '../../contexts/userContext';
 
 export default function Login() {
 
     const navigate = useNavigate();
     const { authHandler } = useContext(userContext);
+    const { login } = useLogin()
 
-    const loginHandler = async (previousState, formData) => {
+    const loginHandler = async (_, formData) => {
 
-        const userData = Object.fromEntries(formData);
+        const { email, password } = Object.fromEntries(formData);
 
         try {
-            const user = await authService.login(userData);
-            localStorage.setItem('userData', JSON.stringify(user));
-            authHandler(user);
-            navigate('/');
+            const authData = await login( email, password);
 
+            // localStorage.setItem('auth', JSON.stringify(authData));
+            authHandler(authData);
+            navigate('/');
         } catch (err) {
             console.log(err.message);
         }
-        return userData;
     }
 
-    const [state, action, isPending] = useActionState(loginHandler, { email: '', password: '' });
-    //TODO: Password is vissible in state
-
+    const [_, action, isPending] = useActionState(loginHandler, { email: '', password: '' });
 
     return (
         <section className="flex justify-center items-center min-h-screen bg-gray-200">
@@ -50,15 +48,14 @@ export default function Login() {
                     <div className="text-center">
                         <input className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition cursor-pointer"
                             type="submit" value={isPending ? 'Proccesing...' : "Login"} disabled={isPending} />
-                    </div>
+                    </div>                           
                 </form>
 
-                <p className="text-center text-gray-600 mt-4">
-                    Don't have an account? <a href="/register" className="text-blue-500 hover:underline">Register here</a>
+                <p className="text-center text-gray-600 mt-4"> 
+                    Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register here</Link>
                 </p>
             </div>
         </section>
     );
 }
-
 //TODO Change button style while fetching

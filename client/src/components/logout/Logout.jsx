@@ -1,17 +1,11 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { Navigate } from "react-router";
+
+import { useLogout } from "../../api/authApi";
 
 export default function Logout() {
+    const { isLoggedOut } = useLogout();
 
-    const navigate = useNavigate();
-
-    function logout() {
-        useEffect(() => {
-            localStorage.removeItem('userData');
-            navigate('/');
-        }, []);
-    }
-    
-    logout()
-   
+    return isLoggedOut
+        ? <Navigate to={'/'} />
+        : null; //TODO show spinner
 }
