@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function PetTemplate({ pet }) {
     return (
         <div className="w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
@@ -10,9 +12,9 @@ export default function PetTemplate({ pet }) {
                 <p>Age: {pet.age}</p>
             </div>
             <div className="mt-4">
-                <a href={`/pet-details/${pet._id}`} className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
+                <Link to={`/pets/${pet._id}/details`} className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition">
                     View Details
-                </a>
+                </Link>
             </div>
         </div>
     );

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import PetTemplate from "./pet-template/PetTemplate";
-import petService from "../../services/petService";
 import { usePets } from "../../api/petsApi";
 
 export default function Catalog() {

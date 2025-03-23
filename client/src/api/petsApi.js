@@ -8,10 +8,23 @@ export const usePets = () => {
 
     useEffect(() => {
         request.get(baseUrl)
-        .then(setPets);
+            .then(setPets);
     }, []);
 
     return {
         pets
+    }
+};
+
+export const usePet = (petId) => {
+    const [pet, setPet] = useState({});
+
+    useEffect(() => {
+        request.get(`${baseUrl}/${petId}`)
+            .then(setPet);
+    }, []);
+
+    return {
+        pet
     }
 };
