@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+
 import request from "../utils/request";
+import useAuthRequest from "../hooks/useAuthRequest";
 
 const baseUrl = ' http://localhost:3030/data/pets';
 
@@ -30,13 +32,12 @@ export const usePet = (petId) => {
 };
 
 export const useCreatePet = () => {
-    const create = (petData, accessToken) => {
-        const options = {
-            headers: {
-                'X-Authorization': accessToken
-            }
-        }
-        return request.post(baseUrl, petData, options);
+
+    const { authRequest } = useAuthRequest();
+
+    const create = (petData) => {
+
+        authRequest.post(baseUrl, petData);
     }
 
     return {

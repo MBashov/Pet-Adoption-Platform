@@ -2,19 +2,17 @@ import { useActionState, useContext } from "react";
 import { useNavigate } from "react-router";
 
 import { useCreatePet } from "../../api/petsApi";
-import { userContext } from "../../contexts/userContext";
+
 
 export default function CreatePet() {
     const navigate = useNavigate();
     const { create } = useCreatePet();
-    const { accessToken } = useContext(userContext);
 
     const createHandler = async (_, formData) => {
-
-
+        
         const petData = Object.fromEntries(formData);
-        await create(petData, accessToken);
-
+        await create(petData);
+        //TODO: Error handling
         navigate('/pets');
     }
 
