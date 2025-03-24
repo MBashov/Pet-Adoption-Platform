@@ -1,13 +1,20 @@
 import { useActionState } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, Navigate } from "react-router";
 import { useEditPet, usePet } from "../../api/petsApi";
+import { useIsOwner } from "../../hooks/useIsOwner";
 
 export default function EditPet() {
-    const navigate = useNavigate();
-
+    
+    const navigate = useNavigate(); 
     const { petId } = useParams();
     const { pet } = usePet(petId);
     const { edit } = useEditPet();
+    const { isOwner } = useIsOwner(pet);
+
+    if (!isOwner) {
+        return <Navigate to={'/pets'}/> //TODO Show appropriate message
+    }
+    
 
     const editHandler = async (_, formData) => {
         const petData = Object.fromEntries(formData);

@@ -17,7 +17,6 @@ export default function Login() {
         try {
             const authData = await login( email, password);
 
-            // localStorage.setItem('auth', JSON.stringify(authData));
             authHandler(authData);
             navigate('/');
         } catch (err) {

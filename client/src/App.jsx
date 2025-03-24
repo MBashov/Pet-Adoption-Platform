@@ -14,6 +14,7 @@ import Logout from './components/logout/Logout';
 import PetDetails from './components/pet-details/PetDetails';
 import EditPet from './components/edit/Edit';
 import AuthGuard from './components/guards/AuthGuard';
+import GuestGuard from './components/guards/guestGuard';
 
 function App() {
 
@@ -24,8 +25,7 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/register' element={<Register />} />
-                    <Route path='/login' element={<Login />} />
+
                     <Route path='/pets' element={<Catalog />} />
                     <Route path='/pets/:petId/details' element={<PetDetails />} />
                     <Route element={<AuthGuard />}>
@@ -33,10 +33,13 @@ function App() {
                         <Route path='/pets/:petId/edit' element={<EditPet />} />
                         <Route path='/logout' element={<Logout />} />
                     </Route>
-
+                    <Route element={<GuestGuard />}>
+                        <Route path='/register' element={<Register />} />
+                        <Route path='/login' element={<Login />} />
+                    </Route>
                     <Route path='*' element={<NotFound />} />
                 </Routes>
-
+                
                 <Footer />
             </div>
         </UserProvider >

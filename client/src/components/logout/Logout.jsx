@@ -6,6 +6,6 @@ export default function Logout() {
     const { isLoggedOut } = useLogout();
 
     return isLoggedOut
-        ? <Navigate to={'/'} />
+        ? <Navigate to='/' />
         : null; //TODO show spinner
 }

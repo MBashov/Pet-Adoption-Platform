@@ -1,10 +1,10 @@
 import { Link } from 'react-router';
-import { useUserContext } from '../../contexts/UserContext';
+import useAuthRequest from '../../hooks/useAuthRequest';
 
 
 export default function Header() {
 
-    const { email } = useUserContext();
+    const { isAuthenticated, email } = useAuthRequest();
 
     return (
         <header className="bg-gray-900 text-white py-[34px] relative z-[999] block">
@@ -32,7 +32,7 @@ export default function Header() {
                         Available Pets
                     </Link>
 
-                    {email
+                    {isAuthenticated
                         ? (
                             <div id="user" className="flex items-center space-x-4">
                                 <Link to="/add-pet" className="text-[24px] hover:text-gray-300">
@@ -44,6 +44,7 @@ export default function Header() {
                                 <Link to="/logout" className="text-[24px] hover:text-gray-300">
                                     Logout
                                 </Link>
+                                <div className="text-[24px] text-blue-400 hover:text-blue-500">{email}</div>
                             </div>)
                         : (
                             <div id="guest" className="flex items-center space-x-4">
