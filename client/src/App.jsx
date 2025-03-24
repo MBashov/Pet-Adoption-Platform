@@ -13,6 +13,7 @@ import NotFound from './components/404/404';
 import Logout from './components/logout/Logout';
 import PetDetails from './components/pet-details/PetDetails';
 import EditPet from './components/edit/Edit';
+import AuthGuard from './components/guards/AuthGuard';
 
 function App() {
 
@@ -25,17 +26,20 @@ function App() {
                     <Route path='/' element={<Home />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/login' element={<Login />} />
-                    <Route path='/logout' element={<Logout />} />
                     <Route path='/pets' element={<Catalog />} />
                     <Route path='/pets/:petId/details' element={<PetDetails />} />
-                    <Route path='/pets/:petId/edit' element={<EditPet />} />
-                    <Route path='/add-pet' element={<CreatePet />} />
+                    <Route element={<AuthGuard />}>
+                        <Route path='/add-pet' element={<CreatePet />} />
+                        <Route path='/pets/:petId/edit' element={<EditPet />} />
+                        <Route path='/logout' element={<Logout />} />
+                    </Route>
+
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 
                 <Footer />
             </div>
-        </UserProvider>
+        </UserProvider >
     )
 }
 
