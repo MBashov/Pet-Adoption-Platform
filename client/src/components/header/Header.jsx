@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { Link } from 'react-router';
+import { useUserContext } from '../../contexts/UserContext';
 
-import { userContext } from '../../contexts/userContext';
 
 export default function Header() {
 
-    const { email } = useContext(userContext);
+    const { email } = useUserContext();
 
     return (
         <header className="bg-gray-900 text-white py-[34px] relative z-[999] block">

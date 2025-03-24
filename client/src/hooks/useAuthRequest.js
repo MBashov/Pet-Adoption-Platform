@@ -1,9 +1,8 @@
-import { useContext } from "react"
-import { userContext } from "../contexts/userContext"
+import { useUserContext } from "../contexts/UserContext"
 import request from "../utils/request";
 
 export default function useAuthRequest() {
-    const authData = useContext(userContext);
+    const authData = useUserContext();
 
     const requestWrapper = (method, url, data, options = {}) => {
 

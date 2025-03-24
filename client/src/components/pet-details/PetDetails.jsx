@@ -11,7 +11,6 @@ export default function PetDetails() {
     const { pet } = usePet(petId);
 
     const isOwner = pet._ownerId === userId;
-    console.log(isAuthenticated);
 
     const petDeleteHandler = async () => {
 
