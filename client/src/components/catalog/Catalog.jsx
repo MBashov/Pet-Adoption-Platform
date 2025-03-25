@@ -1,17 +1,19 @@
+
 import PetTemplate from "./pet-template/PetTemplate";
 import { usePets } from "../../api/petsApi";
 import Error from "../error/Error";
+import Spinner from "../spinner/Spinner";
 
 export default function Catalog() {
 
     const { pets, loading, error } = usePets();
 
     if (loading) {
-        return <div>Loading pets...</div>
+        return <Spinner/>
     }
 
     if (error) {
-       return <Error message={error.message}/>
+        return <Error />
     }
 
     return (

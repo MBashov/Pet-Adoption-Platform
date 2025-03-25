@@ -5,8 +5,8 @@
     justify-content: center;
     min-height: 100vh;
     text-align: center;
-    background-color: #f3f4f6; /* Light gray like home page */
-    color: #1f2937; /* Dark gray text */
+    background-color: #f3f4f6; 
+    color: #1f2937; 
     font-family: 'Arial', sans-serif;
     padding: 20px;
 }
@@ -14,19 +14,26 @@
 .error-page h1 {
     font-size: 3rem;
     font-weight: bold;
-    color: #1e40af; /* Blue heading like 'New Arrivals' */
+    color: #1e40af; 
     margin-bottom: 10px;
+}
+
+.error-image {
+    width: 300;
+    height: 300;
+    object-fit: contain;
+    margin-bottom: 16px;
 }
 
 .error-page p {
     font-size: 1.5rem;
-    color: #4b5563; /* Slightly lighter gray for text */
+    color: #4b5563; 
     margin-bottom: 20px;
 }
 
 .error-page button {
     text-decoration: none;
-    background-color: #2563eb; /* Blue button like in home page */
+    background-color: #2563eb; 
     color: white;
     padding: 10px 20px;
     border-radius: 8px;
@@ -36,5 +43,5 @@
 }
 
 .error-page button:hover {
-    background-color: #1e3a8a; /* Darker blue on hover */
+    background-color: #1e3a8a; 
 }
