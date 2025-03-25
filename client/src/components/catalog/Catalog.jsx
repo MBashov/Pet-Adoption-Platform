@@ -9,7 +9,7 @@ export default function Catalog() {
     const { pets, loading, error } = usePets();
 
     if (loading) {
-        return <Spinner/>
+        return <Spinner />
     }
 
     if (error) {

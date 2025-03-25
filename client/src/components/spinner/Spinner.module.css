@@ -1,7 +1,21 @@
-.spinner-container {
+/* .spinner-container {
     display: flex;
     justify-content: center;
     align-items: center;    
     height: 100vh;           
     background-color: rgba(255, 255, 255, 0.8); 
+} */
+
+.spinner-container {
+    position: absolute;  /* Absolute position within the parent container */
+    top: 50%;            /* Position the spinner vertically at 50% */
+    left: 50%;           /* Position the spinner horizontally at 50% */
+    transform: translate(-50%, -50%); /* Offset the spinner by its own size to perfectly center it */
+    z-index: 10;       /* Ensure it's above other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;         /* Take full width of the parent container */
+    height: auto;        /* Take full height of the parent container */
+    background-color: rgba(255, 255, 255, 0.6);
 }
