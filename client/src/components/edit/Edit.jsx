@@ -10,19 +10,20 @@ export default function EditPet() {
     const { pet } = usePet(petId);
     const { edit } = useEditPet();
     const { isOwner } = useIsOwner(pet);
-
+    
+    
     if (!isOwner) {
         return <Navigate to={'/pets'}/> //TODO Show appropriate message
     }
     
-
+    
     const editHandler = async (_, formData) => {
         const petData = Object.fromEntries(formData);
-
+        
         await edit(petData, petId);
         navigate('/pets');
     }
-
+    
     const [_, formAction, isPending] = useActionState(editHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (

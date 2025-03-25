@@ -21,6 +21,7 @@ export default function Login() {
             navigate('/');
         } catch (err) {
             console.log(err.message);
+            //TODO Error handlig
         }
     }
 

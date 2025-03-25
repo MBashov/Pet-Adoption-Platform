@@ -1,0 +1,40 @@
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    background-color: #f3f4f6; /* Light gray like home page */
+    color: #1f2937; /* Dark gray text */
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+}
+
+.error-page h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1e40af; /* Blue heading like 'New Arrivals' */
+    margin-bottom: 10px;
+}
+
+.error-page p {
+    font-size: 1.5rem;
+    color: #4b5563; /* Slightly lighter gray for text */
+    margin-bottom: 20px;
+}
+
+.error-page button {
+    text-decoration: none;
+    background-color: #2563eb; /* Blue button like in home page */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.error-page button:hover {
+    background-color: #1e3a8a; /* Darker blue on hover */
+}

@@ -8,20 +8,30 @@ const baseUrl = ' http://localhost:3030/data/pets';
 
 export const usePets = () => {
     const [pets, setPets] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const controller = new AbortController();
+        setLoading(true);
 
         request.get(baseUrl, null, { signal: controller.signal })
-            .then(setPets);
-        //TODO eror handling
+            .then((data) => {
+                setPets(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                if (err.name !== 'AbortError') {
+                    setError(err);
+                    setLoading(false);
+                }
+            })
+
         return () => controller.abort();
 
     }, []);
 
-    return {
-        pets
-    }
+    return { pets, loading, error, }
 };
 
 export const useLatestPets = () => {
@@ -56,9 +66,9 @@ export const usePet = (petId) => {
 
         request.get(`${baseUrl}/${petId}`, null, { signal: controller.signal })
             .then(setPet);
-            //TODO Error handling
+        //TODO Error handling
 
-        return () => controller.abort();    
+        return () => controller.abort();
     }, [petId]);
 
     return {
@@ -71,7 +81,7 @@ export const useCreatePet = () => {
     const { authRequest } = useAuthRequest();
 
     const create = (petData) => authRequest.post(baseUrl, petData);
-    
+
     return {
         create,
     }

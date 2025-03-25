@@ -1,10 +1,19 @@
 import PetTemplate from "./pet-template/PetTemplate";
 import { usePets } from "../../api/petsApi";
+import Error from "../error/Error";
 
 export default function Catalog() {
- 
-    const { pets } = usePets();
-    
+
+    const { pets, loading, error } = usePets();
+
+    if (loading) {
+        return <div>Loading pets...</div>
+    }
+
+    if (error) {
+       return <Error message={error.message}/>
+    }
+
     return (
         <section className="py-12 bg-gray-100 min-h-screen">
             <div className="text-center mb-8">

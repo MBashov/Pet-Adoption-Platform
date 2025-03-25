@@ -7,7 +7,8 @@ import { useCreatePet } from "../../api/petsApi";
 export default function CreatePet() {
     const navigate = useNavigate();
     const { create } = useCreatePet();
-
+    
+    
     const createHandler = async (_, formData) => {
         
         const petData = Object.fromEntries(formData);
@@ -15,7 +16,7 @@ export default function CreatePet() {
         //TODO: Error handling
         navigate('/pets');
     }
-
+    
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (
