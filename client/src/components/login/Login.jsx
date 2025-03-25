@@ -2,7 +2,7 @@ import { useActionState } from 'react'
 import { Link, useNavigate } from 'react-router'
 
 import { useLogin } from '../../api/authApi';
-import { UserContext, useUserContext } from '../../contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
 
 export default function Login() {
 
@@ -51,7 +51,7 @@ export default function Login() {
                 </form>
 
                 <p className="text-center text-gray-600 mt-4"> 
-                    Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register here</Link>
+                    Don&#39;t have an account? <Link to="/register" className="text-blue-500 hover:underline">Register here</Link>
                 </p>
             </div>
         </section>

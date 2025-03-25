@@ -41,8 +41,9 @@ export const useLogout = () => {
             }
         }
         request.get(`${baseUrl}/logout`, null, options)
-            .then(logoutHandler())
-        //TODO: Fix double fetching 
+            .then(() => logoutHandler())
+            .catch((error) => console.log(error.message));
+            
     }, [accessToken, logoutHandler]);
 
     return {

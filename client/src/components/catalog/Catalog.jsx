@@ -1,60 +1,8 @@
-import { useEffect, useState } from "react";
 import PetTemplate from "./pet-template/PetTemplate";
 import { usePets } from "../../api/petsApi";
 
 export default function Catalog() {
-    // const pets = [
-    //     {
-    //         id: 1,
-    //         name: "Buddy",
-    //         breed: "Labrador Retriever",
-    //         age: "2 Years",
-    //         image: "/images/carousel1_img3.jpg"
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Whiskers",
-    //         breed: "Persian Cat",
-    //         age: "3 Years",
-    //         image: "/images/carousel1_img4.jpg"
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "Max",
-    //         breed: "Golden Retriever",
-    //         age: "1.5 Years",
-    //         image: "/images/carousel1_img5.jpg"
-    //     },
-    //     {
-    //         id: 4,
-    //         name: "Luna",
-    //         breed: "Siberian Husky",
-    //         age: "2.5 Years",
-    //         image: "/images/carousel1_img6.jpg"
-    //     },
-    //     {
-    //         id: 5,
-    //         name: "Max",
-    //         breed: "Golden Retriever",
-    //         age: "1.5 Years",
-    //         image: "/images/carousel1_img5.jpg"
-    //     },
-    //     {
-    //         id: 6,
-    //         name: "Max",
-    //         breed: "Golden Retriever",
-    //         age: "1.5 Years",
-    //         image: "/images/carousel1_img5.jpg"
-    //     },
-    //     {
-    //         id: 7,
-    //         name: "Max",
-    //         breed: "Golden Retriever",
-    //         age: "1.5 Years",
-    //         image: "/images/carousel1_img5.jpg"
-    //     },
-    // ];
-
+ 
     const { pets } = usePets();
     
     return (

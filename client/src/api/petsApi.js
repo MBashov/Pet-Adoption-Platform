@@ -10,8 +10,13 @@ export const usePets = () => {
     const [pets, setPets] = useState([]);
 
     useEffect(() => {
-        request.get(baseUrl)
+        const controller = new AbortController();
+
+        request.get(baseUrl, null, { signal: controller.signal })
             .then(setPets);
+        //TODO eror handling
+        return () => controller.abort();
+
     }, []);
 
     return {
@@ -23,14 +28,19 @@ export const useLatestPets = () => {
     const [pets, setPets] = useState([]);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         const searchParams = new URLSearchParams({
             sortBy: '_createdOn desc',
             pageSize: 3,
             select: '_id,imageUrl,name,breed,age',
         });
 
-        request.get(`${baseUrl}?${searchParams.toString()}`)
+        request.get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
             .then(setPets);
+        //TODO error handling
+
+        return () => controller.abort();
     }, []);
 
     return {
@@ -42,9 +52,14 @@ export const usePet = (petId) => {
     const [pet, setPet] = useState({});
 
     useEffect(() => {
-        request.get(`${baseUrl}/${petId}`)
+        const controller = new AbortController();
+
+        request.get(`${baseUrl}/${petId}`, null, { signal: controller.signal })
             .then(setPet);
-    }, []);
+            //TODO Error handling
+
+        return () => controller.abort();    
+    }, [petId]);
 
     return {
         pet
@@ -52,17 +67,18 @@ export const usePet = (petId) => {
 };
 
 export const useCreatePet = () => {
-    
+
     const { authRequest } = useAuthRequest();
 
     const create = (petData) => authRequest.post(baseUrl, petData);
+    
     return {
         create,
     }
 }
 
 export const useEditPet = () => {
-    
+
     const { authRequest } = useAuthRequest();
 
     const edit = (petData, petId) => authRequest.put(`${baseUrl}/${petId}`, { ...petData, _id: petId });
