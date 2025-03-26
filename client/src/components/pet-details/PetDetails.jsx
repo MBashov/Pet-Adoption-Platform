@@ -1,28 +1,25 @@
 import { Link, useNavigate, useParams } from "react-router";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import { useDeletePet, usePet, } from "../../api/petsApi";
 import useAuthRequest from "../../hooks/useAuthRequest";
-import Spinner from "../spinner/Spinner";
-import Error from "../error/Error";
 
 export default function PetDetails() {
     const navigate = useNavigate();
     const { del } = useDeletePet();
     const { userId, isAuthenticated } = useAuthRequest();
     const { petId } = useParams();
-    const { pet, loading, error } = usePet(petId);
-
-    if (loading) {
-        return <Spinner />
-    }
-    if (error) {
-        return <Error />
-    }
-
+    const { pet } = usePet(petId);
+    
     const isOwner = pet._ownerId === userId;
 
     const petDeleteHandler = async () => {
-        //TODO Show modal dialog
+
         const confirm = window.confirm('Are you sure you want to delete this pet?');
 
         if (!confirm) {
@@ -35,13 +32,31 @@ export default function PetDetails() {
     }
 
 
-    //TODO: Add more pet details
+    //TODO: ADd more pet details
     return (
         <section className="py-12 bg-gray-100 flex justify-center">
             <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8 flex flex-col md:flex-row">
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 h-96 overflow-hidden rounded-lg shadow-md">
-                    <img src={pet.imageUrl} alt={pet.name} className="w-full h-full object-cover" />
+                <Swiper
+                        navigation
+                        pagination={{ clickable: true }}
+                        loop={pet.imageUrls?.length > 1}
+                        modules={[Navigation, Pagination]}
+                        className="h-full"
+                    >
+                        {pet.imageUrls?.length > 0 ? (
+                            pet.imageUrls.map((imgSrc, index) => (
+                                <SwiperSlide key={index}>
+                                    <img src={imgSrc} alt={`${pet.name} ${index + 1}`} className="w-full h-full object-cover" />
+                                </SwiperSlide>
+                            ))
+                        ) : (
+                            <SwiperSlide>
+                                <img src={pet.imageUrls} alt={pet.name} className="w-full h-full object-cover" />
+                            </SwiperSlide>
+                        )}
+                    </Swiper>
                 </div>
 
                 {/* Details Section */}

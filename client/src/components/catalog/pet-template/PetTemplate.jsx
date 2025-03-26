@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import { Link } from "react-router";
 
 export default function PetTemplate({ pet }) {
@@ -20,3 +21,14 @@ export default function PetTemplate({ pet }) {
         </div>
     );
 }
+
+PetTemplate.propTypes = {
+    pet: PropTypes.shape({
+        imageUrl: PropTypes.string.isRequired,
+        imageUrls: PropTypes.array.isRequired,
+        name: PropTypes.string.isRequired,
+        breed: PropTypes.string.isRequired,
+        age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        _id: PropTypes.string.isRequired,
+    }).isRequired,
+};

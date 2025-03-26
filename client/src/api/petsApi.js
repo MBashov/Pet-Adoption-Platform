@@ -18,14 +18,13 @@ export const usePets = () => {
         request.get(baseUrl, null, { signal: controller.signal })
             .then((result) => {
                 setPets(result);
-                setLoading(false);
             })
             .catch((err) => {
                 if (err.name !== 'AbortError') {
                     setError(err);
-                    setLoading(false);
                 }
             })
+            .finally(() => setLoading(false));
 
         return () => controller.abort();
 
@@ -53,14 +52,13 @@ export const useLatestPets = () => {
         request.get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
             .then((result) => {
                 setPets(result);
-                setLoading(false);
             })
             .catch((err) => {
                 if (err.name !== 'AbortError') {
                     setError(err);
-                    setLoading(false);
                 }
             })
+            .finally(() => setLoading(false));
 
         return () => controller.abort();
     }, []);
@@ -80,19 +78,18 @@ export const usePet = (petId) => {
         request.get(`${baseUrl}/${petId}`, null, { signal: controller.signal })
             .then((result) => {
                 setPet(result);
-                setLoading(false);
             })
             .catch((err) => {
                 if (err.name !== 'AbortError') {
                     setError(err);
-                    setLoading(false);
                 }
-            });
+            })
+            .finally(() => setLoading(false));
 
         return () => controller.abort();
     
     }, [petId]);
-
+    
     return { pet, loading, error } 
 };
 
