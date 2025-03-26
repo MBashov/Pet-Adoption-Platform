@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import { useDeletePet, usePet, } from "../../api/petsApi";
 import useAuthRequest from "../../hooks/useAuthRequest";
 import { useIsOwner } from "../../hooks/useIsOwner";
+import Error from "../error/Error";
 
 export default function PetDetails() {
     const navigate = useNavigate();
@@ -16,7 +17,6 @@ export default function PetDetails() {
     const { isAuthenticated } = useAuthRequest();
     const { petId } = useParams();
     const { pet } = usePet(petId);
-    console.log(pet);
     
     const { isOwner } = useIsOwner(pet);
 
@@ -27,8 +27,11 @@ export default function PetDetails() {
         if (!confirm) {
             return;
         }
-
-        await del(petId);
+        try {
+            await del(petId);
+        } catch (err) {
+            <Error message={err.message} />
+        }
 
         navigate('/pets')
     }

@@ -97,23 +97,37 @@ export const usePet = (petId) => {
 export const useCreatePet = () => {
 
     const { authRequest } = useAuthRequest();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const create = (petData) => authRequest.post(baseUrl, petData);
+    const create = async (petData) => {
+        setIsLoading(true);
 
-    return {
-        create,
+        try {
+            return authRequest.post(baseUrl, petData);
+        } finally {
+            setIsLoading(false);
+        }
     }
+
+    return { create, isLoading }
 }
 
 export const useEditPet = () => {
 
     const { authRequest } = useAuthRequest();
+    const [loading, setloading] = useState(false);
 
-    const edit = (petData, petId) => authRequest.put(`${baseUrl}/${petId}`, { ...petData, _id: petId });
+    const edit = async (petData, petId) => {
+        setloading(true);
 
-    return {
-        edit,
+        try {
+            return authRequest.put(`${baseUrl}/${petId}`, { ...petData, _id: petId });
+        } finally {
+            setloading(false)
+        }
     }
+
+    return { edit, loading }
 }
 
 export const useDeletePet = () => {

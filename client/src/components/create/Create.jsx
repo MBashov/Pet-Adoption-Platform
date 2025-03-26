@@ -2,21 +2,32 @@ import { useActionState } from "react";
 import { useNavigate } from "react-router";
 
 import { useCreatePet } from "../../api/petsApi";
+import Error from "../error/Error";
+import Spinner from "../spinner/Spinner";
 
 
 export default function CreatePet() {
     const navigate = useNavigate();
-    const { create } = useCreatePet();
-    
-    
+    const { create, isLoading } = useCreatePet();
+
+
     const createHandler = async (_, formData) => {
-        
+
         const petData = Object.fromEntries(formData);
-        await create(petData);
-        //TODO: Error handling
-        navigate('/pets');
+
+        if (isLoading) {
+            return <Spinner />
+        }
+
+        try {
+            await create(petData);
+            navigate('/pets');
+
+        } catch (err) {
+            <Error message={err.message} />
+        }
     }
-    
+
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (

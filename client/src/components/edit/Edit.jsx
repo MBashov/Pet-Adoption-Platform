@@ -3,29 +3,38 @@ import { useParams, useNavigate, Navigate } from "react-router";
 import { useEditPet, usePet } from "../../api/petsApi";
 import { useIsOwner } from "../../hooks/useIsOwner";
 import Spinner from "../spinner/Spinner";
+import Error from "../error/Error";
 
 export default function EditPet() {
 
     const navigate = useNavigate();
     const { petId } = useParams();
     const { pet, isLoading } = usePet(petId);
-    const { edit } = useEditPet();
+    const { edit, loading } = useEditPet();
     const { isOwner } = useIsOwner(pet);
 
 
     if (isLoading) {
-        <Spinner />
+       <Spinner />
     }
 
-    if (!isOwner) {
-        <Navigate to={'/pets'} /> //TODO Show appropriate message Fix edit - currently avaliable for not Owners
-    }
+    // if (!isOwner) {
+    //     return <Navigate to={'/pets'} /> //TODO Show appropriate message Fix edit - currently avaliable for not Owners
+    // }
 
     const editHandler = async (_, formData) => {
         const petData = Object.fromEntries(formData);
+        
+        if (loading) {
+            return <Spinner />
+        }
 
-        await edit(petData, petId);
-        navigate('/pets');
+        try {
+            await edit(petData, petId);
+            navigate('/pets');
+        } catch (err) {
+            <Error message={err.message} />            
+        }
     }
 
     const [_, formAction, isPending] = useActionState(editHandler, {

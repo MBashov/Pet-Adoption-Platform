@@ -18,10 +18,9 @@ import GuestGuard from './components/guards/guestGuard';
 
 function App() {
 
-
     return (
         <UserProvider>
-            <div className="h-screen flex-col">
+            <div className="h-screen flex-col min-h-screen">
                 <Header />
                 <Routes>
                     <Route path='/' element={<Home />} />
