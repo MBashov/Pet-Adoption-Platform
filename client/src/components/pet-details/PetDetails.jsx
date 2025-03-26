@@ -8,15 +8,17 @@ import "swiper/css/pagination";
 
 import { useDeletePet, usePet, } from "../../api/petsApi";
 import useAuthRequest from "../../hooks/useAuthRequest";
+import { useIsOwner } from "../../hooks/useIsOwner";
 
 export default function PetDetails() {
     const navigate = useNavigate();
     const { del } = useDeletePet();
-    const { userId, isAuthenticated } = useAuthRequest();
+    const { isAuthenticated } = useAuthRequest();
     const { petId } = useParams();
     const { pet } = usePet(petId);
+    console.log(pet);
     
-    const isOwner = pet._ownerId === userId;
+    const { isOwner } = useIsOwner(pet);
 
     const petDeleteHandler = async () => {
 
@@ -38,7 +40,7 @@ export default function PetDetails() {
             <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8 flex flex-col md:flex-row">
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 h-96 overflow-hidden rounded-lg shadow-md">
-                <Swiper
+                    <Swiper
                         navigation
                         pagination={{ clickable: true }}
                         loop={pet.imageUrls?.length > 1}

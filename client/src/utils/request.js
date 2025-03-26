@@ -14,7 +14,7 @@ const request = async (method, url, data, options = {}) => {
             body: JSON.stringify(data),
         }
     }
-
+    
     const responce = await fetch(url, options);
     if (responce.status === 204) {
         return

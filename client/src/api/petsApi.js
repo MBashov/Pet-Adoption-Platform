@@ -8,13 +8,14 @@ const baseUrl = ' http://localhost:3030/data/pets';
 
 export const usePets = () => {
     const [pets, setPets] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
+   
     useEffect(() => {
-        const controller = new AbortController();
-        setLoading(true);
 
+        const controller = new AbortController();
+
+        setIsLoading(true);
         request.get(baseUrl, null, { signal: controller.signal })
             .then((result) => {
                 setPets(result);
@@ -24,18 +25,18 @@ export const usePets = () => {
                     setError(err);
                 }
             })
-            .finally(() => setLoading(false));
+            .finally(() => setIsLoading(false));
 
         return () => controller.abort();
 
     }, []);
 
-    return { pets, loading, error, }
+    return { pets, isLoading, error, }
 };
 
 export const useLatestPets = () => {
     const [pets, setPets] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -47,7 +48,7 @@ export const useLatestPets = () => {
             select: '_id,imageUrl,name,breed,age',
         });
 
-        setLoading(true);
+        setIsLoading(true);
 
         request.get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
             .then((result) => {
@@ -58,22 +59,22 @@ export const useLatestPets = () => {
                     setError(err);
                 }
             })
-            .finally(() => setLoading(false));
+            .finally(() => setIsLoading(false));
 
         return () => controller.abort();
     }, []);
 
-    return { pets, loading, error }
+    return { pets, isLoading, error }
 };
 
 export const usePet = (petId) => {
     const [pet, setPet] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const controller = new AbortController();
-        setLoading(true);
+        setIsLoading(true);
 
         request.get(`${baseUrl}/${petId}`, null, { signal: controller.signal })
             .then((result) => {
@@ -84,13 +85,13 @@ export const usePet = (petId) => {
                     setError(err);
                 }
             })
-            .finally(() => setLoading(false));
+            .finally(() => setIsLoading(false));
 
         return () => controller.abort();
     
     }, [petId]);
     
-    return { pet, loading, error } 
+    return { pet, isLoading, error } 
 };
 
 export const useCreatePet = () => {

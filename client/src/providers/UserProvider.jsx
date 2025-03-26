@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { UserContext } from "../contexts/UserContext";
 import usePersistedState from "../hooks/usePersistedState";
 
@@ -19,3 +20,7 @@ export default function UserProvider({ children }) {
         </UserContext.Provider>
     );
 }
+
+UserProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};

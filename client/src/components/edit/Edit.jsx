@@ -2,29 +2,39 @@ import { useActionState } from "react";
 import { useParams, useNavigate, Navigate } from "react-router";
 import { useEditPet, usePet } from "../../api/petsApi";
 import { useIsOwner } from "../../hooks/useIsOwner";
+import Spinner from "../spinner/Spinner";
 
 export default function EditPet() {
-    
-    const navigate = useNavigate(); 
+
+    const navigate = useNavigate();
     const { petId } = useParams();
-    const { pet } = usePet(petId);
+    const { pet, isLoading } = usePet(petId);
     const { edit } = useEditPet();
     const { isOwner } = useIsOwner(pet);
-    
-    
-    if (!isOwner) {
-        return <Navigate to={'/pets'}/> //TODO Show appropriate message
+
+
+    if (isLoading) {
+        <Spinner />
     }
-    
-    
+
+    if (!isOwner) {
+        <Navigate to={'/pets'} /> //TODO Show appropriate message Fix edit - currently avaliable for not Owners
+    }
+
     const editHandler = async (_, formData) => {
         const petData = Object.fromEntries(formData);
-        
+
         await edit(petData, petId);
         navigate('/pets');
     }
-    
-    const [_, formAction, isPending] = useActionState(editHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
+
+    const [_, formAction, isPending] = useActionState(editHandler, {
+        name: pet.name,
+        breed: pet.breed,
+        age: pet.age,
+        imageUrl: pet.imageUrl,
+        description: pet.description
+    });
 
     return (
         <section id="edit-pet" className="py-12 bg-gray-200 flex justify-center">
@@ -90,7 +100,7 @@ export default function EditPet() {
                     type="submit"
                     disabled={isPending}
                     className="w-full mt-6 px-4 py-2 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 transition">
-                    Edit Pet
+                    {isPending ? "Editing..." : "Edit Pet"}
                 </button>
             </form>
         </section>

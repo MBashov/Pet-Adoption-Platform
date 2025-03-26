@@ -10,7 +10,7 @@ import Error from '../error/Error';
 
 export default function Home() {
 
-    const { pets, loading, error } = useLatestPets();
+    const { pets, isLoading, error } = useLatestPets();
 
     return (
         <section className="relative bg-gray-100">
@@ -77,7 +77,7 @@ export default function Home() {
 
                 <div className="flex justify-center gap-8 relative">
 
-                    {loading ? (
+                    {isLoading ? (
                         <Spinner />
                     ) : error ? (
                         <Error />
