@@ -2,18 +2,27 @@ import { Link, useNavigate, useParams } from "react-router";
 
 import { useDeletePet, usePet, } from "../../api/petsApi";
 import useAuthRequest from "../../hooks/useAuthRequest";
+import Spinner from "../spinner/Spinner";
+import Error from "../error/Error";
 
 export default function PetDetails() {
     const navigate = useNavigate();
     const { del } = useDeletePet();
     const { userId, isAuthenticated } = useAuthRequest();
     const { petId } = useParams();
-    const { pet } = usePet(petId);
+    const { pet, loading, error } = usePet(petId);
+
+    if (loading) {
+        return <Spinner />
+    }
+    if (error) {
+        return <Error />
+    }
 
     const isOwner = pet._ownerId === userId;
 
     const petDeleteHandler = async () => {
-
+        //TODO Show modal dialog
         const confirm = window.confirm('Are you sure you want to delete this pet?');
 
         if (!confirm) {
@@ -26,7 +35,7 @@ export default function PetDetails() {
     }
 
 
-    //TODO: ADd more pet details
+    //TODO: Add more pet details
     return (
         <section className="py-12 bg-gray-100 flex justify-center">
             <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8 flex flex-col md:flex-row">

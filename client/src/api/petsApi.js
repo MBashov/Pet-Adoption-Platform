@@ -52,8 +52,8 @@ export const useLatestPets = () => {
 
         request.get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
             .then((result) => {
-                setPets(result)
-                setLoading(false)
+                setPets(result);
+                setLoading(false);
             })
             .catch((err) => {
                 if (err.name !== 'AbortError') {
@@ -65,25 +65,35 @@ export const useLatestPets = () => {
         return () => controller.abort();
     }, []);
 
-    return { pets, loading, error, }
+    return { pets, loading, error }
 };
 
 export const usePet = (petId) => {
     const [pet, setPet] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const controller = new AbortController();
+        setLoading(true);
 
         request.get(`${baseUrl}/${petId}`, null, { signal: controller.signal })
-            .then(setPet);
-        //TODO Error handling
+            .then((result) => {
+                setPet(result);
+                setLoading(false);
+            })
+            .catch((err) => {
+                if (err.name !== 'AbortError') {
+                    setError(err);
+                    setLoading(false);
+                }
+            });
 
         return () => controller.abort();
+    
     }, [petId]);
 
-    return {
-        pet
-    }
+    return { pet, loading, error } 
 };
 
 export const useCreatePet = () => {

@@ -12,11 +12,6 @@ export default function Home() {
 
     const { pets, loading, error } = useLatestPets();
 
-
-    if (error) {
-        return <Error />
-    }
-
     return (
         <section className="relative bg-gray-100">
             {/* Sliding Section */}
@@ -84,16 +79,15 @@ export default function Home() {
 
                     {loading ? (
                         <Spinner />
+                    ) : error ? (
+                        <Error />
                     ) : pets.length === 0 ? (
                         <p className="no-articles text-center text-3xl text-center mb-8 font-serif font-bold text-blue-500">
                             No pets available for adoption yet
                         </p>
                     ) : (pets.map(pet => <PetTemplate key={pet._id} pet={pet} />)
                     )}
-
                 </div>
-
-
             </div>
         </section>
     );
