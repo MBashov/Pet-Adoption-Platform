@@ -15,8 +15,8 @@ export default function CreatePet() {
 
         const petData = Object.fromEntries(formData);
         petData.imageUrls = imageUrls
-        .map(url => url.trim().replace(/^"|"$/g, ''))
-        .filter(url => url !== '');
+            .map(url => url.trim().replace(/^"|"$/g, ''))
+            .filter(url => url !== '');
 
         if (isLoading) {
             return <Spinner />
@@ -106,12 +106,14 @@ export default function CreatePet() {
                             className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                             required
                         />
-                        <button
-                            type="button"
-                            onClick={() => removeImageUrl(index)}
-                            className="px-2 py-1 bg-red-600 text-white rounded-full hover:bg-red-700">
-                            X
-                        </button>
+                        {imageUrls.length > 1 && (
+                            <button
+                                type="button"
+                                onClick={() => removeImageUrl(index)}
+                                className="px-2 py-1 bg-red-600 text-white rounded-full hover:bg-red-700">
+                                X
+                            </button>
+                        )}
                     </div>
                 ))}
 
