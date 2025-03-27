@@ -22,7 +22,6 @@ export default function Register() {
 
         try {
             const authData = await register(email, password);
-            // localStorage.setItem('auth', JSON.stringify(user));
             authHandler(authData);
             navigate('/');
 
