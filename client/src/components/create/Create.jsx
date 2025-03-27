@@ -92,8 +92,8 @@ export default function CreatePet() {
                     name="description"
                     placeholder="Enter a short description..."
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required>
-                </textarea>
+                    required
+                ></textarea>
 
                 <label className="block text-lg font-semibold text-gray-700 mt-4">Images: add up to 5 images</label>
                 {imageUrls.map((url, index) => (

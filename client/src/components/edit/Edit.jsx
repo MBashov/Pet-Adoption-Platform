@@ -1,4 +1,4 @@
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useParams, useNavigate, Navigate } from "react-router";
 import { useEditPet, usePet } from "../../api/petsApi";
 import { useIsOwner } from "../../hooks/useIsOwner";
@@ -11,11 +11,12 @@ export default function EditPet() {
     const { petId } = useParams();
     const { pet, isLoading } = usePet(petId);
     const { edit, loading } = useEditPet();
-    const { isOwner } = useIsOwner(pet);
-
+    // const { isOwner } = useIsOwner(pet);
+ 
+    const [imageUrls, setImageUrls] = useState(pet.imageUrls);
 
     if (isLoading) {
-       <Spinner />
+        <Spinner />
     }
 
     // if (!isOwner) {
@@ -24,7 +25,7 @@ export default function EditPet() {
 
     const editHandler = async (_, formData) => {
         const petData = Object.fromEntries(formData);
-        
+
         if (loading) {
             return <Spinner />
         }
@@ -33,9 +34,26 @@ export default function EditPet() {
             await edit(petData, petId);
             navigate('/pets');
         } catch (err) {
-            <Error message={err.message} />            
+            <Error message={err.message} />
         }
     }
+
+    const addImageField = () => {
+        if (imageUrls.length > 5) return;
+        setImageUrls([...imageUrls, ""]);
+    };
+
+    const updateImageUrl = (index, value) => {
+        const updatedUrls = [...imageUrls];
+        updatedUrls[index] = value;
+        setImageUrls(updatedUrls);
+    };
+
+    const removeImageUrl = (index) => {
+        if (imageUrls.length === 1) return;
+
+        setImageUrls(imageUrls.filter((_, i) => i !== index));
+    };
 
     const [_, formAction, isPending] = useActionState(editHandler, {
         name: pet.name,
@@ -84,17 +102,6 @@ export default function EditPet() {
                     required
                 />
 
-                <label htmlFor="imageUrl" className="block text-lg font-semibold text-gray-700 mt-4">Image URL:</label>
-                <input
-                    type="text"
-                    id="imageUrl"
-                    name="imageUrl"
-                    placeholder="Enter image URL..."
-                    defaultValue={pet.imageUrl}
-                    className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    required
-                />
-
                 <label htmlFor="description" className="block text-lg font-semibold text-gray-700 mt-4">Description:</label>
                 <textarea
                     id="description"
@@ -104,6 +111,35 @@ export default function EditPet() {
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                 ></textarea>
+
+                <label className="block text-lg font-semibold text-gray-700 mt-4">Images: add up to 5 images</label>
+                {pet?.imageUrls?.map((url, index) => (
+                    <div key={url} className="flex items-center gap-2 mt-1">
+                        <input
+                            placeholder="Enter image URL..."
+                            type="text"
+                            value={url}
+                            onChange={(e) => updateImageUrl(index, e.target.value)}
+                            className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            required
+                        />
+                        {imageUrls?.length > 1 && (
+                            <button
+                                type="button"
+                                onClick={() => removeImageUrl(index)}
+                                className="px-2 py-1 bg-red-600 text-white rounded-full hover:bg-red-700">
+                                X
+                            </button>
+                        )}
+                    </div>
+                ))}
+
+                <button
+                    type="button"
+                    onClick={addImageField}
+                    className="mt-2 px-4 py-2 bg-green-500 text-white font-semibold rounded-full hover:bg-green-600 transition">
+                    + Add Image
+                </button>
 
                 <button
                     type="submit"
