@@ -20,7 +20,7 @@ function App() {
 
     return (
         <UserProvider>
-            <div className="h-screen flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen">
                 <Header />
                 <Routes>
                     <Route path='/' element={<Home />} />
