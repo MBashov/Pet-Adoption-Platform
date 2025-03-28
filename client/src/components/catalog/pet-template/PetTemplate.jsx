@@ -6,7 +6,7 @@ export default function PetTemplate({ pet }) {
     return (
         <div className="w-80 h-auto p-6 shadow-lg rounded-lg bg-white text-center">
             <div className="w-full h-64 overflow-hidden rounded-lg shadow-md">
-                <img src={pet.imageUrl} alt={pet.name} className="w-full h-full object-cover" />
+                <img src={pet.imageUrls[0]} alt={pet.name} className="w-full h-full object-cover" />
             </div>
             <h3 className="text-2xl font-bold mt-4">{pet.name}</h3>
             <div className="text-gray-700 my-3">

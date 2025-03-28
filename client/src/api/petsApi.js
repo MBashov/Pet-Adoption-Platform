@@ -12,11 +12,14 @@ export const usePets = () => {
     const [error, setError] = useState(null);
    
     useEffect(() => {
-
         const controller = new AbortController();
 
+        const searchParams = new URLSearchParams({
+            select: '_id,imageUrls,name,breed,age',
+        });
+
         setIsLoading(true);
-        request.get(baseUrl, null, { signal: controller.signal })
+        request.get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
             .then((result) => {
                 setPets(result);
             })
@@ -45,7 +48,7 @@ export const useLatestPets = () => {
         const searchParams = new URLSearchParams({
             sortBy: '_createdOn desc',
             pageSize: 3,
-            select: '_id,imageUrl,name,breed,age',
+            select: '_id,imageUrls,name,breed,age',
         });
 
         setIsLoading(true);
