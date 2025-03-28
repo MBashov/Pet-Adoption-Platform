@@ -90,6 +90,24 @@ export default function EditPet() {
                         required
                     />
 
+                    <label htmlFor="type" className="block text-lg font-semibold text-gray-700 mt-4">Pet Type:</label>
+                    <select
+                        id="type"
+                        name="type"
+                        defaultValue={pet.type}
+                        className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                    >
+                        <option value="" disabled>Select a Pet Type...</option>
+                        <option value="Dog">Dog</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Bird">Bird</option>
+                        <option value="Rabbit">Rabbit</option>
+                        <option value="Hamster">Hamster</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+
                     <label htmlFor="breed" className="block text-lg font-semibold text-gray-700 mt-4">Breed:</label>
                     <input
                         type="text"
