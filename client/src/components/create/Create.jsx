@@ -33,7 +33,7 @@ export default function CreatePet() {
 
     const addImageField = () => {
         if (imageUrls.length >= 5) return;
-        setImageUrls([...imageUrls, ""]);
+        setImageUrls(prev => [...prev, ""]);
     };
 
     const updateImageUrl = (index, value) => {
@@ -45,7 +45,7 @@ export default function CreatePet() {
     const removeImageUrl = (index) => {
         if (imageUrls.length === 1) return;
 
-        setImageUrls(imageUrls.filter((_, i) => i !== index));
+        setImageUrls(prev => prev.filter((_, i) => i !== index));
     };
 
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
