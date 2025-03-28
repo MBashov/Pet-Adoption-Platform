@@ -1,4 +1,4 @@
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useParams, useNavigate, Navigate } from "react-router";
 import { useEditPet, usePet } from "../../api/petsApi";
 import { useIsOwner } from "../../hooks/useIsOwner";
@@ -12,8 +12,13 @@ export default function EditPet() {
     const { pet, isLoading } = usePet(petId);
     const { edit, loading } = useEditPet();
     // const { isOwner } = useIsOwner(pet);
- 
-    const [imageUrls, setImageUrls] = useState(pet.imageUrls);
+    let [imageUrls, setImageUrls] = useState([]);
+
+    useEffect(() => {
+        if(pet?.imageUrls) {
+            setImageUrls(pet.imageUrls);
+        }
+    }, [pet]);
 
     if (isLoading) {
         <Spinner />
@@ -25,6 +30,10 @@ export default function EditPet() {
 
     const editHandler = async (_, formData) => {
         const petData = Object.fromEntries(formData);
+
+        petData.imageUrls = imageUrls
+            .map(url => url.trim().replace(/^"|"$/g, ''))
+            .filter(url => url !== '');
 
         if (loading) {
             return <Spinner />
@@ -39,8 +48,9 @@ export default function EditPet() {
     }
 
     const addImageField = () => {
-        if (imageUrls.length > 5) return;
-        setImageUrls([...imageUrls, ""]);
+        if (imageUrls.length >= 5) return;
+        setImageUrls(prev => [...prev, '']);
+
     };
 
     const updateImageUrl = (index, value) => {
@@ -52,14 +62,14 @@ export default function EditPet() {
     const removeImageUrl = (index) => {
         if (imageUrls.length === 1) return;
 
-        setImageUrls(imageUrls.filter((_, i) => i !== index));
+        setImageUrls(prev => prev.filter((_, i) => i !== index));
     };
 
     const [_, formAction, isPending] = useActionState(editHandler, {
         name: pet.name,
         breed: pet.breed,
         age: pet.age,
-        imageUrl: pet.imageUrl,
+        imageUrls: pet.imageUrls,
         description: pet.description
     });
 
@@ -113,8 +123,9 @@ export default function EditPet() {
                 ></textarea>
 
                 <label className="block text-lg font-semibold text-gray-700 mt-4">Images: add up to 5 images</label>
-                {pet?.imageUrls?.map((url, index) => (
-                    <div key={url} className="flex items-center gap-2 mt-1">
+
+                {imageUrls.map((url, index) => (
+                    <div key={index} className="flex items-center gap-2 mt-1">
                         <input
                             placeholder="Enter image URL..."
                             type="text"
@@ -123,7 +134,7 @@ export default function EditPet() {
                             className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                             required
                         />
-                        {imageUrls?.length > 1 && (
+                        {imageUrls.length > 1 && (
                             <button
                                 type="button"
                                 onClick={() => removeImageUrl(index)}

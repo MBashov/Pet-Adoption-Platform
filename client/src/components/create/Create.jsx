@@ -32,7 +32,7 @@ export default function CreatePet() {
     }
 
     const addImageField = () => {
-        if (imageUrls.length > 5) return;
+        if (imageUrls.length >= 5) return;
         setImageUrls([...imageUrls, ""]);
     };
 
@@ -96,6 +96,7 @@ export default function CreatePet() {
                 ></textarea>
 
                 <label className="block text-lg font-semibold text-gray-700 mt-4">Images: add up to 5 images</label>
+                
                 {imageUrls.map((url, index) => (
                     <div key={index} className="flex items-center gap-2 mt-1">
                         <input
