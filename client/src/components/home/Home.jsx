@@ -21,7 +21,7 @@ export default function Home() {
                         navigation
                         modules={[Navigation, Autoplay]}
                         loop
-                        speed={1000}
+                        speed={2000}
                         autoplay={{
                             delay: 3000, // Adjust time in milliseconds (3 seconds)
                             disableOnInteraction: false // Keeps autoplay even after user interaction
