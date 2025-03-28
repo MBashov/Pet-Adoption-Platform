@@ -17,7 +17,7 @@ export default function PetDetails() {
     const { isAuthenticated } = useAuthRequest();
     const { petId } = useParams();
     const { pet } = usePet(petId);
-    
+
     const { isOwner } = useIsOwner(pet);
 
     const petDeleteHandler = async () => {
@@ -40,7 +40,7 @@ export default function PetDetails() {
     //TODO: ADd more pet details
     return (
         <section className="py-12 bg-gray-100 flex justify-center">
-            <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8 flex flex-col md:flex-row">
+            <div className="max-w-4xl w-full bg-gray-120 shadow-lg rounded-lg p-8 flex flex-col md:flex-row">
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 h-96 overflow-hidden rounded-lg shadow-md">
                     <Swiper
@@ -65,11 +65,15 @@ export default function PetDetails() {
                 </div>
 
                 {/* Details Section */}
-                <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
-                    <h2 className="text-3xl font-bold text-gray-800">{pet.name}</h2>
-                    <h6 className="text-lg text-gray-600 mt-2">Breed: {pet.breed}</h6>
-                    <h6 className="text-lg text-gray-600">Age: {pet.age} Years</h6>
-                    <p className="text-gray-700 mt-4">{pet.description}</p>
+                <div className="w-full md:w-1/2 p-6 flex flex-col justify-center bg-gray-100">
+                    <h2 className="text-3xl font-bold text-amber-600">{pet.name}</h2>
+                    <h6 className="text-lg text-gray-900 mt-2">
+                        <span className="text-amber-600 font-semibold">Breed:</span> {pet.breed}
+                    </h6>
+                    <h6 className="text-lg text-gray-700">
+                        <span className="text-amber-600 font-semibold">Years:</span> {pet.age} 
+                    </h6>
+                    <p className="text-slate-900 mt-4 font-dark shadow-sm">{pet.description}</p>
 
                     {/* Buttons */}
                     <Link to="/pets" className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-3xl hover:bg-blue-600 w-34 transition">Back to Pets</Link>
