@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router'
-import { useActionState } from 'react';
+import { Link, useNavigate } from 'react-router'
+import { useActionState, useState } from 'react';
+import { toast } from "react-toastify";
 
 import { useRegister } from '../../api/authApi';
 import { useUserContext } from '../../contexts/UserContext';
@@ -9,15 +10,24 @@ export default function Register() {
 
     const navigate = useNavigate();
     const { register } = useRegister();
-    const { authHandler } = useUserContext();
+    const { authHandler, } = useUserContext();
+    const [email, setEmail] = useState('');
+    const [passMismatch, setPassMismatch] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+
+    const handleFocus = () => {
+        setEmailError(false);
+        setPassMismatch(false);
+    };
 
     const registerHandler = async (_, formData) => {
 
         const { email, password, confirmPassword } = Object.fromEntries(formData);
+        setEmail(email);
 
         if (password !== confirmPassword) {
-            return console.log('wrong password');
-            //TODO: Add error real handling
+            setPassMismatch(true);
+            return toast.error('Wrong passwords');
         }
 
         try {
@@ -26,11 +36,15 @@ export default function Register() {
             navigate('/');
 
         } catch (err) {
-            console.log(err.message);
-        }
-    }
 
-    const [_, action, isPending] = useActionState(registerHandler, { email: '', password: '', confirmPassword: '' })
+            if (err.code === 409) {
+                setEmailError(true);
+            }
+            toast.error(err.message);
+        }
+    };
+
+    const [_, action, isPending] = useActionState(registerHandler, { email: '', password: '', confirmPassword: '' });
 
     return (
         <section className="flex justify-center items-center min-h-screen bg-gray-200">
@@ -40,20 +54,43 @@ export default function Register() {
                 <form action={action} id="register" className="space-y-4">
                     <div>
                         <label htmlFor="email" className="block text-gray-700 font-semibold">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="maria@email.com"
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="maria@email.com"
+                            defaultValue={email}
+                            onFocus={handleFocus}
+                            required
+                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${emailError ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
+                                }`}
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="password" className="block text-gray-700 font-semibold">Password:</label>
-                        <input type="password" name="password" id="register-password"
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input
+                            type="password"
+                            name="password"
+                            id="register-password"
+                            onFocus={handleFocus}
+                            required
+                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${passMismatch ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
+                                }`}
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="confirmPassword" className="block text-gray-700 font-semibold">Confirm Password:</label>
-                        <input type="password" name="confirmPassword" id="confirmPassword"
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            onFocus={handleFocus}
+                            required
+                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${passMismatch ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
+                                }`}
+                        />
                     </div>
 
                     <div className="text-center">
@@ -63,10 +100,9 @@ export default function Register() {
                 </form>
 
                 <p className="text-center text-gray-600 mt-4">
-                    Already have an account? <a href="/login" className="text-blue-500 hover:underline">Login here</a>
+                    Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login here</Link>
                 </p>
             </div>
         </section>
     );
 }
-//TODO Change button style while fetching

@@ -20,6 +20,12 @@ const request = async (method, url, data, options = {}) => {
         return
     }
 
+    if (!responce.ok) {
+        const error = await responce.json();
+
+        throw error;
+    }
+
     const result = await responce.json();
 
     return result;

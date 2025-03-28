@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router'
-
+import { ToastContainer } from "react-toastify";
 import UserProvider from './providers/UserProvider';
 
 import Footer from "./components/footer/Footer";
@@ -40,6 +40,8 @@ function App() {
                 </Routes>
                 
                 <Footer />
+
+                <ToastContainer position="top-center" autoClose={2000} />
             </div>
         </UserProvider >
     )

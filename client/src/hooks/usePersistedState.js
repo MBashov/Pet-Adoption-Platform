@@ -15,7 +15,6 @@ export default function usePersistedState(stateKey, initialState) {
     });
 
     const setPersistedState = (input) => {
-        //TODO; Add try/catch to check inpu if it is possible to stringify 
         
         const data = typeof input === 'function' ? input(state) : input;
 
