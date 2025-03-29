@@ -1,9 +1,10 @@
 import { useActionState } from "react";
 import { useNavigate, useParams } from "react-router";
 
-import { useAdoptPet } from "../../api/adoptApi";
+import { getAll, useAdoptPet } from "../../api/adoptApi";
 import { toast } from "react-toastify";
 import { usePet } from "../../api/petsApi";
+import useAuthRequest from "../../hooks/useAuthRequest";
 
 
 export default function AdoptionForm() {
@@ -11,19 +12,26 @@ export default function AdoptionForm() {
     const { adopt } = useAdoptPet();
     const { petId } = useParams();
     const { pet } = usePet(petId);
+    const { userId } = useAuthRequest();
 
     const adoptHandler = async (_, formData) => {
         const userData = Object.fromEntries(formData);
 
         try {
-            await adopt(userData);
+            await adopt(userData, petId);
+
+            // const allAplicants = await getAll();
+            // const filtered = allAplicants.filter(app => app._ownerId === userId && app.petId === petId);
+            // console.log(filtered);
+            
+            // console.log(allAplicants);
+
             navigate('/succesfully-adopt');
             toast.success('Form Submitted Successfully');
 
         } catch (err) {
             toast.error(err.message);
         }
-
     }
 
     const [_, formAction, isPending] = useActionState(adoptHandler, { name: "", email: "", phone: "", reason: "", livingSituation: "", });

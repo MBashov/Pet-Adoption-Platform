@@ -1685,8 +1685,8 @@
                 "_createdOn": 1742760744778,
                 "_id": "9e9a185d-0f5e-43e0-abfc-fd7017b75898"
             }
-        ]
-
+        ],
+        applications: [],
     };
     var rules$1 = {
         users: {
