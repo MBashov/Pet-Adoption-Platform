@@ -68,8 +68,8 @@ export default function PetDetails() {
             <div className="max-w-4xl w-full bg-gray-120 shadow-lg rounded-lg p-8 flex relative flex-col md:flex-row">
                 {/* Small Images in Top Corner */}
                 <div className="absolute top-0 right-0 flex gap-3 p-4">
-                    <img src="/images/icon1.png" alt="Small Image 1" className="w-16 h-16 rounded-full shadow-lg" />
-                    <img src="/images/icon2.png" alt="Small Image 2" className="w-16 h-16 rounded-full shadow-lg" />
+                    <img src="/images/icon1.png" alt="Small Image 1" className="w-16 h-16 rounded-full" />
+                    <img src="/images/icon2.png" alt="Small Image 2" className="w-16 h-16 rounded-full" />
                 </div>
                 {/* Image Section */}
                 <div className="w-full md:w-1/2 h-96 overflow-hidden rounded-lg shadow-md">

@@ -36,9 +36,9 @@ export default function Home() {
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
                                     <h2 className="text-3xl font-bold">
-                                        They Need Your <span className="text-orange-400">Love</span> and <span className="text-green-400">Care</span>
+                                        They Need Your <span className="text-amber-500">Love</span> and <span className="text-lime-200">Care</span>
                                     </h2>
-                                    <p className="text-lg text-gray-300 mt-3">It is so easy to make them happy</p>
+                                    <p className="text-lg text-gray-300 mt-2"><span className="text-lime-200">It is so easy to make them happy</span> </p>
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -50,8 +50,8 @@ export default function Home() {
                                     <img src="/images/slide2.jpg" alt="Slide 2" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
-                                    <h2 className="text-3xl font-bold">Join Us <span className="text-orange-400">Today!</span></h2>
-                                    <p className="text-lg text-gray-300 mt-2"><span className="text-green-400">Help us make a difference.</span> </p>
+                                    <h2 className="text-3xl font-bold">Adopt <span className="text-amber-500">Today!</span></h2>
+                                    <p className="text-lg text-gray-300 mt-2"><span className="text-lime-200">Help us make a difference</span> </p>
                                 </div>
                             </div>
                         </SwiperSlide>
@@ -63,8 +63,8 @@ export default function Home() {
                                     <img src="/images/slide3.jpg" alt="Slide 3" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
-                                    <h2 className="text-3xl font-bold">Every Life Matters</h2>
-                                    <p className="text-lg text-gray-300 mt-2">Give them love and care.</p>
+                                    <h2 className="text-3xl font-bold">Every Life <span className="text-amber-500">Matters</span></h2>
+                                    <p className="text-lg text-lime-200 mt-2">Give them love and care.</p>
                                 </div>
                             </div>
                         </SwiperSlide>
