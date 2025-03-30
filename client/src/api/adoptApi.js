@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import useAuthRequest from "../hooks/useAuthRequest";
 import request from "../utils/request";
@@ -32,3 +32,23 @@ export const getAll = () => {
     return request.get(baseUrl);
 }
 
+export const useUserApplications = (userId) => {
+
+    const [adoptApplications, setAdoptApplications] = useState([]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams({
+            where: `_ownerId="${userId}"`,
+            load: 'pet=petId:pets,'
+        });
+
+        request.get(`${baseUrl}?${searchParams.toString()}`)
+            .then(result => {
+                setAdoptApplications(result);
+            })
+    }, [userId]);
+
+
+
+    return { adoptApplications }
+}

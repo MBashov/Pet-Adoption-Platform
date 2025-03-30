@@ -23,7 +23,7 @@ function App() {
 
     return (
         <UserProvider>
-            <div className="flex flex-col min-h-screen h-screen">
+            <div className="flex flex-col min-h-screen">
                 <Header />
                 
                 <Routes>
