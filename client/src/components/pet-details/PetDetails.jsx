@@ -12,27 +12,28 @@ import Error from "../error/Error";
 import useAuthRequest from "../../hooks/useAuthRequest";
 import { getAll } from "../../api/adoptApi";
 import { useEffect, useState } from "react";
+import Spinner from "../spinner/Spinner";
 
 export default function PetDetails() {
     const navigate = useNavigate();
     const { del } = useDeletePet();
     const { isAuthenticated, userId } = useAuthRequest();
     const { petId } = useParams();
-    const { pet } = usePet(petId);
+    const { pet, isLoading, error } = usePet(petId);
     const { isOwner } = useIsOwner(pet);
     const [hasAdopted, setHasAdopted] = useState([]);
-
+    
     useEffect(() => {
 
-        const adoptHandler = async () => {
-            const allAplicants = await getAll();
-            const filtered = allAplicants.filter(app => app._ownerId === userId && app.petId === petId);
+        const checkAdoptionStatus = async () => {
+            const allApplicants = await getAll();
+            const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
 
-            setHasAdopted(filtered.length > 0);
+            setHasAdopted(userHasAdopted);
         }
 
         if (userId && petId) {
-            adoptHandler();
+            checkAdoptionStatus();
         }
 
     }, [petId, userId]);
@@ -52,6 +53,14 @@ export default function PetDetails() {
         }
 
         navigate('/pets')
+    }
+
+    if (isLoading) {
+        return <Spinner />
+    }
+
+    if (error) {
+        return <Error />
     }
 
     return (

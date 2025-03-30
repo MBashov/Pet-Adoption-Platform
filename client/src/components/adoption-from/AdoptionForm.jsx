@@ -12,8 +12,7 @@ export default function AdoptionForm() {
     const { adopt } = useAdoptPet();
     const { petId } = useParams();
     const { pet } = usePet(petId);
-    const {userId} = useAuthRequest();
-    const [hasAdopted, setHasAdopted] = useState(false);
+    const { userId } = useAuthRequest();
 
     useEffect(() => {
         const checkAdoptionStatus = async () => {
@@ -22,7 +21,6 @@ export default function AdoptionForm() {
             const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
 
             if (userHasAdopted) {
-                setHasAdopted(true);
                 return navigate('/');
             }
         };
@@ -31,16 +29,13 @@ export default function AdoptionForm() {
 
     }, [petId, userId, navigate]);
 
-    if(hasAdopted) return;
-
     const adoptHandler = async (_, formData) => {
         const userData = Object.fromEntries(formData);
 
         try {
-            await adopt(userData, petId);
 
+            await adopt(userData, petId);
             navigate('/succesfully-adopt');
-            toast.success('Form Submitted Successfully');
 
         } catch (err) {
             toast.error(err.message);

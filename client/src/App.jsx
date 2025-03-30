@@ -22,11 +22,12 @@ function App() {
 
     return (
         <UserProvider>
-            <div className="flex flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen h-screen">
                 <Header />
+                
                 <Routes>
                     <Route path='/' element={<Home />} />
-
+                    
                     <Route path='/pets' element={<Catalog />} />
                     <Route path='/pets/:petId/details' element={<PetDetails />} />
                     <Route element={<AuthGuard />}>
