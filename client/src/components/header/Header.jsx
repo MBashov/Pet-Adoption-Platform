@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import useAuthRequest from "../../hooks/useAuthRequest";
-import { Menu, X } from "lucide-react"; // For menu icons
+import { Menu, X } from "lucide-react"; 
 
 export default function Header() {
     const { isAuthenticated, email } = useAuthRequest();
