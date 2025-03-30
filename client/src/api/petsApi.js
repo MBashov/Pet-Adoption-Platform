@@ -10,7 +10,7 @@ export const usePets = () => {
     const [pets, setPets] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-   
+
     useEffect(() => {
 
         const controller = new AbortController();
@@ -92,10 +92,10 @@ export const usePet = (petId) => {
             .finally(() => setIsLoading(false));
 
         return () => controller.abort();
-    
+
     }, [petId]);
-    
-    return { pet, isLoading, error } 
+
+    return { pet, isLoading, error }
 };
 
 export const useCreatePet = () => {
@@ -143,4 +143,28 @@ export const useDeletePet = () => {
     return {
         del,
     }
+}
+
+export const useUserPets = () => {
+    const [pets, setPets] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const { userId } = useAuthRequest();
+
+    useEffect(() => {
+
+        const searchParams = new URLSearchParams({
+            sortBy: '_createdOn desc',
+            where: `_ownerId="${userId}"`
+        });
+
+        setIsLoading(true);
+        request.get(`${baseUrl}?${searchParams.toString()}`)
+            .then((result) => {
+                setPets(result);
+            })
+            .finally(setIsLoading(false));
+    }, [userId]);
+
+    return { pets, isLoading, error }
 }

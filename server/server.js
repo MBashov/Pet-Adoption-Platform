@@ -1659,7 +1659,7 @@
                 "age": "2",
                 "type": "Dog",
                 "imageUrls": ["https://nl.bellfor.info/image/catalog/Blog/blog_pictures_multilang/labrador-merkmale.jpg", "https://vetericyn.com/Vetericyn/wp-content/uploads/2024/07/labrador-retriever.jpg", "https://showsightmagazine.com/wp-content/uploads/2024/03/Labrador-Retriever-head.jpg"],
-                "description": "Meet Buddy, your future best friend with a heart as big as his playful spirit! 🐶💛 This lovable Labrador Retriever is full of energy, always ready for an adventure. With his wagging tail and affectionate nature, Buddy is the perfect companion for an active family or anyone looking for unconditional love. Whether he's splashing in the water, going on long walks, or snuggling up after a day of fun, Buddy will bring endless joy and loyalty to your home. Are you ready to be his forever human?",
+                "description": "Meet Buddy, your future best friend with a heart as big as his playful spirit! 🐶 This lovable Labrador Retriever is full of energy, always ready for an adventure. With his wagging tail and affectionate nature, Buddy is the perfect companion for an active family or anyone looking for unconditional love. Whether he's splashing in the water, going on long walks, or snuggling up after a day of fun, Buddy will bring endless joy and loyalty to your home. Are you ready to be his forever human?",
                 "_createdOn": 1742760546294,
                 "_id": "8fcd7f6c-66f8-434f-8f54-a0eb942f0881"
             },
@@ -1670,7 +1670,7 @@
                 "age": "3",
                 "type": "Cat",
                 "imageUrls": ["https://i.redd.it/do-you-prefer-a-silver-pompaws-persian-cat-with-blue-or-v0-o8ltjg7cps7d1.png?width=741&format=png&auto=webp&s=e2a4f52f5c757b1bd7db9213557eec4a243c2279", "https://cdn.prod.website-files.com/659c0b0024c127bdbe890959/673a2eb3c1d361675009f9b7_31.jpg", "https://www.purina.co.uk/sites/default/files/styles/square_medium_440x440/public/2022-06/Persian%20Long%20Hair.2.jpg?h=00e3f93f&itok=kQYvwP0Z"],
-                "description": "Say hello to Whiskers, the most elegant Persian cat you'll ever meet! 🐱✨ With a luxurious coat and eyes full of mystery, this regal feline enjoys nothing more than lounging in the sun and receiving gentle chin scratches. Whiskers has a calm and affectionate personality, making him the perfect companion for a cozy home. Whether he's curling up by your side or gracefully exploring his surroundings, he'll fill your days with warmth and purrs. Give this majestic kitty the forever home he deserves!",
+                "description": "Say hello to Whiskers, the most elegant Persian cat you'll ever meet! 🐱 With a luxurious coat and eyes full of mystery, this regal feline enjoys nothing more than lounging in the sun and receiving gentle chin scratches. Whiskers has a calm and affectionate personality, making him the perfect companion for a cozy home. Whether he's curling up by your side or gracefully exploring his surroundings, he'll fill your days with warmth and purrs. Give this majestic kitty the forever home he deserves!",
                 "_createdOn": 1742760658585,
                 "_id": "a871b071-a4ad-4ea3-8327-8c3f7b745201"
             },
@@ -1681,7 +1681,7 @@
                 "age": "1",
                 "type": "Dog",
                 "imageUrls": ["https://petsecur.nl/app/uploads/2022/05/goldenretriever-hondkopen-2020.jpg", "https://www.akc.org/wp-content/uploads/2020/07/Golden-Retriever-puppy-standing-outdoors.jpg", "https://s.yimg.com/ny/api/res/1.2/TYlBE7ybhW8I64InTPHH_w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD04Mjg-/https://media.zenfs.com/en/parade_pets_articles_328/ffb9bd73b2178689ccfe199895326c8d"],
-                "description": "Meet Max, the Golden Retriever with a heart of gold! 🐶✨ Full of energy, love, and tail-wagging happiness, Max is always ready for a game of fetch or a cuddle session. His friendly nature and gentle personality make him the perfect companion for any family. Whether he's chasing butterflies or lounging by your side, Max will bring endless joy and loyalty into your life. Give this sweet boy the loving home he deserves!",
+                "description": "Meet Max, the Golden Retriever with a heart of gold! 🐶 Full of energy, love, and tail-wagging happiness, Max is always ready for a game of fetch or a cuddle session. His friendly nature and gentle personality make him the perfect companion for any family. Whether he's chasing butterflies or lounging by your side, Max will bring endless joy and loyalty into your life. Give this sweet boy the loving home he deserves!",
                 "_createdOn": 1742760744778,
                 "_id": "9e9a185d-0f5e-43e0-abfc-fd7017b75898"
             }

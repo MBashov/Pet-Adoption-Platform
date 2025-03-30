@@ -31,3 +31,4 @@ export const useAdoptPet = () => {
 export const getAll = () => {
     return request.get(baseUrl);
 }
+
