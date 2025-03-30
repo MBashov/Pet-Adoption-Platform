@@ -12,6 +12,7 @@ export const usePets = () => {
     const [error, setError] = useState(null);
    
     useEffect(() => {
+
         const controller = new AbortController();
 
         const searchParams = new URLSearchParams({

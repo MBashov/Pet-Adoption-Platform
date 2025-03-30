@@ -1,4 +1,4 @@
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
 import { getAll, useAdoptPet } from "../../api/adoptApi";
@@ -12,19 +12,32 @@ export default function AdoptionForm() {
     const { adopt } = useAdoptPet();
     const { petId } = useParams();
     const { pet } = usePet(petId);
-    const { userId } = useAuthRequest();
+    const {userId} = useAuthRequest();
+    const [hasAdopted, setHasAdopted] = useState(false);
+
+    useEffect(() => {
+        const checkAdoptionStatus = async () => {
+
+            const allApplicants = await getAll();
+            const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
+
+            if (userHasAdopted) {
+                setHasAdopted(true);
+                return navigate('/');
+            }
+        };
+
+        checkAdoptionStatus();
+
+    }, [petId, userId, navigate]);
+
+    if(hasAdopted) return;
 
     const adoptHandler = async (_, formData) => {
         const userData = Object.fromEntries(formData);
 
         try {
             await adopt(userData, petId);
-
-            // const allAplicants = await getAll();
-            // const filtered = allAplicants.filter(app => app._ownerId === userId && app.petId === petId);
-            // console.log(filtered);
-            
-            // console.log(allAplicants);
 
             navigate('/succesfully-adopt');
             toast.success('Form Submitted Successfully');

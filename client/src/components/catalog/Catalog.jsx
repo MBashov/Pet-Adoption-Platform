@@ -7,7 +7,7 @@ import Spinner from "../spinner/Spinner";
 export default function Catalog() {
 
     const { pets, isLoading, error } = usePets();
-
+   
     if (isLoading) {
         return <Spinner />
     }

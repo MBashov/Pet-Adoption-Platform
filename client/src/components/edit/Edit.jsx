@@ -50,9 +50,13 @@ export default function EditPet() {
         description: pet.description
     });
 
-    if (isLoading || !isOwner) {
+    if (isLoading) {
         return <Spinner />
     }
+
+    // if(!isOwner) {
+    //     return navigate('/404');
+    // }
 
     const addImageField = () => {
         if (imageUrls.length >= 5) return;
@@ -77,7 +81,7 @@ export default function EditPet() {
                 <form action={formAction} className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
                     <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Edit Pet</h1>
 
-                    {!isOwner && <Navigate to={'/pets'} />}
+                    {!isOwner && <Navigate to={'/404'} />}
 
                     <label htmlFor="name" className="block text-lg font-semibold text-gray-700">Pet Name:</label>
                     <input

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { UserContext } from "../contexts/UserContext";
 import usePersistedState from "../hooks/usePersistedState";
+import { getAll } from '../api/adoptApi';
 
 export default function UserProvider({ children }) {
 
