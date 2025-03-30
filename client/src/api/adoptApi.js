@@ -48,7 +48,5 @@ export const useUserApplications = (userId) => {
             })
     }, [userId]);
 
-
-
     return { adoptApplications }
 }
