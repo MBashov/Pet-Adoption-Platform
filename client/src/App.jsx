@@ -15,9 +15,9 @@ import PetDetails from './components/pet-details/PetDetails';
 import EditPet from './components/edit/Edit';
 import AuthGuard from './components/guards/AuthGuard';
 import GuestGuard from './components/guards/guestGuard';
-import AdoptionForm from './components/adoption-from/AdoptionForm';
 import AdoptionSuccess from './components/adoption-succsess/AdoptionSuccess';
 import Profile from './components/profile/Profile';
+import AdoptPet from './components/adopt-pet/AdoptPet';
 
 function App() {
 
@@ -34,7 +34,7 @@ function App() {
                     <Route element={<AuthGuard />}>
                         <Route path='/add-pet' element={<CreatePet />} />
                         <Route path='/pets/:petId/edit' element={<EditPet />} />
-                        <Route path='/pets/:petId/adopt' element={<AdoptionForm />} /> 
+                        <Route path='/pets/:petId/adopt' element={<AdoptPet />} /> 
                         <Route path='/succesfully-adopt' element={<AdoptionSuccess />} />
                         <Route path='/profile' element={<Profile />} />
                         <Route path='/logout' element={<Logout />} />

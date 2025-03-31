@@ -158,10 +158,10 @@ export const useDeletePet = () => {
 
     const { authRequest } = useAuthRequest();
 
-    const del = (petId) => authRequest.delete(`${baseUrl}/${petId}`);
+    const deletePet = (petId) => authRequest.delete(`${baseUrl}/${petId}`);
 
     return {
-        del,
+        deletePet,
     }
 }
 

@@ -7,7 +7,7 @@ import { usePet } from "../../api/petsApi";
 import useAuthRequest from "../../hooks/useAuthRequest";
 
 
-export default function AdoptionForm() {
+export default function AdoptPet() {
     const navigate = useNavigate();
     const { adopt } = useAdoptPet();
     const { petId } = useParams();

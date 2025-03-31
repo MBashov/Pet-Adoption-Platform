@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -7,17 +9,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { useIsOwner } from "../../hooks/useIsOwner";
-import { useDeletePet, usePet, } from "../../api/petsApi";
+import { useDeletePet, usePet } from "../../api/petsApi";
+import { getAll } from "../../api/adoptApi";
 import Error from "../error/Error";
 import useAuthRequest from "../../hooks/useAuthRequest";
-import { getAll } from "../../api/adoptApi";
-import { useEffect, useState } from "react";
 import Spinner from "../spinner/Spinner";
-import { toast } from "react-toastify";
 
 export default function PetDetails() {
     const navigate = useNavigate();
-    const { del } = useDeletePet();
+    const { deletePet } = useDeletePet(); 
     const { isAuthenticated, userId } = useAuthRequest();
     const { petId } = useParams();
     const { pet, isLoading, error, retryFn } = usePet(petId);
@@ -40,7 +40,7 @@ export default function PetDetails() {
     }, [petId, userId]);
 
 
-    const petDeleteHandler = async () => {
+    const deletePetHandler = async () => {
 
         const confirm = window.confirm('Are you sure you want to delete this pet?');
 
@@ -48,7 +48,7 @@ export default function PetDetails() {
             return;
         }
         try {
-            await del(petId);
+            await deletePet(petId);
         } catch (err) {
             toast.error(err.message);
         }
@@ -122,7 +122,7 @@ export default function PetDetails() {
                                         Edit Pet
                                     </Link>
                                     <button
-                                        onClick={petDeleteHandler}
+                                        onClick={deletePetHandler}
                                         className="px-6 py-2 bg-green-500 text-white rounded-3xl hover:bg-red-600 transition"
                                     >
                                         Delete

@@ -11,9 +11,6 @@ export default function Profile() {
 
     const { pets, isLoading } = useUserPets();
     const { adoptApplications } = useUserApplications(userId);
-    console.log(adoptApplications);
-
-
 
     if (isLoading) {
         return <Spinner />

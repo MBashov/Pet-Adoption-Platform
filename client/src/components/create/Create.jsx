@@ -1,10 +1,9 @@
 import { useActionState, useState } from "react";
 import { useNavigate } from "react-router";
-
-import { useCreatePet } from "../../api/petsApi";
-import Error from "../error/Error";
-import Spinner from "../spinner/Spinner";
 import { toast } from "react-toastify";
+
+import { useCreatePet,  } from "../../api/petsApi";
+import Spinner from "../spinner/Spinner";
 
 
 export default function CreatePet() {
