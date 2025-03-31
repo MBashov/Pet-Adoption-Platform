@@ -9,6 +9,7 @@ import Spinner from "../spinner/Spinner";
 export default function CreatePet() {
     const navigate = useNavigate();
     const { create, isLoading } = useCreatePet();
+    const [petType, setPetType] = useState('');
     const [imageUrls, setImageUrls] = useState(['']);
 
     const createHandler = async (_, formData) => {
@@ -31,6 +32,10 @@ export default function CreatePet() {
         }
     }
 
+    const handleChange = (e) => {
+        setPetType(e.target.value)
+    };
+
     const addImageField = () => {
         if (imageUrls.length >= 5) return;
         setImageUrls(prev => [...prev, ""]);
@@ -51,8 +56,8 @@ export default function CreatePet() {
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (
-        <section id="create-pet" className="py-12 bg-gray-200 flex justify-center">
-            <form action={formAction} className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
+        <section id="create-pet" className="py-12 bg-gray-200 flex justify-center"> 
+            <form action={formAction} className="max-w-lg md:w-1/2 p-8 shadow-2xl rounded-3xl bg-gray-100">
                 <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Add a New Pet</h1>
 
                 <label htmlFor="name" className="block text-lg font-semibold text-gray-700">Pet Name:</label>
@@ -71,6 +76,8 @@ export default function CreatePet() {
                     name="type"
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
+                    value={petType}
+                    onChange={handleChange}
                 >
                     <option value="" disabled>Select a Pet Type...</option>
                     <option value="Dog">Dog</option>

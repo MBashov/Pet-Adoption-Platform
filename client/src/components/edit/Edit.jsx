@@ -81,10 +81,8 @@ export default function EditPet() {
     return (
         <section id="edit-pet" className="py-12 bg-gray-200 flex justify-center">
             {pet ? (
-                <form action={formAction} className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
+                <form action={formAction} className="max-w-lg md:w-1/2 p-8 shadow-2xl rounded-3xl bg-gray-100">
                     <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Edit Pet</h1>
-
-                    {/* {!isOwner && <Navigate to={'/404'} />} */}
 
                     <label htmlFor="name" className="block text-lg font-semibold text-gray-700">Pet Name:</label>
                     <input
