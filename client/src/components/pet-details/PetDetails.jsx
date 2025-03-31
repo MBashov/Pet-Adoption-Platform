@@ -14,30 +14,38 @@ import { getAll } from "../../api/adoptApi";
 import Error from "../error/Error";
 import useAuthRequest from "../../hooks/useAuthRequest";
 import Spinner from "../spinner/Spinner";
+import { checkAdoptionStatus } from "../../utils/checkAdoptionStatus";
 
 export default function PetDetails() {
     const navigate = useNavigate();
-    const { deletePet } = useDeletePet(); 
+    const { deletePet } = useDeletePet();
     const { isAuthenticated, userId } = useAuthRequest();
     const { petId } = useParams();
     const { pet, isLoading, error, retryFn } = usePet(petId);
     const { isOwner } = useIsOwner(pet);
-    const [hasAdopted, setHasAdopted] = useState([]);
-    
-    useEffect(() => {
+    const [hasAdopted, setHasAdopted] = useState(false);
 
-        const checkAdoptionStatus = async () => {
-            const allApplicants = await getAll();
-            const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
+    checkAdoptionStatus(petId, userId)
+        .then(res => {
+            console.log(res);
+            setHasAdopted(res);
+        });
 
-            setHasAdopted(userHasAdopted);
-        }
 
-        if (userId && petId) {
-            checkAdoptionStatus();
-        }
+    // useEffect(() => {
 
-    }, [petId, userId]);
+    //     const checkAdoptionStatus = async () => {
+    //         const allApplicants = await getAll();
+    //         const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
+
+    //         setHasAdopted(userHasAdopted);
+    //     }
+
+    //     if (userId && petId) {
+    //         checkAdoptionStatus();
+    //     }
+
+    // }, [petId, userId]);
 
 
     const deletePetHandler = async () => {
@@ -59,9 +67,9 @@ export default function PetDetails() {
     if (isLoading) {
         return <Spinner />
     }
-    
+
     if (error) {
-        return <Error message={error.message} retry={retryFn}/>
+        return <Error message={error.message} retry={retryFn} />
     }
 
     return (
