@@ -5,6 +5,7 @@ import { useEditPet, usePet } from "../../api/petsApi";
 import useAuthRequest from "../../hooks/useAuthRequest";
 import Spinner from "../spinner/Spinner";
 import Error from "../error/Error";
+import NotFound from "../404/404";
 
 export default function EditPet() {
 
@@ -54,9 +55,11 @@ export default function EditPet() {
         return <Spinner />
     }
 
-    // if(!isOwner) {
-    //     return navigate('/404');
-    // }
+    if(!isOwner) {
+        return <NotFound />;
+    }
+    console.log(isOwner);
+    
 
     const addImageField = () => {
         if (imageUrls.length >= 5) return;
@@ -81,7 +84,7 @@ export default function EditPet() {
                 <form action={formAction} className="w-96 p-6 shadow-lg rounded-lg bg-gray-100">
                     <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Edit Pet</h1>
 
-                    {!isOwner && <Navigate to={'/404'} />}
+                    {/* {!isOwner && <Navigate to={'/404'} />} */}
 
                     <label htmlFor="name" className="block text-lg font-semibold text-gray-700">Pet Name:</label>
                     <input
