@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useCreatePet } from "../../api/petsApi";
 import Error from "../error/Error";
 import Spinner from "../spinner/Spinner";
+import { toast } from "react-toastify";
 
 
 export default function CreatePet() {
@@ -28,12 +29,12 @@ export default function CreatePet() {
             navigate('/pets');
 
         } catch (err) {
-            <Error message={err.message} />
+            toast.error(err.message);
         }
     }
 
-    const handleChange = (e) => {
-        setPetType(e.target.value)
+    const handleTypeChange = (e) => {
+        setPetType(e.target.value);
     };
 
     const addImageField = () => {
@@ -77,7 +78,7 @@ export default function CreatePet() {
                     className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     required
                     value={petType}
-                    onChange={handleChange}
+                    onChange={handleTypeChange}
                 >
                     <option value="" disabled>Select a Pet Type...</option>
                     <option value="Dog">Dog</option>

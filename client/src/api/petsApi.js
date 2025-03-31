@@ -84,7 +84,6 @@ export const useLatestPets = () => {
     return { pets, isLoading, error, retryFn: fetchPets }
 };
 
-
 export const usePet = (petId) => {
     const [pet, setPet] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -118,7 +117,6 @@ export const usePet = (petId) => {
 
     return { pet, isLoading, error, retryFn: ref.current };
 };
-
 
 export const useCreatePet = () => {
 
