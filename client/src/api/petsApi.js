@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import request from "../utils/request";
 import useAuthRequest from "../hooks/useAuthRequest";
@@ -11,7 +11,7 @@ export const usePets = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
+    const fetchPets = () => {
 
         const controller = new AbortController();
 
@@ -20,7 +20,10 @@ export const usePets = () => {
         });
 
         setIsLoading(true);
-        request.get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
+        setError(null);
+
+        request
+            .get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
             .then((result) => {
                 setPets(result);
             })
@@ -32,10 +35,13 @@ export const usePets = () => {
             .finally(() => setIsLoading(false));
 
         return () => controller.abort();
+    }
 
+    useEffect(() => {
+        fetchPets()
     }, []);
 
-    return { pets, isLoading, error, }
+    return { pets, isLoading, error, retryFn: fetchPets }
 };
 
 export const useLatestPets = () => {
@@ -43,7 +49,8 @@ export const useLatestPets = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
+    const fetchPets = () => {
+
         const controller = new AbortController();
 
         const searchParams = new URLSearchParams({
@@ -53,8 +60,10 @@ export const useLatestPets = () => {
         });
 
         setIsLoading(true);
+        setError(null);
 
-        request.get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
+        request
+            .get(`${baseUrl}?${searchParams.toString()}`, null, { signal: controller.signal })
             .then((result) => {
                 setPets(result);
             })
@@ -66,24 +75,32 @@ export const useLatestPets = () => {
             .finally(() => setIsLoading(false));
 
         return () => controller.abort();
+    }
+
+    useEffect(() => {
+        fetchPets();
     }, []);
 
-    return { pets, isLoading, error }
+    return { pets, isLoading, error, retryFn: fetchPets }
 };
+
 
 export const usePet = (petId) => {
     const [pet, setPet] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const ref = useRef(null);
 
-    useEffect(() => {
+    const fetchPet = useCallback(() => {
+        if (!petId) return;
+
         const controller = new AbortController();
         setIsLoading(true);
+        setError(null);
 
-        request.get(`${baseUrl}/${petId}`, null, { signal: controller.signal })
-            .then((result) => {
-                setPet(result);
-            })
+        request
+            .get(`${baseUrl}/${petId}`, null, { signal: controller.signal })
+            .then((result) => setPet(result))
             .catch((err) => {
                 if (err.name !== 'AbortError') {
                     setError(err);
@@ -92,11 +109,16 @@ export const usePet = (petId) => {
             .finally(() => setIsLoading(false));
 
         return () => controller.abort();
-
     }, [petId]);
 
-    return { pet, isLoading, error }
+    useEffect(() => {
+        ref.current = fetchPet;
+        fetchPet();
+    }, [fetchPet]);
+
+    return { pet, isLoading, error, retryFn: ref.current };
 };
+
 
 export const useCreatePet = () => {
 
@@ -162,6 +184,9 @@ export const useUserPets = () => {
         request.get(`${baseUrl}?${searchParams.toString()}`)
             .then((result) => {
                 setPets(result);
+            })
+            .catch((err) => {
+                setError(err.message);
             })
             .finally(setIsLoading(false));
     }, [userId]);

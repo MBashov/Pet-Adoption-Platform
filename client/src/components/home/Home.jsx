@@ -10,7 +10,9 @@ import Error from '../error/Error';
 
 export default function Home() {
 
-    const { pets, isLoading, error } = useLatestPets();
+    const { pets, isLoading, error, retryFn } = useLatestPets();
+    console.log(error);
+    
 
     return (
         <section className="relative bg-gray-100">
@@ -80,7 +82,7 @@ export default function Home() {
                     {isLoading ? (
                         <Spinner />
                     ) : error ? (
-                        <Error />
+                        <Error message={error.message} retry={retryFn}/>
                     ) : pets.length === 0 ? (
                         <p className="no-articles text-center text-3xl text-center mb-8 font-serif font-bold text-blue-500">
                             No pets available for adoption yet

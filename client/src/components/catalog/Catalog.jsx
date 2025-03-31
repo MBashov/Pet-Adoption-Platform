@@ -6,14 +6,14 @@ import Spinner from "../spinner/Spinner";
 
 export default function Catalog() {
 
-    const { pets, isLoading, error } = usePets();
+    const { pets, isLoading, error, retryFn} = usePets();
    
     if (isLoading) {
         return <Spinner />
     }
-
+    
     if (error) {
-        return <Error />
+        return <Error message={error.message} retry={retryFn}/>
     }
 
     return (

@@ -13,13 +13,14 @@ import useAuthRequest from "../../hooks/useAuthRequest";
 import { getAll } from "../../api/adoptApi";
 import { useEffect, useState } from "react";
 import Spinner from "../spinner/Spinner";
+import { toast } from "react-toastify";
 
 export default function PetDetails() {
     const navigate = useNavigate();
     const { del } = useDeletePet();
     const { isAuthenticated, userId } = useAuthRequest();
     const { petId } = useParams();
-    const { pet, isLoading, error } = usePet(petId);
+    const { pet, isLoading, error, retryFn } = usePet(petId);
     const { isOwner } = useIsOwner(pet);
     const [hasAdopted, setHasAdopted] = useState([]);
     
@@ -49,7 +50,7 @@ export default function PetDetails() {
         try {
             await del(petId);
         } catch (err) {
-            <Error message={err.message} />
+            toast.error(err.message);
         }
 
         navigate('/pets')
@@ -58,9 +59,9 @@ export default function PetDetails() {
     if (isLoading) {
         return <Spinner />
     }
-
+    
     if (error) {
-        return <Error />
+        return <Error message={error.message} retry={retryFn}/>
     }
 
     return (
