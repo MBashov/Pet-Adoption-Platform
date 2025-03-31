@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 
@@ -14,7 +14,6 @@ import { getAll } from "../../api/adoptApi";
 import Error from "../error/Error";
 import useAuthRequest from "../../hooks/useAuthRequest";
 import Spinner from "../spinner/Spinner";
-import { checkAdoptionStatus } from "../../utils/checkAdoptionStatus";
 
 export default function PetDetails() {
     const navigate = useNavigate();
@@ -25,43 +24,41 @@ export default function PetDetails() {
     const { isOwner } = useIsOwner(pet);
     const [hasAdopted, setHasAdopted] = useState(false);
 
-    checkAdoptionStatus(petId, userId)
-        .then(res => {
-            console.log(res);
-            setHasAdopted(res);
-        });
+
+    const checkAdoptionStatus = useCallback(async () => {
+        if (!petId || !userId) return;
+
+        try {
+            const allApplicants = await getAll(); //TODO Ideally, fetch only the current user's adoption requests from the API.
+            const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
+            setHasAdopted(userHasAdopted);
+
+        } catch (err) {
+            toast.error(err.message);
+        }
+
+    }, [petId, userId])
 
 
-    // useEffect(() => {
-
-    //     const checkAdoptionStatus = async () => {
-    //         const allApplicants = await getAll();
-    //         const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
-
-    //         setHasAdopted(userHasAdopted);
-    //     }
-
-    //     if (userId && petId) {
-    //         checkAdoptionStatus();
-    //     }
-
-    // }, [petId, userId]);
+    useEffect(() => {
+        checkAdoptionStatus();
+    }, [checkAdoptionStatus]);
 
 
     const deletePetHandler = async () => {
 
-        const confirm = window.confirm('Are you sure you want to delete this pet?');
+        const confirm = window.confirm(`Are you sure you want to delete ${pet.name}?`);
 
         if (!confirm) {
             return;
         }
         try {
             await deletePet(petId);
+            navigate('/pets')
         } catch (err) {
             toast.error(err.message);
         }
 
-        navigate('/pets')
     }
 
     if (isLoading) {
@@ -71,7 +68,7 @@ export default function PetDetails() {
     if (error) {
         return <Error message={error.message} retry={retryFn} />
     }
-
+    <img src={pet.imageUrls} alt={pet.name} className="w-full h-full object-cover" />
     return (
         <section className="py-12 bg-gray-100 flex justify-center relative">
             <div className="max-w-4xl w-full bg-gray-120 shadow-lg rounded-lg p-8 flex relative flex-col md:flex-row">
@@ -89,17 +86,13 @@ export default function PetDetails() {
                         modules={[Navigation, Pagination]}
                         className="h-full"
                     >
-                        {pet.imageUrls?.length > 0 ? (
+                        {pet?.imageUrls &&
                             pet.imageUrls.map((imgSrc, index) => (
                                 <SwiperSlide key={index}>
                                     <img src={imgSrc} alt={`${pet.name} ${index + 1}`} className="w-full h-full object-cover" />
                                 </SwiperSlide>
                             ))
-                        ) : (
-                            <SwiperSlide>
-                                <img src={pet.imageUrls} alt={pet.name} className="w-full h-full object-cover" />
-                            </SwiperSlide>
-                        )}
+                        }
                     </Swiper>
                 </div>
 

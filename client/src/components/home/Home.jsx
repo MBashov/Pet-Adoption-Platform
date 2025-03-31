@@ -11,8 +11,6 @@ import Error from '../error/Error';
 export default function Home() {
 
     const { pets, isLoading, error, retryFn } = useLatestPets();
-    console.log(error);
-    
 
     return (
         <section className="relative bg-gray-100">
