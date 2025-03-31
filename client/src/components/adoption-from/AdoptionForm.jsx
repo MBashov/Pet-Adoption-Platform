@@ -1,4 +1,4 @@
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 
 import { getAll, useAdoptPet } from "../../api/adoptApi";

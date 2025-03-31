@@ -6,8 +6,9 @@ export default function NotFound() {
             className="flex flex-col items-center justify-center h-screen bg-gray-100 text-center"
             style={{
                 backgroundImage: "url('/images/sad-dog.jpg')",
-                backgroundSize: 'cover',
+                backgroundSize: 'contain',
                 backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
             }}
         >
             <h1 className="text-9xl font-extrabold text-gray-100">404</h1>

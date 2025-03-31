@@ -56,7 +56,7 @@ export default function CreatePet() {
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (
-        <section id="create-pet" className="py-12 bg-gray-200 flex justify-center"> 
+        <section id="create-pet" className="py-12 bg-gray-100 flex justify-center"> 
             <form action={formAction} className="max-w-lg md:w-1/2 p-8 shadow-2xl rounded-3xl bg-gray-100">
                 <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Add a New Pet</h1>
 
