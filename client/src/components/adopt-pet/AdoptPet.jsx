@@ -1,33 +1,29 @@
 import { useActionState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-
-import { getAll, useAdoptPet } from "../../api/adoptApi";
 import { toast } from "react-toastify";
+
+import { useAdoptPet, useCheckIfAdopted } from "../../api/adoptApi";
 import { usePet } from "../../api/petsApi";
 import useAuthRequest from "../../hooks/useAuthRequest";
-
+import Spinner from "../spinner/Spinner";
 
 export default function AdoptPet() {
     const navigate = useNavigate();
     const { adopt } = useAdoptPet();
     const { petId } = useParams();
-    const { pet } = usePet(petId);
+    const { pet } = usePet(petId);  
     const { userId } = useAuthRequest();
+    const { isAdopted, isLoading } = useCheckIfAdopted(userId, petId);
+    const petName = pet?.name;
 
     useEffect(() => {
-        const checkAdoptionStatus = async () => {
 
-            const allApplicants = await getAll();
-            const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
+        if (isAdopted) {
+            toast.info(`You've already applied to adopt ${petName}. Thank you for your interest!`);
+            return navigate('/');
+        }
 
-            if (userHasAdopted) {
-                return navigate('/');
-            }
-        };
-
-        checkAdoptionStatus();
-
-    }, [petId, userId, navigate]);
+    }, [isAdopted, navigate, petName]);
 
     const adoptHandler = async (_, formData) => {
         const userData = Object.fromEntries(formData);
@@ -43,6 +39,10 @@ export default function AdoptPet() {
     }
 
     const [_, formAction, isPending] = useActionState(adoptHandler, { name: "", email: "", phone: "", reason: "", livingSituation: "", });
+
+    if (isLoading || !petName) {
+        return <Spinner />;  
+    }
 
     return (
         <section className="min-h-screen flex items-center justify-center bg-gray-100 p-6">

@@ -28,11 +28,6 @@ export const useAdoptPet = () => {
     }
 };
 
-
-export const getAll = () => {
-    return request.get(baseUrl);
-}
-
 export const useCheckIfAdopted = (userId, petId) => {
     const [isAdopted, setIsAdopted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
