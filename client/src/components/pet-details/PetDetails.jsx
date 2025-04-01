@@ -1,5 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router";
-import { toast } from "react-toastify";
+import { Link, useParams } from "react-router";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -15,30 +14,12 @@ import useAuthRequest from "../../hooks/useAuthRequest";
 import Spinner from "../spinner/Spinner";
 
 export default function PetDetails() {
-    const navigate = useNavigate();
     const { deletePet } = useDeletePet();
     const { isAuthenticated, userId } = useAuthRequest();
     const { petId } = useParams();
     const { pet, isLoading, error, retryFn } = usePet(petId);
     const { isOwner } = useIsOwner(pet);
     const { isAdopted, isLoading: isPending } = useCheckIfAdopted(userId, petId);
-
-
-    const deletePetHandler = async () => {
-
-        const confirm = window.confirm(`Are you sure you want to delete ${pet.name}?`);
-
-        if (!confirm) {
-            return;
-        }
-        try {
-            await deletePet(petId);
-            navigate('/pets')
-        } catch (err) {
-            toast.error(err.message);
-        }
-
-    }
 
     if (isLoading) {
         return <Spinner />
@@ -102,7 +83,7 @@ export default function PetDetails() {
                                         Edit Pet
                                     </Link>
                                     <button
-                                        onClick={deletePetHandler}
+                                        onClick={() => deletePet(petId, pet.name)}
                                         className="px-6 py-2 bg-green-500 text-white rounded-3xl hover:bg-red-600 transition"
                                     >
                                         Delete

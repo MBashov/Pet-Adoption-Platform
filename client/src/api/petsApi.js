@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import request from "../utils/request";
 import useAuthRequest from "../hooks/useAuthRequest";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const baseUrl = 'http://localhost:3030/data/pets';
 
@@ -157,8 +159,22 @@ export const useEditPet = () => {
 export const useDeletePet = () => {
 
     const { authRequest } = useAuthRequest();
+    const navigate = useNavigate();
 
-    const deletePet = (petId) => authRequest.delete(`${baseUrl}/${petId}`);
+       const deletePet = async (petId, petName) => {
+    
+            const confirm = window.confirm(`Are you sure you want to delete ${petName}?`);
+    
+            if (!confirm) {
+                return;
+            }
+            try {
+                await authRequest.delete(`${baseUrl}/${petId}`);
+                navigate('/pets');
+            } catch (err) {
+                toast.error(err.message);
+            }
+        }
 
     return {
         deletePet,
