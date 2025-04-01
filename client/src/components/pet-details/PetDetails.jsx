@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 
@@ -10,7 +9,7 @@ import "swiper/css/pagination";
 
 import { useIsOwner } from "../../hooks/useIsOwner";
 import { useDeletePet, usePet } from "../../api/petsApi";
-import { getAll } from "../../api/adoptApi";
+import { useCheckIfAdopted } from "../../api/adoptApi";
 import Error from "../error/Error";
 import useAuthRequest from "../../hooks/useAuthRequest";
 import Spinner from "../spinner/Spinner";
@@ -22,27 +21,7 @@ export default function PetDetails() {
     const { petId } = useParams();
     const { pet, isLoading, error, retryFn } = usePet(petId);
     const { isOwner } = useIsOwner(pet);
-    const [hasAdopted, setHasAdopted] = useState(false);
-
-
-    const checkAdoptionStatus = useCallback(async () => {
-        if (!petId || !userId) return;
-
-        try {
-            const allApplicants = await getAll(); //TODO Ideally, fetch only the current user's adoption requests from the API.
-            const userHasAdopted = allApplicants.some(app => app._ownerId === userId && app.petId === petId);
-            setHasAdopted(userHasAdopted);
-
-        } catch (err) {
-            toast.error(err.message);
-        }
-
-    }, [petId, userId])
-
-
-    useEffect(() => {
-        checkAdoptionStatus();
-    }, [checkAdoptionStatus]);
+    const { isAdopted, isLoading: isPending } = useCheckIfAdopted(userId, petId);
 
 
     const deletePetHandler = async () => {
@@ -68,7 +47,7 @@ export default function PetDetails() {
     if (error) {
         return <Error message={error.message} retry={retryFn} />
     }
-    <img src={pet.imageUrls} alt={pet.name} className="w-full h-full object-cover" />
+
     return (
         <section className="py-12 bg-gray-100 flex justify-center relative">
             <div className="max-w-4xl w-full bg-gray-120 shadow-lg rounded-lg p-8 flex relative flex-col md:flex-row">
@@ -130,10 +109,12 @@ export default function PetDetails() {
                                     </button>
                                 </div>
                             ) : (
-                                hasAdopted ? (
+                                isAdopted ? (
                                     <p className="text-blue-500 mt-2 text-sm leading-relaxed font-medium tracking-wide text-justify shadow-lg rounded-lg p-2 bg-white">
                                         Your adoption request for {pet.name} is in progress!
                                     </p>
+                                ) : isPending ? (
+                                    <Spinner />
                                 ) : (
                                     <Link
                                         to={`/pets/${pet._id}/adopt`}
