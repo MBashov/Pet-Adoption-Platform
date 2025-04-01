@@ -161,13 +161,8 @@ export const useDeletePet = () => {
     const { authRequest } = useAuthRequest();
     const navigate = useNavigate();
 
-       const deletePet = async (petId, petName) => {
+       const deletePet = async (petId) => {
     
-            const confirm = window.confirm(`Are you sure you want to delete ${petName}?`);
-    
-            if (!confirm) {
-                return;
-            }
             try {
                 await authRequest.delete(`${baseUrl}/${petId}`);
                 navigate('/pets');

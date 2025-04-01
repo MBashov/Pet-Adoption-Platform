@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,6 +13,7 @@ import { useCheckIfAdopted } from "../../api/adoptApi";
 import Error from "../error/Error";
 import useAuthRequest from "../../hooks/useAuthRequest";
 import Spinner from "../spinner/Spinner";
+import DeleteModal from "../delete-modal/DeleteModal";
 
 export default function PetDetails() {
     const { deletePet } = useDeletePet();
@@ -20,6 +22,12 @@ export default function PetDetails() {
     const { pet, isLoading, error, retryFn } = usePet(petId);
     const { isOwner } = useIsOwner(pet);
     const { isAdopted, isLoading: isPending } = useCheckIfAdopted(userId, petId);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+    }
 
     if (isLoading) {
         return <Spinner />
@@ -83,7 +91,8 @@ export default function PetDetails() {
                                         Edit Pet
                                     </Link>
                                     <button
-                                        onClick={() => deletePet(petId, pet.name)}
+                                        // onClick={() => deletePet(petId, pet.name)}
+                                        onClick={() => setIsDeleteModalOpen(true)}
                                         className="px-6 py-2 bg-green-500 text-white rounded-3xl hover:bg-red-600 transition"
                                     >
                                         Delete
@@ -110,6 +119,12 @@ export default function PetDetails() {
                     <Link to="/pets" className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-3xl hover:bg-blue-600 w-34 transition">Back to Pets</Link>
                 </div>
             </div>
+            {isDeleteModalOpen && <DeleteModal
+                onClose={closeDeleteModal}
+                onDelete={() => deletePet(petId)}
+                petName={pet.name}
+
+            />}
         </section>
     );
 }
