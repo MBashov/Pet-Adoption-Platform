@@ -2,7 +2,7 @@ import { useActionState, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
-import { useCreatePet,  } from "../../api/petsApi";
+import { useCreatePet, } from "../../api/petsApi";
 import Spinner from "../spinner/Spinner";
 
 
@@ -27,7 +27,7 @@ export default function CreatePet() {
             await create(petData);
             navigate('/pets');
             toast.success(`Pet ${petData.name} was successfully created!`);
-            
+
         } catch (err) {
             toast.error(err.message);
         }
@@ -57,7 +57,7 @@ export default function CreatePet() {
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (
-        <section id="create-pet" className="py-12 bg-gray-100 flex justify-center"> 
+        <section id="create-pet" className="py-12 bg-gray-100 flex justify-center">
             <form action={formAction} className="max-w-lg md:w-1/2 p-8 shadow-2xl rounded-3xl bg-gray-100">
                 <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Add a New Pet</h1>
 
@@ -152,8 +152,8 @@ export default function CreatePet() {
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="w-full mt-6 px-4 py-2 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 transition">
-                    {isPending ? 'Creating...' : 'Create Pet'}
+                    className="w-full mt-6 px-4 py-2 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 transition flex justify-center items-center">
+                    {isPending ? <span className="mr-2">🚫</span> : 'Create Pet'}
                 </button>
             </form>
         </section>

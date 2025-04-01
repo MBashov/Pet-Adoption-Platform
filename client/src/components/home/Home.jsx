@@ -60,7 +60,7 @@ export default function Home() {
                         <SwiperSlide>
                             <div className="flex w-full h-[700px]">
                                 <div className="w-2/2">
-                                    <img src="/images/slide3.jpg" alt="Slide 3" className="w-full h-full object-cover" />
+                                    <img src="/images/slide3.webp" alt="Slide 3" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
                                     <h2 className="text-3xl font-bold">Every Life <span className="text-amber-500">Matters</span></h2>

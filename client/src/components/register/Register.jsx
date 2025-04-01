@@ -94,15 +94,20 @@ export default function Register() {
                     </div>
 
                     <div className="text-center">
-                        <input className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition cursor-pointer"
-                            type="submit" value={isPending ? 'Proccesing...' : 'Register'} disabled={isPending} />
+                        <button
+                            className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition cursor-pointer min-w-[120px] flex justify-center items-center"
+                            type="submit"
+                            disabled={isPending}
+                        >
+                            {isPending ? <span className="mr-2">🚫</span> : 'Register'}
+                        </button>
                     </div>
                 </form>
 
                 <p className="text-center text-gray-600 mt-4">
                     Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login here</Link>
                 </p>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 }

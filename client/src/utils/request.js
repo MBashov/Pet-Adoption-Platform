@@ -22,7 +22,7 @@ const request = async (method, url, data, options = {}) => {
 
     if (!responce.ok) {
         const error = await responce.json();
-
+        //TODO Logout and clear local storage if invalid access token
         throw error;
     }
 
