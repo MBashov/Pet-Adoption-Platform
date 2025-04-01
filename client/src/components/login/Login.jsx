@@ -26,6 +26,7 @@ export default function Login() {
             const authData = await login(email, password);
             authHandler(authData);
             navigate('/');
+            toast.success('Successful Login');
         } catch {
             seMismatch(true);
             toast.error('Email or password don\'t match');

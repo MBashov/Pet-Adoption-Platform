@@ -34,7 +34,7 @@ export default function Register() {
             const authData = await register(email, password);
             authHandler(authData);
             navigate('/');
-
+            toast.success('Successfully Registered');
         } catch (err) {
 
             if (err.code === 409) {

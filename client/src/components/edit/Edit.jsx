@@ -40,6 +40,7 @@ export default function EditPet() {
         try {
             await edit(petData, petId);
             navigate(`/pets/${petId}/details`);
+            toast.success(`Pet ${pet.name} was successfully edited!`);
         } catch (err) {
             toast.error(err.message);
         }

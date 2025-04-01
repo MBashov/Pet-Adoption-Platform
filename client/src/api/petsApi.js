@@ -166,6 +166,8 @@ export const useDeletePet = () => {
             try {
                 await authRequest.delete(`${baseUrl}/${petId}`);
                 navigate('/pets');
+                toast.success(`Pet was successfully deleted!`);
+
             } catch (err) {
                 toast.error(err.message);
             }

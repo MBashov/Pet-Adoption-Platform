@@ -26,7 +26,8 @@ export default function CreatePet() {
         try {
             await create(petData);
             navigate('/pets');
-
+            toast.success(`Pet ${petData.name} was successfully created!`);
+            
         } catch (err) {
             toast.error(err.message);
         }
