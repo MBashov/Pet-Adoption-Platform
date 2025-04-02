@@ -7,17 +7,21 @@ import { toast } from "react-toastify";
 
 const baseUrl = 'http://localhost:3030/data/pets';
 
+export const usePets = (currentPage, petsPerPage) => {
 
-export const usePets = () => {
     const [pets, setPets] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchPets = () => {
+    const skip = (currentPage - 1) * petsPerPage;
+
+    const fetchPets = useCallback(() => {
 
         const controller = new AbortController();
 
         const searchParams = new URLSearchParams({
+            offset: skip,
+            pageSize: petsPerPage,
             select: '_id,imageUrls,name,breed,age',
         });
 
@@ -37,12 +41,11 @@ export const usePets = () => {
             .finally(() => setIsLoading(false));
 
         return () => controller.abort();
-    }
+    }, [skip, petsPerPage])
 
     useEffect(() => {
         fetchPets()
-    }, []);
-
+    }, [fetchPets]);
     return { pets, isLoading, error, retryFn: fetchPets }
 };
 
@@ -161,17 +164,17 @@ export const useDeletePet = () => {
     const { authRequest } = useAuthRequest();
     const navigate = useNavigate();
 
-       const deletePet = async (petId) => {
-    
-            try {
-                await authRequest.delete(`${baseUrl}/${petId}`);
-                navigate('/pets');
-                toast.success(`Pet was successfully deleted!`);
+    const deletePet = async (petId) => {
 
-            } catch (err) {
-                toast.error(err.message);
-            }
+        try {
+            await authRequest.delete(`${baseUrl}/${petId}`);
+            navigate('/pets');
+            toast.success(`Pet was successfully deleted!`);
+
+        } catch (err) {
+            toast.error(err.message);
         }
+    }
 
     return {
         deletePet,
