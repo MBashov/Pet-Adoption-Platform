@@ -2,10 +2,10 @@ import { SiFacebook, SiInstagram, SiX, SiLinkedin } from "react-icons/si";
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-900 text-white py-6 w-full mt-auto">
+        <footer className="bg-gray-900 text-white py-3 mt-auto">
             <div className="container mx-auto text-center">
                 {/* Social Icons */}
-                <div className="flex justify-center space-x-4 mb-4">
+                <div className="flex justify-center space-x-4 mb-2">
                     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
                         <SiFacebook size={20} className="text-white" />
                     </a>
