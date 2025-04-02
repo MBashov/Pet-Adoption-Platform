@@ -8,11 +8,10 @@ import Spinner from "../spinner/Spinner";
 export default function Catalog() {
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [isLastPage, setIsLastPage] = useState(false);
     const petsPerPage = 4;
 
     const { pets, isLoading, error, retryFn } = usePets(currentPage, petsPerPage);
-
-    const [isLastPage, setIsLastPage] = useState(false);
 
     useEffect(() => {
         setIsLastPage(pets.length < petsPerPage);
@@ -42,7 +41,7 @@ export default function Catalog() {
                 }
             </div>
 
-            <div className="mt-35 flex justify-center items-center gap-4 mt-8">
+            {pets.length > 0 && <div className="mt-35 flex justify-center items-center gap-4 mt-8">
                 <button
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage(currentPage - 1)}
@@ -63,6 +62,7 @@ export default function Catalog() {
                     Next
                 </button>
             </div>
+            }
         </section>
     );
 }

@@ -20,12 +20,12 @@ export default function Header() {
                 <nav className="hidden md:flex items-center space-x-6 text-lg">
                     <NavLink to="/"
                         className={({ isActive, isPending }) =>
-                            `${isPending ? "text-white" : isActive ? "text-blue-400" : ""} hover:text-gray-300`}>
+                            `${isPending ? "text-white" : isActive ? "text-blue-400" : "text-white"} hover:text-gray-300`}>
                         Home
                     </NavLink>
                     <NavLink to="/pets"
                         className={({ isActive, isPending }) =>
-                            `${isPending ? "text-white" : isActive ? "text-blue-400" : ""} hover:text-gray-300`}>
+                            `${isPending ? "text-white" : isActive ? "text-blue-400" : "text-white"} hover:text-gray-300`}>
                         Available Pets
                     </NavLink>
 
@@ -33,13 +33,13 @@ export default function Header() {
                         <div className="flex items-center space-x-4">
                             <NavLink to="/add-pet"
                                 className={({ isActive, isPending }) =>
-                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : ""} hover:text-gray-300`}>
+                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : "text-white"} hover:text-gray-300`}>
                                 Add Pet
                             </NavLink>
 
                             <NavLink to="/profile"
                                 className={({ isActive, isPending }) =>
-                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : ""} hover:text-gray-300`}>
+                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : "text-white"} hover:text-gray-300`}>
                                 My Profile
                             </NavLink>
 
@@ -50,13 +50,13 @@ export default function Header() {
                         <div className="flex items-center space-x-4">
                             <NavLink to="/Login"
                                 className={({ isActive, isPending }) =>
-                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : ""} hover:text-gray-300`}>
+                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : "text-white"} hover:text-gray-300`}>
                                 Login
                             </NavLink>
 
                             <NavLink to="/register"
                                 className={({ isActive, isPending }) =>
-                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : ""} hover:text-gray-300`}>
+                                    `${isPending ? "text-white" : isActive ? "text-blue-400" : "text-white"} hover:text-gray-300`}>
                                 Register
                             </NavLink>
                         </div>

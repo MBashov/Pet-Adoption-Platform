@@ -181,17 +181,21 @@ export const useDeletePet = () => {
     }
 }
 
-export const useUserPets = () => {
+export const useUserPets = (currentPage, petsPerPage) => {
     const [pets, setPets] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const { userId } = useAuthRequest();
 
+    const skip = (currentPage - 1) * petsPerPage;
+
     useEffect(() => {
 
         const searchParams = new URLSearchParams({
             sortBy: '_createdOn desc',
-            where: `_ownerId="${userId}"`
+            where: `_ownerId="${userId}"`,
+            pageSize: petsPerPage,
+            offset: skip,
         });
 
         setIsLoading(true);
@@ -203,7 +207,7 @@ export const useUserPets = () => {
                 setError(err.message);
             })
             .finally(setIsLoading(false));
-    }, [userId]);
+    }, [userId, petsPerPage,skip]);
 
     return { pets, isLoading, error }
 }
