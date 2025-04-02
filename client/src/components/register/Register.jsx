@@ -47,13 +47,19 @@ export default function Register() {
     const [_, action, isPending] = useActionState(registerHandler, { email: '', password: '', confirmPassword: '' });
 
     return (
-        <section className="flex justify-center items-center min-h-screen bg-gray-200">
-            <div className="bg-white shadow-lg rounded-lg p-8 w-96">
+        <section className="flex justify-center items-center min-h-screen bg-gray-200"
+            style={{
+                backgroundImage: "url('/images/best3.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
+        >
+            <div className="shadow-lg rounded-lg p-8 w-96">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Register</h1>
 
                 <form action={action} id="register" className="space-y-4">
                     <div>
-                        <label htmlFor="email" className="block text-gray-700 font-semibold">Email:</label>
+                        <label htmlFor="email" className="block text-gray-900 font-semibold">Email:</label>
                         <input
                             type="email"
                             id="email"
@@ -68,7 +74,7 @@ export default function Register() {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-gray-700 font-semibold">Password:</label>
+                        <label htmlFor="password" className="block text-gray-900 font-semibold">Password:</label>
                         <input
                             type="password"
                             name="password"
@@ -81,7 +87,7 @@ export default function Register() {
                     </div>
 
                     <div>
-                        <label htmlFor="confirmPassword" className="block text-gray-700 font-semibold">Confirm Password:</label>
+                        <label htmlFor="confirmPassword" className="block text-gray-900 font-semibold">Confirm Password:</label>
                         <input
                             type="password"
                             name="confirmPassword"
@@ -104,7 +110,7 @@ export default function Register() {
                     </div>
                 </form>
 
-                <p className="text-center text-gray-600 mt-4">
+                <p className="text-center text-gray-900 mt-4">
                     Already have an account? <Link to="/login" className="text-blue-500 hover:underline">Login here</Link>
                 </p>
             </div >

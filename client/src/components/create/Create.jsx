@@ -57,25 +57,31 @@ export default function CreatePet() {
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (
-        <section id="create-pet" className="py-12 bg-gray-100 flex justify-center">
-            <form action={formAction} className="max-w-lg md:w-1/2 p-8 shadow-2xl rounded-3xl bg-gray-100">
+        <section id="create-pet" className="py-12 flex justify-center"
+        style={{
+            backgroundImage: "url('/images/best3.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}
+        >
+            <form action={formAction} className="max-w-lg md:w-1/2 p-8 shadow-2xl rounded-3xl">
                 <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Add a New Pet</h1>
 
-                <label htmlFor="name" className="block text-lg font-semibold text-gray-700">Pet Name:</label>
+                <label htmlFor="name" className="block text-lg font-semibold text-gray-900">Pet Name:</label>
                 <input
                     type="text"
                     id="name"
                     name="name"
                     placeholder="Enter pet name..."
-                    className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                 />
 
-                <label htmlFor="type" className="block text-lg font-semibold text-gray-700 mt-4">Pet Type:</label>
+                <label htmlFor="type" className="block text-lg font-semibold text-gray-900 mt-4">Pet Type:</label>
                 <select
                     id="type"
                     name="type"
-                    className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                     value={petType}
                     onChange={handleTypeChange}
@@ -89,37 +95,37 @@ export default function CreatePet() {
                     <option value="Other">Other</option>
                 </select>
 
-                <label htmlFor="breed" className="block text-lg font-semibold text-gray-700 mt-4">Breed:</label>
+                <label htmlFor="breed" className="block text-lg font-semibold text-gray-900 mt-4">Breed:</label>
                 <input
                     type="text"
                     id="breed"
                     name="breed"
                     placeholder="Enter pet breed..."
-                    className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                 />
 
-                <label htmlFor="age" className="block text-lg font-semibold text-gray-700 mt-4">Age:</label>
+                <label htmlFor="age" className="block text-lg font-semibold text-gray-900 mt-4">Age:</label>
                 <input
                     type="number"
                     id="age"
                     name="age"
                     min="0"
                     placeholder="Enter pet age..."
-                    className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                 />
 
-                <label htmlFor="description" className="block text-lg font-semibold text-gray-700 mt-4">Description:</label>
+                <label htmlFor="description" className="block text-lg font-semibold text-gray-900 mt-4">Description:</label>
                 <textarea
                     id="description"
                     name="description"
                     placeholder="Enter a short description..."
-                    className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
                 ></textarea>
 
-                <label className="block text-lg font-semibold text-gray-700 mt-4">Images: add up to 5 images</label>
+                <label className="block text-lg font-semibold text-gray-900 mt-4">Images: add up to 5 images</label>
 
                 {imageUrls.map((url, index) => (
                     <div key={index} className="flex items-center gap-2 mt-1">
@@ -128,7 +134,7 @@ export default function CreatePet() {
                             type="text"
                             value={url}
                             onChange={(e) => updateImageUrl(index, e.target.value)}
-                            className="w-full p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                             required
                         />
                         {imageUrls.length > 1 && (

@@ -14,7 +14,7 @@ export default function Catalog() {
     const petsPerPage = 4;
 
     const { pets, isLoading, error, retryFn } = usePets(currentPage, petsPerPage, selectedCategory);
-    
+
     useEffect(() => {
         setIsLastPage(pets.length < petsPerPage);
     }, [pets]);
@@ -28,7 +28,14 @@ export default function Catalog() {
     }
 
     return (
-        <section className="py-12 bg-grey-100 min-h-screen">
+        <section
+            className="py-12 min-h-screen"
+            style={{
+                backgroundImage: "url('/images/best3.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
+        >
             <div className="text-center mb-8">
                 <h1 className="text-4xl font-bold text-gray-800">Pets for Adoption</h1>
                 <div className="flex gap-2 justify-center mt-4">
@@ -36,8 +43,8 @@ export default function Catalog() {
                         <button
                             key={category}
                             className={`px-4 py-2 rounded-lg border 
-                                ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-800"
-                            }`}
+                                ${selectedCategory === category ? "bg-blue-500 text-white" : "bg-sky-200 text-gray-800"
+                                }`}
                             onClick={() => {
                                 setSelectedCategory(category)
                                 setCurrentPage(1);
@@ -54,7 +61,7 @@ export default function Catalog() {
                     ? pets.map((pet) => (
                         <PetTemplate key={pet._id} pet={pet} />
                     ))
-                    : <p className="text-xl text-blue-500 font-semibold pt-20">No pets available for adoption yet...</p>
+                    : <p className="text-xl text-gray-900 font-semibold pt-20">No pets available for adoption yet</p>
                 }
             </div>
 

@@ -24,7 +24,7 @@ export default function PetDetails() {
     const { isAdopted, isLoading: isPending } = useCheckIfAdopted(userId, petId);
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    
+
     const closeDeleteModal = () => {
         setIsDeleteModalOpen(false);
     }
@@ -38,8 +38,14 @@ export default function PetDetails() {
     }
 
     return (
-        <section className="py-12 bg-gray-100 flex justify-center relative">
-            <div className="max-w-4xl w-full bg-gray-120 shadow-lg rounded-lg p-8 flex relative flex-col md:flex-row">
+        <section className="py-12 flex justify-center relative"
+            style={{
+                backgroundImage: "url('/images/best3.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
+        >
+            <div className="max-w-4xl w-full shadow-lg rounded-lg p-8 flex relative flex-col md:flex-row">
                 {/* Small Images in Top Corner */}
                 <div className="absolute top-0 right-0 flex gap-3 p-4">
                     <img src="/images/icon1.png" alt="Small Image 1" className="w-16 h-16 rounded-full" />
@@ -65,16 +71,16 @@ export default function PetDetails() {
                 </div>
 
                 {/* Details Section */}
-                <div className="w-full md:w-1/2 p-6 flex flex-col justify-center bg-gray-100">
-                    <h2 className="text-3xl font-bold text-amber-600">{pet.name}</h2>
-                    <h6 className="text-lg text-gray-700">
-                        <span className="text-amber-600 font-semibold">Pet Type:</span> {pet.type}
+                <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
+                    <h2 className="text-3xl font-bold text-gray-900">{pet.name}</h2>
+                    <h6 className="text-lg text-gray-900 font-semibold">
+                        <span className="text-gray-900 font-semibold">Pet Type:</span> {pet.type}
                     </h6>
-                    <h6 className="text-lg text-gray-700 mt-2">
-                        <span className="text-amber-600 font-semibold">Breed:</span> {pet.breed}
+                    <h6 className="text-lg text-gray-900 font-semibold mt-2">
+                        <span className="text-gray-900 font-semibold">Breed:</span> {pet.breed}
                     </h6>
-                    <h6 className="text-lg text-gray-700">
-                        <span className="text-amber-600 font-semibold">Years:</span> {pet.age}
+                    <h6 className="text-lg text-gray-900 font-semibold">
+                        <span className="text-gray-900 font-semibold">Years:</span> {pet.age}
                     </h6>
                     <p className="text-gray-800 mt-2 text-sm leading-relaxed font-medium tracking-wide text-justify shadow-lg rounded-lg p-2 bg-white">
                         {pet.description}

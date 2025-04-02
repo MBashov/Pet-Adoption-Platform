@@ -11,7 +11,7 @@ export default function AdoptPet() {
     const navigate = useNavigate();
     const { adopt } = useAdoptPet();
     const { petId } = useParams();
-    const { pet } = usePet(petId);  
+    const { pet } = usePet(petId);
     const { userId } = useAuthRequest();
     const { isAdopted, isLoading } = useCheckIfAdopted(userId, petId);
     const petName = pet?.name;
@@ -41,57 +41,63 @@ export default function AdoptPet() {
     const [_, formAction, isPending] = useActionState(adoptHandler, { name: "", email: "", phone: "", reason: "", livingSituation: "", });
 
     if (isLoading || !petName) {
-        return <Spinner />;  
+        return <Spinner />;
     }
 
     return (
-        <section className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+        <section className="min-h-screen flex items-center justify-center p-6"
+            style={{
+                backgroundImage: "url('/images/best3.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
+        >
+            <div className="p-8 rounded-lg shadow-lg w-full max-w-2xl">
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-                    Apply to Adopt {pet.name}
+                    Apply to adopt {pet.name}
                 </h2>
                 <form action={formAction} className="space-y-4">
                     <div>
-                        <label className="block text-gray-700 font-medium">Full Name</label>
+                        <label className="block text-gray-900 font-medium">Full Name</label>
                         <input
                             type="text"
                             name="name"
                             required
-                            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-2 border border-gray-900 rounded-lg focus:ring-2 focus:ring-blue-300"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-medium">Email</label>
+                        <label className="block text-gray-900 font-medium">Email</label>
                         <input
                             type="email"
                             name="email"
                             required
-                            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-2 border border-gray-900 rounded-lg focus:ring-2 focus:ring-blue-300"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-medium">Phone Number</label>
+                        <label className="block text-gray-900 font-medium">Phone Number</label>
                         <input
                             type="tel"
                             name="phone"
                             required
-                            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-2 border border-gray-900 rounded-lg focus:ring-2 focus:ring-blue-300"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-medium">Why do you want to adopt?</label>
+                        <label className="block text-gray-900 font-medium">Why do you want to adopt?</label>
                         <textarea
                             name="reason"
                             required
-                            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-2 border border-gray-900 rounded-lg focus:ring-2 focus:ring-blue-300"
                         ></textarea>
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-medium">Living Situation</label>
+                        <label className="block text-gray-900 font-medium">Living Situation</label>
                         <select
                             name="livingSituation"
                             required
-                            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-2 border border-gray-900 rounded-lg focus:ring-2 focus:ring-blue-300"
                         >
                             <option value="">Select an option</option>
                             <option value="Apartment">Apartment</option>

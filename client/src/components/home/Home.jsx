@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation, Autoplay } from 'swiper/modules';
 
 import { useLatestPets } from '../../api/petsApi';
 import PetTemplate from '../catalog/pet-template/PetTemplate';
@@ -13,7 +13,7 @@ export default function Home() {
     const { pets, isLoading, error, retryFn } = useLatestPets();
 
     return (
-        <section className="relative bg-gray-100">
+        <section className="relative">
             {/* Sliding Section */}
             <div className="block mx-auto py-0.7 h-[775px] max-w-7xl">
                 <div className="block mx-auto py-10 max-w-7xl">
@@ -47,7 +47,7 @@ export default function Home() {
                         <SwiperSlide>
                             <div className="flex w-full h-[700px]">
                                 <div className="w-2/2">
-                                    <img src="/images/slide2.jpg" alt="Slide 2" className="w-full h-full object-cover" />
+                                    <img src="/images/slide2.webp" alt="Slide 2" className="w-full h-full object-cover" />
                                 </div>
                                 <div className="w-1/3 bg-gray-900 text-white flex flex-col justify-center px-10">
                                     <h2 className="text-3xl font-bold">Adopt <span className="text-amber-500">Today!</span></h2>
@@ -72,8 +72,14 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="py-12 bg-gray-200">
-                <h1 className="text-3xl text-center mb-8 font-serif font-bold text-gray-800">New Arrivals: <span className="text-blue-500">Ready to Adopt Pets</span></h1>
+            <div className="py-12"
+                 style={{
+                    backgroundImage: "url('/images/best3.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+                <h1 className="text-3xl text-center mb-8 font-serif font-bold text-gray-800">New Arrivals</h1>
 
                 <div className="flex justify-center gap-8 relative">
 

@@ -36,14 +36,20 @@ export default function Login() {
 
     const [_, action, isPending] = useActionState(loginHandler, { email: '', password: '' });
 
-    return (                
-        <section className="flex justify-center items-center min-h-screen bg-gray-200">
-            <div className="bg-white shadow-lg rounded-lg p-8 w-96">
+    return (
+        <section className="flex justify-center items-center min-h-screen"
+            style={{
+                backgroundImage: "url('/images/best3.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
+        >
+            <div className="shadow-lg rounded-lg mb-30 p-8 w-96">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Login</h1>
 
                 <form action={action} id="login" className="space-y-4">
                     <div>
-                        <label htmlFor="email" className="block text-gray-700 font-semibold">Email:</label>
+                        <label htmlFor="email" className="block text-gray-900 font-semibold">Email:</label>
                         <input
                             type="email"
                             id="email"
@@ -58,7 +64,7 @@ export default function Login() {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-gray-700 font-semibold">Password:</label>
+                        <label htmlFor="password" className="block text-gray-900 font-semibold">Password:</label>
                         <input
                             type="password"
                             name="password"
@@ -81,11 +87,8 @@ export default function Login() {
                     </div>
                 </form>
 
-                <p className="text-center text-gray-600 mt-4">
-                    Don&#39;t have an account?
-                    <Link to="/register" className="text-blue-500 hover:underline">
-                        Register here
-                    </Link>
+                <p className="text-center text-gray-900 mt-4">
+                    Don&#39;t have an account? <Link to="/register" className="text-blue-500 hover:underline">Register here</Link>
                 </p>
             </div>
         </section>

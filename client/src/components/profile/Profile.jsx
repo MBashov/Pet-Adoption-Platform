@@ -36,22 +36,28 @@ export default function Profile() {
 
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col flex-grow items-center p-6">
+        <div className="min-h-screen flex flex-col flex-grow items-center p-6"
+        style={{
+            backgroundImage: "url('/images/best3.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+        }}
+        >
 
             {/* Profile Hero Section */}
-            <section className="profile-hero w-full bg-white shadow-lg p-6 mb-6">
+            <section className="profile-hero w-full shadow-lg p-6 mb-6">
                 <div className="w-full flex flex-col items-center justify-center text-center mx-auto">
-                    <h2 className="text-2xl font-semibold text-gray-800">My Profile</h2>
-                    <p className="text-blue-500">
+                    <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
+                    <p className="text-blue-800">
                         <strong className="ml-5"> Welcome back, {email}</strong>
                     </p>
                 </div>
             </section>
 
-            <section className="created-pets w-full bg-white flex-grow shadow-lg p-6 mb-6">
+            <section className="created-pets w-full flex-grow shadow-lg p-6 mb-6">
                 <div className="container">
                     <div className="text-center mb-8">
-                        <h2 className="text-4xl font-bold text-blue-500">Pets You&#39;ve Added</h2>
+                        <h2 className="text-4xl font-bold text-gray-800">Pets You&#39;ve Added</h2>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8">
                         {errorPets ? (
@@ -63,7 +69,7 @@ export default function Profile() {
                                 <PetTemplate key={pet._id} pet={pet} />
                             ))
                         ) : (
-                            <p className="w-full text-xl text-blue-500 font-semibold pt-20 text-center">You haven&#39;t added any pets yet</p>
+                            <p className="w-full text-xl text-gray-800 font-semibold pt-20 text-center">You haven&#39;t added any pets yet</p>
                         )}
                     </div>
                 </div>
@@ -77,10 +83,10 @@ export default function Profile() {
                 }
             </section>
 
-            <section className="applied-pets w-full bg-white flex-grow shadow-lg p-6 mb-6">
+            <section className="applied-pets w-full flex-grow shadow-lg p-6 mb-6">
                 <div className="container">
                     <div className="text-center mb-8">
-                        <h2 className="text-4xl font-bold text-blue-500">You&#39;ve shown interest in adopting {adoptApplications.length === 1 ? 'this pet' : 'these pets'}</h2>
+                        <h2 className="text-4xl font-bold text-gray-800">You&#39;ve shown interest in adopting {adoptApplications.length === 1 ? 'this pet' : 'these pets'}</h2>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8">
                         <div >
@@ -94,7 +100,7 @@ export default function Profile() {
                                 <PetTemplate key={application._id} pet={application.pet} />
                             ))
                         ) : (
-                            <p className="w-full text-xl text-blue-500 font-semibold pt-20 text-center">You haven&#39;t applied to adopt any pets yet</p>
+                            <p className="w-full text-xl text-gray-800 font-semibold pt-20 text-center">You haven&#39;t applied to adopt any pets yet</p>
                         )}
                     </div>
                 </div>
