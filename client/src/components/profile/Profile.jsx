@@ -23,7 +23,7 @@ export default function Profile() {
                 <section className="profile-hero w-full bg-white shadow-lg p-6 mb-6">
                     <div className="w-full flex flex-col items-center justify-center text-center mx-auto">
                         <h2 className="text-2xl font-semibold text-gray-800">My Profile</h2>
-                        <p className="text-amber-600">
+                        <p className="text-blue-400">
                         <strong className="ml-5"> Welcome back, {email}</strong>
                         </p>
                     </div>
