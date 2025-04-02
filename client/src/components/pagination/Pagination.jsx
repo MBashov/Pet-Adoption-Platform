@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 export default function Pagination({ currentPage, setCurrentPage, isLastPage }) {
     return (
-        <div className="mt-35 flex justify-center items-center gap-4 mt-8">
+        <div className="mt-15 flex justify-center items-center gap-4">
             <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(currentPage - 1)}

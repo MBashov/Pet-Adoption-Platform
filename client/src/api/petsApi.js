@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const baseUrl = 'http://localhost:3030/data/pets';
 
-export const usePets = (currentPage, petsPerPage) => {
+export const usePets = (currentPage, petsPerPage, category) => {
 
     const [pets, setPets] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,8 +22,15 @@ export const usePets = (currentPage, petsPerPage) => {
         const searchParams = new URLSearchParams({
             offset: skip,
             pageSize: petsPerPage,
-            select: '_id,imageUrls,name,breed,age',
+            select: '_id,type,imageUrls,name,breed,age',
         });
+
+        if (category !== 'All') {
+            searchParams.append('where', `type="${category}"`);
+        }
+        if (category === 'others') {
+            searchParams
+        }
 
         setIsLoading(true);
         setError(null);
@@ -41,7 +48,7 @@ export const usePets = (currentPage, petsPerPage) => {
             .finally(() => setIsLoading(false));
 
         return () => controller.abort();
-    }, [skip, petsPerPage])
+    }, [skip, petsPerPage, category])
 
     useEffect(() => {
         fetchPets()

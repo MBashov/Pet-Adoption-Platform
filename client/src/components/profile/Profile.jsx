@@ -23,11 +23,15 @@ export default function Profile() {
     const { adoptApplications, isLoadingAppl, errorAppl, retryFnAppl } = useUserApplications(userId, currentPageAppl, petsPerPage);
 
     useEffect(() => {
-        setIsLastPagePets(pets.length < petsPerPage);
+        if (pets) {
+            setIsLastPagePets(pets.length < petsPerPage);
+        }
     }, [pets]);
 
     useEffect(() => {
-        setIsLastPageAppl(adoptApplications.length < petsPerPage);
+        if (adoptApplications) {
+            setIsLastPageAppl(adoptApplications.length < petsPerPage);
+        }
     }, [adoptApplications]);
 
 
@@ -38,7 +42,7 @@ export default function Profile() {
             <section className="profile-hero w-full bg-white shadow-lg p-6 mb-6">
                 <div className="w-full flex flex-col items-center justify-center text-center mx-auto">
                     <h2 className="text-2xl font-semibold text-gray-800">My Profile</h2>
-                    <p className="text-blue-400">
+                    <p className="text-blue-500">
                         <strong className="ml-5"> Welcome back, {email}</strong>
                     </p>
                 </div>
@@ -49,7 +53,7 @@ export default function Profile() {
                     <div className="text-center mb-8">
                         <h2 className="text-4xl font-bold text-blue-500">Pets You&#39;ve Added</h2>
                     </div>
-                    <div className="flex flex-wrap left gap-8">
+                    <div className="flex flex-wrap justify-center gap-8">
                         {errorPets ? (
                             <Error message={errorPets.message} retry={retryFnPets} />
                         ) : isLoadingPets ? (
@@ -59,7 +63,7 @@ export default function Profile() {
                                 <PetTemplate key={pet._id} pet={pet} />
                             ))
                         ) : (
-                            <p className="text-xl text-blue-500 font-semibold pt-20">You haven&#39;t added any pets yet</p>
+                            <p className="w-full text-xl text-blue-500 font-semibold pt-20 text-center">You haven&#39;t added any pets yet</p>
                         )}
                     </div>
                 </div>
@@ -78,8 +82,8 @@ export default function Profile() {
                     <div className="text-center mb-8">
                         <h2 className="text-4xl font-bold text-blue-500">You&#39;ve shown interest in adopting these pets</h2>
                     </div>
-                    <div className="flex flex-wrap left gap-8">
-                    <div >
+                    <div className="flex flex-wrap justify-center gap-8">
+                        <div >
                         </div>
                         {errorAppl ? (
                             <Error message={errorAppl.message} retry={retryFnAppl} />
@@ -90,7 +94,7 @@ export default function Profile() {
                                 <PetTemplate key={application._id} pet={application.pet} />
                             ))
                         ) : (
-                            <p className="text-xl text-blue-500 font-semibold pt-20">You haven&#39;t applied to adopt any pets yet</p>
+                            <p className="w-full text-xl text-blue-500 font-semibold pt-20 text-center">You haven&#39;t applied to adopt any pets yet</p>
                         )}
                     </div>
                 </div>
