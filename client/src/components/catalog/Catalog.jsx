@@ -8,7 +8,7 @@ import Pagination from "../pagination/Pagination";
 
 export default function Catalog() {
 
-    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedCategory, setSelectedCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
     const [isLastPage, setIsLastPage] = useState(false);
     const petsPerPage = 4;
@@ -43,7 +43,7 @@ export default function Catalog() {
                                 setCurrentPage(1);
                             }}
                         >
-                            {category === 'All'? category : category + 's'}
+                            {category === 'All' ? category : category === 'Fish' ? category + 'es' : category + 's'}
                         </button>
                     ))}
                 </div>

@@ -28,9 +28,6 @@ export const usePets = (currentPage, petsPerPage, category) => {
         if (category !== 'All') {
             searchParams.append('where', `type="${category}"`);
         }
-        if (category === 'others') {
-            searchParams
-        }
 
         setIsLoading(true);
         setError(null);

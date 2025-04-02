@@ -80,7 +80,7 @@ export default function Profile() {
             <section className="applied-pets w-full bg-white flex-grow shadow-lg p-6 mb-6">
                 <div className="container">
                     <div className="text-center mb-8">
-                        <h2 className="text-4xl font-bold text-blue-500">You&#39;ve shown interest in adopting these pets</h2>
+                        <h2 className="text-4xl font-bold text-blue-500">You&#39;ve shown interest in adopting {adoptApplications.length === 1 ? 'this pet' : 'these pets'}</h2>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8">
                         <div >
