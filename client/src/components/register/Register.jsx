@@ -47,7 +47,7 @@ export default function Register() {
     const [_, action, isPending] = useActionState(registerHandler, { email: '', password: '', confirmPassword: '' });
 
     return (
-        <section className="flex justify-center items-center min-h-screen bg-gray-200"
+        <section className="flex justify-center items-center min-h-screen"
             style={{
                 backgroundImage: "url('/images/best3.jpg')",
                 backgroundSize: "cover",

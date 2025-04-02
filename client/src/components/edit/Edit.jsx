@@ -84,7 +84,7 @@ export default function EditPet() {
 
 
     return (
-        <section id="edit-pet" className="py-12 flex justify-center"
+        <section className="py-12 flex justify-center"
         style={{
             backgroundImage: "url('/images/best3.jpg')",
             backgroundSize: "cover",

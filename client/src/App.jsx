@@ -18,6 +18,7 @@ import GuestGuard from './components/guards/guestGuard';
 import AdoptionSuccess from './components/adoption-succsess/AdoptionSuccess';
 import Profile from './components/profile/Profile';
 import AdoptPet from './components/adopt-pet/AdoptPet';
+import AdoptionProcess from './components/adoption-process/AdoptionProcess';
 
 function App() {
 
@@ -25,16 +26,17 @@ function App() {
         <UserProvider>
             <div className="flex flex-col min-h-screen">
                 <Header />
-                
+
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    
+
                     <Route path='/pets' element={<Catalog />} />
                     <Route path='/pets/:petId/details' element={<PetDetails />} />
+                    <Route path='/about' element={<AdoptionProcess />} />
                     <Route element={<AuthGuard />}>
                         <Route path='/add-pet' element={<CreatePet />} />
                         <Route path='/pets/:petId/edit' element={<EditPet />} />
-                        <Route path='/pets/:petId/adopt' element={<AdoptPet />} /> 
+                        <Route path='/pets/:petId/adopt' element={<AdoptPet />} />
                         <Route path='/succesfully-adopt' element={<AdoptionSuccess />} />
                         <Route path='/profile' element={<Profile />} />
                         <Route path='/logout' element={<Logout />} />
@@ -45,7 +47,7 @@ function App() {
                     </Route>
                     <Route path='*' element={<NotFound />} />
                 </Routes>
-                
+
                 <Footer />
 
                 <ToastContainer position="top-center" autoClose={2000} />

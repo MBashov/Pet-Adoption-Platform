@@ -57,7 +57,7 @@ export default function CreatePet() {
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (
-        <section id="create-pet" className="py-12 flex justify-center"
+        <section className="py-12 flex justify-center"
         style={{
             backgroundImage: "url('/images/best3.jpg')",
             backgroundSize: "cover",

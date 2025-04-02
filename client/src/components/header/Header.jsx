@@ -29,6 +29,12 @@ export default function Header() {
                         Available Pets
                     </NavLink>
 
+                    <NavLink to="/About"
+                        className={({ isActive, isPending }) =>
+                            `${isPending ? "text-white" : isActive ? "text-blue-400" : "text-white"} hover:text-gray-300`}>
+                        About
+                    </NavLink>
+
                     {isAuthenticated ? (
                         <div className="flex items-center space-x-4">
                             <NavLink to="/add-pet"
