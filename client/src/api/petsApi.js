@@ -189,7 +189,7 @@ export const useUserPets = (currentPage, petsPerPage) => {
 
     const skip = (currentPage - 1) * petsPerPage;
 
-    useEffect(() => {
+    const fetcUserPets = useCallback(() => {
 
         const searchParams = new URLSearchParams({
             sortBy: '_createdOn desc',
@@ -199,15 +199,21 @@ export const useUserPets = (currentPage, petsPerPage) => {
         });
 
         setIsLoading(true);
-        request.get(`${baseUrl}?${searchParams.toString()}`)
+        setError(null);
+        request
+            .get(`${baseUrl}?${searchParams.toString()}`)
             .then((result) => {
                 setPets(result);
             })
             .catch((err) => {
-                setError(err.message);
+                setError(err);
             })
-            .finally(setIsLoading(false));
-    }, [userId, petsPerPage,skip]);
+            .finally(() => setIsLoading(false));
+    }, [petsPerPage, skip, userId]);
 
-    return { pets, isLoading, error }
+    useEffect(() => {
+        fetcUserPets()
+    }, [fetcUserPets]);
+
+    return { pets, isLoading, error, retryFn: fetcUserPets }
 }

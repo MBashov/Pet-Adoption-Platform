@@ -6,25 +6,30 @@ import useAuthRequest from "../../hooks/useAuthRequest";
 import { useUserApplications } from "../../api/adoptApi";
 import { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
+import Error from "../error/Error";
 
 export default function Profile() {
     const { userId } = useAuthRequest();
     const { email } = useUserContext();
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [isLastPage, setIsLastPage] = useState(false);
+    const [currentPagePets, setCurrentPagePets] = useState(1);
+    const [isLastPagePets, setIsLastPagePets] = useState(false);
+    const [currentPageAppl, setCurrentPageAppl] = useState(1);
+    const [isLastPageAppl, setIsLastPageAppl] = useState(false);
     const petsPerPage = 4;
 
 
-    const { pets, isLoading } = useUserPets(currentPage, petsPerPage); //TODO Add Eror same as catalog
-    const { adoptApplications } = useUserApplications(userId);
+    const { pets, isLoading: isLoadingPets, error: errorPets, retryFn: retryFnPets } = useUserPets(currentPagePets, petsPerPage);
+    const { adoptApplications, isLoadingAppl, errorAppl, retryFnAppl } = useUserApplications(userId, currentPageAppl, petsPerPage);
+
     useEffect(() => {
-        setIsLastPage(pets.length < petsPerPage);
+        setIsLastPagePets(pets.length < petsPerPage);
     }, [pets]);
 
-    if (isLoading) {
-        return <Spinner />
-    }
+    useEffect(() => {
+        setIsLastPageAppl(adoptApplications.length < petsPerPage);
+    }, [adoptApplications]);
+
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col flex-grow items-center p-6">
@@ -41,38 +46,62 @@ export default function Profile() {
 
             <section className="created-pets w-full bg-white flex-grow shadow-lg p-6 mb-6">
                 <div className="container">
-                    <h3 className="text-3xl mb-2 font-bold text-gray-800">Your Added Pets</h3>
+                    <div className="text-center mb-8">
+                        <h2 className="text-4xl font-bold text-blue-500">Pets You&#39;ve Added</h2>
+                    </div>
                     <div className="flex flex-wrap left gap-8">
-                        {pets.length > 0
-                            ? pets.map(pet => (
+                        {errorPets ? (
+                            <Error message={errorPets.message} retry={retryFnPets} />
+                        ) : isLoadingPets ? (
+                            <Spinner />
+                        ) : pets.length > 0 ? (
+                            pets.map(pet => (
                                 <PetTemplate key={pet._id} pet={pet} />
                             ))
-                            : <p className="text-xl text-blue-500 font-semibold pt-20">You haven&#39;t added any pets yet</p>
-                        }
+                        ) : (
+                            <p className="text-xl text-blue-500 font-semibold pt-20">You haven&#39;t added any pets yet</p>
+                        )}
                     </div>
                 </div>
-                
+
                 {pets.length > 0 &&
                     <Pagination
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-                        isLastPage={isLastPage}
+                        currentPage={currentPagePets}
+                        setCurrentPage={setCurrentPagePets}
+                        isLastPage={isLastPagePets}
                     />
                 }
             </section>
 
             <section className="applied-pets w-full bg-white flex-grow shadow-lg p-6 mb-6">
                 <div className="container">
-                    <h3 className="text-3xl mb-2 font-bold text-gray-800">You have applied to adopt the following pets</h3>
+                    <div className="text-center mb-8">
+                        <h2 className="text-4xl font-bold text-blue-500">You&#39;ve shown interest in adopting these pets</h2>
+                    </div>
                     <div className="flex flex-wrap left gap-8">
-                        {adoptApplications.length > 0
-                            ? adoptApplications.map(application => (
+                    <div >
+                        </div>
+                        {errorAppl ? (
+                            <Error message={errorAppl.message} retry={retryFnAppl} />
+                        ) : isLoadingAppl ? (
+                            <Spinner />
+                        ) : adoptApplications.length > 0 ? (
+                            adoptApplications.map(application => (
                                 <PetTemplate key={application._id} pet={application.pet} />
                             ))
-                            : <p className="text-xl text-blue-500 font-semibold pt-20">You haven&#39;t applied to adopt any pets yet</p>
-                        }
+                        ) : (
+                            <p className="text-xl text-blue-500 font-semibold pt-20">You haven&#39;t applied to adopt any pets yet</p>
+                        )}
                     </div>
                 </div>
+
+                {adoptApplications.length > 0 &&
+                    <Pagination
+                        currentPage={currentPageAppl}
+                        setCurrentPage={setCurrentPageAppl}
+                        isLastPage={isLastPageAppl}
+                    />
+                }
             </section>
         </div>
     );

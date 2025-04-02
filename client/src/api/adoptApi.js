@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import useAuthRequest from "../hooks/useAuthRequest";
 import request from "../utils/request";
@@ -17,9 +17,7 @@ export const useAdoptPet = () => {
 
         try {
             return authRequest.post(baseUrl, { ...userData, petId });
-        } finally {
-            setIsLoading(false);
-        }
+        } finally { () => setIsLoading(false) };
     }
 
     return {
@@ -52,21 +50,45 @@ export const useCheckIfAdopted = (userId, petId) => {
     return { isAdopted, isLoading }
 }
 
-export const useUserApplications = (userId) => {
+export const useUserApplications = (userId, currentPage, petsPerPage) => {
 
     const [adoptApplications, setAdoptApplications] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    useEffect(() => {
+    const skip = (currentPage - 1) * petsPerPage;
+
+    const fetchUserAppl = useCallback(() => {
+
         const searchParams = new URLSearchParams({
             where: `_ownerId="${userId}"`,
+            pageSize: petsPerPage,
+            offset: skip,
             load: 'pet=petId:pets,'
         });
+
+        setIsLoading(true);
+        setError(null);
 
         request.get(`${baseUrl}?${searchParams.toString()}`)
             .then(result => {
                 setAdoptApplications(result);
             })
-    }, [userId]);
+            .catch((err) => {
+                setError(err);
+            })
+            .finally(() => setIsLoading(false));
 
-    return { adoptApplications }
+    }, [userId, skip, petsPerPage]);
+
+    useEffect(() => {
+        fetchUserAppl();
+    }, [fetchUserAppl]);
+
+    return {
+        adoptApplications,
+        isLoadingAppl: isLoading,
+        errorAppl: error,
+        retryFnAppl: fetchUserAppl
+    }
 }
