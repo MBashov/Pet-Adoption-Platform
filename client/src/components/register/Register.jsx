@@ -27,7 +27,7 @@ export default function Register() {
 
         if (password !== confirmPassword) {
             setPassMismatch(true);
-            return toast.error('Wrong passwords');
+            return toast.error('Passwords don\'t match');
         }
 
         try {

@@ -53,8 +53,8 @@ export default function Profile() {
                     </p>
                 </div>
             </section>
-
-            <section className="created-pets w-full flex-grow shadow-lg p-6 mb-6">
+            
+            <section className="created-pets w-full flex flex-col items-center justify-center text-center shadow-lg p-6 mb-6">
                 <div className="container">
                     <div className="text-center mb-8">
                         <h2 className="text-4xl font-bold text-gray-800">Pets You&#39;ve Added</h2>
@@ -83,7 +83,7 @@ export default function Profile() {
                 }
             </section>
 
-            <section className="applied-pets w-full flex-grow shadow-lg p-6 mb-6">
+            <section className="created-pets w-full flex flex-col items-center justify-center text-center shadow-lg p-6 mb-6">
                 <div className="container">
                     <div className="text-center mb-8">
                         <h2 className="text-4xl font-bold text-gray-800">You&#39;ve shown interest in adopting {adoptApplications.length === 1 ? 'this pet' : 'these pets'}</h2>
