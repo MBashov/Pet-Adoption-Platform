@@ -9,15 +9,23 @@ import Spinner from "../spinner/Spinner";
 export default function CreatePet() {
     const navigate = useNavigate();
     const { create, isLoading } = useCreatePet();
-    const [petType, setPetType] = useState('');
+    const [petData, setPetData] = useState({});
     const [imageUrls, setImageUrls] = useState(['']);
-
+    const [errors, setErrors] = useState({});
+    
     const createHandler = async (_, formData) => {
 
-        const petData = Object.fromEntries(formData);
-        petData.imageUrls = imageUrls
+        const formValues = Object.fromEntries(formData);
+        formValues.imageUrls = imageUrls
             .map(url => url.trim().replace(/^"|"$/g, ''))
             .filter(url => url !== '');
+
+        const validationErrors = validateAll(formValues);
+        if (Object.keys(validationErrors).length > 0) {
+            toast.warning('Please fix validation errors');
+            setPetData(formValues);
+            return;
+        }
 
         if (isLoading) {
             return <Spinner />
@@ -32,10 +40,6 @@ export default function CreatePet() {
             toast.error(err.message);
         }
     }
-
-    const handleTypeChange = (e) => {
-        setPetType(e.target.value);
-    };
 
     const addImageField = () => {
         if (imageUrls.length >= 5) return;
@@ -54,15 +58,78 @@ export default function CreatePet() {
         setImageUrls(prev => prev.filter((_, i) => i !== index));
     };
 
+    const handleBlur = (e) => {
+
+        const { name, value } = e.target;
+
+        let message = '';
+
+        if (name === 'name') {
+            if (value.length < 3 || value.length > 10) {
+                message = 'Name must be between 3 and 10 characters';
+            }
+        }
+
+        if (name === 'breed') {
+            if (value.length < 3 || value.length > 30) {
+                message = 'Breed must be between 3 and 30 characters';
+            }
+        }
+
+        if (name === 'age') {
+            if (Number(value) < 0 || !value.trim()) {
+                message = 'Age must be a valid non-negative number'
+            }
+        }
+
+        if (name === 'description') {
+            if (value.length < 10) {
+                message = 'Description must be at least 10 characters'
+            }
+        }
+
+        if (message) {
+            setErrors((prev) => ({ ...prev, [name]: message }));
+        } else {
+            setErrors((prev) => ({ ...prev, [name]: '' }));
+        }
+    };
+
+    const validateAll = (data) => {
+        const newErrors = {};
+
+        if (!data.name || data.name.length < 3 || data.name.length > 10) {
+            newErrors.name = 'Name must be between 3 and 10 characters';
+        }
+        const validTypes = ['Dog', 'Cat', 'Bird', 'Rabbit', 'Hamster', 'Other'];
+        if (!validTypes.includes(data.type)) {
+            newErrors.type = 'Pet type must be one of the following: Dog, Cat, Bird, Rabbit, Hamster, Other';
+        }       
+
+        if (!data.breed || data.breed.length < 3 || data.breed.length > 30) {
+            newErrors.breed = 'Breed must be between 3 and 30 characters';
+        }
+
+        if (!data.age || Number(data.age) < 0 || Number(data.age) > 20) {
+            newErrors.age = 'Age must be between 0 and 20 years';
+        }
+
+        if (!data.description || data.description.length < 10) {
+            newErrors.description = 'Description must be at least 10 characters';
+        }
+
+        return newErrors;
+    }
+
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
 
     return (
         <section className="py-12 flex justify-center"
-        style={{
-            backgroundImage: "url('/images/best3.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-        }}
+            style={{
+                backgroundImage: "url('/images/best3.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
         >
             <form action={formAction} className="max-w-lg md:w-1/2 p-8 shadow-2xl rounded-3xl">
                 <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Add a New Pet</h1>
@@ -73,9 +140,11 @@ export default function CreatePet() {
                     id="name"
                     name="name"
                     placeholder="Enter pet name..."
-                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-                    required
+                    defaultValue={petData.name}
+                    className={`w-full p-2 border ${errors['name'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                    onBlur={handleBlur}
                 />
+                {errors.name && <p className="text-red-900 text-sm mt-1">{errors.name}</p>}
 
                 <label htmlFor="type" className="block text-lg font-semibold text-gray-900 mt-4">Pet Type:</label>
                 <select
@@ -83,8 +152,7 @@ export default function CreatePet() {
                     name="type"
                     className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
                     required
-                    value={petType}
-                    onChange={handleTypeChange}
+                    defaultValue={petData.type || ''}
                 >
                     <option value="" disabled>Select a Pet Type...</option>
                     <option value="Dog">Dog</option>
@@ -101,9 +169,12 @@ export default function CreatePet() {
                     id="breed"
                     name="breed"
                     placeholder="Enter pet breed..."
-                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    defaultValue={petData.breed}
+                    className={`w-full p-2 border ${errors['breed'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                    onBlur={handleBlur}
                     required
                 />
+                {errors.breed && <p className="text-red-900 text-sm mt-1">{errors.breed}</p>}
 
                 <label htmlFor="age" className="block text-lg font-semibold text-gray-900 mt-4">Age:</label>
                 <input
@@ -112,18 +183,25 @@ export default function CreatePet() {
                     name="age"
                     min="0"
                     placeholder="Enter pet age..."
-                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    defaultValue={petData.age}
+                    className={`w-full p-2 border ${errors['age'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                    onBlur={handleBlur}
                     required
                 />
+                {errors.age && <p className="text-red-900 text-sm mt-1">{errors.age}</p>}
 
                 <label htmlFor="description" className="block text-lg font-semibold text-gray-900 mt-4">Description:</label>
                 <textarea
                     id="description"
                     name="description"
                     placeholder="Enter a short description..."
-                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    defaultValue={petData.description}
+                    className={`w-full p-2 border ${errors['description'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                    onBlur={handleBlur}
                     required
-                ></textarea>
+                >
+                </textarea>
+                    {errors.description && <p className="text-red-900 text-sm mt-1">{errors.description}</p>}
 
                 <label className="block text-lg font-semibold text-gray-900 mt-4">Images: add up to 5 images</label>
 

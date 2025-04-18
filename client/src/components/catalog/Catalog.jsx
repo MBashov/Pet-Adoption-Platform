@@ -39,7 +39,7 @@ export default function Catalog() {
             <div className="text-center mb-8">
                 <h1 className="text-4xl font-bold text-gray-800">Pets for Adoption</h1>
                 <div className="flex gap-2 justify-center mt-4">
-                    {["All", "Cat", "Dog", "Bird", "Rabbit", "Fish", "Other"].map(category => (
+                    {["All", "Cat", "Dog", "Bird", "Rabbit", "Hamster", "Other"].map(category => (
                         <button
                             key={category}
                             className={`px-4 py-2 rounded-lg border 
@@ -50,7 +50,7 @@ export default function Catalog() {
                                 setCurrentPage(1);
                             }}
                         >
-                            {category === 'All' ? category : category === 'Fish' ? category + 'es' : category + 's'}
+                            {category === 'All' ? category : category + 's'}
                         </button>
                     ))}
                 </div>

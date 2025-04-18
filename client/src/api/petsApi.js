@@ -134,7 +134,7 @@ export const useCreatePet = () => {
 
     const create = async (petData) => {
         setIsLoading(true);
-
+        
         try {
             return authRequest.post(baseUrl, petData);
         } finally {
