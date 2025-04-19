@@ -12,7 +12,7 @@ export default function CreatePet() {
     const [petData, setPetData] = useState({});
     const [imageUrls, setImageUrls] = useState(['']);
     const [errors, setErrors] = useState({});
-    
+
     const createHandler = async (_, formData) => {
 
         const formValues = Object.fromEntries(formData);
@@ -23,6 +23,7 @@ export default function CreatePet() {
         const validationErrors = validateAll(formValues);
         if (Object.keys(validationErrors).length > 0) {
             toast.warning('Please fix validation errors');
+            setErrors(validationErrors);
             setPetData(formValues);
             return;
         }
@@ -88,6 +89,12 @@ export default function CreatePet() {
             }
         }
 
+        if (name === 'imageUrls') {
+            if (value.length < 10) {
+                message = 'Pet image should start with http:// or https://';
+            }
+        }
+
         if (message) {
             setErrors((prev) => ({ ...prev, [name]: message }));
         } else {
@@ -104,7 +111,7 @@ export default function CreatePet() {
         const validTypes = ['Dog', 'Cat', 'Bird', 'Rabbit', 'Hamster', 'Other'];
         if (!validTypes.includes(data.type)) {
             newErrors.type = 'Pet type must be one of the following: Dog, Cat, Bird, Rabbit, Hamster, Other';
-        }       
+        }
 
         if (!data.breed || data.breed.length < 3 || data.breed.length > 30) {
             newErrors.breed = 'Breed must be between 3 and 30 characters';
@@ -117,6 +124,19 @@ export default function CreatePet() {
         if (!data.description || data.description.length < 10) {
             newErrors.description = 'Description must be at least 10 characters';
         }
+
+        const imageUrlErrors = data.imageUrls.map(url => {
+            if (!url.match(/^https?:\/\//)) {
+                return 'Invalid image URL';
+            }
+
+            return '';
+        });
+
+        if (imageUrlErrors.some(msg => msg !== '')) {
+            newErrors.imageUrls = imageUrlErrors;
+        }
+        console.log(newErrors);
 
         return newErrors;
     }
@@ -201,28 +221,33 @@ export default function CreatePet() {
                     required
                 >
                 </textarea>
-                    {errors.description && <p className="text-red-900 text-sm mt-1">{errors.description}</p>}
+                {errors.description && <p className="text-red-900 text-sm mt-1">{errors.description}</p>}
 
                 <label className="block text-lg font-semibold text-gray-900 mt-4">Images: add up to 5 images</label>
 
                 {imageUrls.map((url, index) => (
-                    <div key={index} className="flex items-center gap-2 mt-1">
-                        <input
-                            placeholder="Enter image URL..."
-                            type="text"
-                            value={url}
-                            onChange={(e) => updateImageUrl(index, e.target.value)}
-                            className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-                            required
-                        />
-                        {imageUrls.length > 1 && (
-                            <button
-                                type="button"
-                                onClick={() => removeImageUrl(index)}
-                                className="px-2 py-1 bg-red-600 text-white rounded-full hover:bg-red-700">
-                                X
-                            </button>
-                        )}
+                    <div key={index} className="mt-1">
+                        <div className="flex items-center gap-2">
+                            <input
+                                placeholder="Enter image URL..."
+                                type="text"
+                                value={url}
+                                onChange={(e) => updateImageUrl(index, e.target.value)}
+                                onBlur={handleBlur}
+                                className={`w-full p-2 border ${errors.imageUrls?.[index] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                                required
+                            />
+
+                            {imageUrls.length > 1 && (
+                                <button
+                                    type="button"
+                                    onClick={() => removeImageUrl(index)}
+                                    className="px-2 py-1 bg-red-600 text-white rounded-full hover:bg-red-700">
+                                    X
+                                </button>
+                            )}
+                        </div>
+                        {errors.imageUrls?.[index] && <p className="text-red-900 text-sm mt-1">{errors.imageUrls[index]}</p>}
                     </div>
                 ))}
 
