@@ -61,7 +61,7 @@ export default function CreatePet() {
 
     const handleBlur = (e) => {
 
-        const { name, value } = e.target;
+        const { name, value, dataset } = e.target;
 
         let message = '';
 
@@ -89,10 +89,22 @@ export default function CreatePet() {
             }
         }
 
-        if (name === 'imageUrls') {
-            if (value.length < 10) {
-                message = 'Pet image should start with http:// or https://';
+        if (name === 'imageUrl') {
+            const index = parseInt(dataset.index);
+            const newImageUrlErrors = [...(errors.imageUrls || [])];
+
+            if (!value.match(/^https?:\/\//)) {
+                newImageUrlErrors[index] = 'Image URL must start with http:// or https://';
+            } else {
+                newImageUrlErrors[index] = '';
             }
+
+            setErrors((prev) => ({
+                ...prev,
+                imageUrls: newImageUrlErrors,
+            }));
+
+            return;
         }
 
         if (message) {
@@ -100,6 +112,7 @@ export default function CreatePet() {
         } else {
             setErrors((prev) => ({ ...prev, [name]: '' }));
         }
+
     };
 
     const validateAll = (data) => {
@@ -136,12 +149,11 @@ export default function CreatePet() {
         if (imageUrlErrors.some(msg => msg !== '')) {
             newErrors.imageUrls = imageUrlErrors;
         }
-        console.log(newErrors);
 
         return newErrors;
     }
 
-    const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', imageUrl: '', description: '' });
+    const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', description: '' });
 
     return (
         <section className="py-12 flex justify-center"
@@ -223,12 +235,14 @@ export default function CreatePet() {
                 </textarea>
                 {errors.description && <p className="text-red-900 text-sm mt-1">{errors.description}</p>}
 
-                <label className="block text-lg font-semibold text-gray-900 mt-4">Images: add up to 5 images</label>
+                <label className="block text-lg font-semibold text-gray-900 mt-4">Images: Add up to 5 images</label>
 
                 {imageUrls.map((url, index) => (
                     <div key={index} className="mt-1">
                         <div className="flex items-center gap-2">
                             <input
+                                name="imageUrl"
+                                data-index={index}
                                 placeholder="Enter image URL..."
                                 type="text"
                                 value={url}
