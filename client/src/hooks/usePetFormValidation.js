@@ -16,10 +16,6 @@ export function usePetFormValidations() {
             }
         }
 
-        if (name === 'type') {
-            message = 'Please select a pet type';
-        }
-
         if (name === 'breed') {
             if (value.length < 3 || value.length > 30) {
                 message = 'Breed must be between 3 and 30 characters';
