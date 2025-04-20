@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import { useCreatePet, } from "../../api/petsApi";
 import Spinner from "../spinner/Spinner";
+import { usePetFormValidations } from "../../hooks/usePetFormValidation";
 
 
 export default function CreatePet() {
@@ -11,8 +12,8 @@ export default function CreatePet() {
     const { create, isLoading } = useCreatePet();
     const [petData, setPetData] = useState({});
     const [imageUrls, setImageUrls] = useState(['']);
-    const [errors, setErrors] = useState({});
-
+    const {errors, setErrors, handleBlur, validateAll} = usePetFormValidations();
+    
     const createHandler = async (_, formData) => {
 
         const formValues = Object.fromEntries(formData);
@@ -23,8 +24,8 @@ export default function CreatePet() {
         const validationErrors = validateAll(formValues);
         if (Object.keys(validationErrors).length > 0) {
             toast.warning('Please fix validation errors');
+            setPetData(formValues)
             setErrors(validationErrors);
-            setPetData(formValues);
             return;
         }
 
@@ -33,9 +34,10 @@ export default function CreatePet() {
         }
 
         try {
-            await create(petData);
+            await create(formValues);
             navigate('/pets');
-            toast.success(`Pet ${petData.name} was successfully created!`);
+            
+            toast.success(`Pet ${formValues.name} was successfully created!`);
 
         } catch (err) {
             toast.error(err.message);
@@ -58,100 +60,6 @@ export default function CreatePet() {
 
         setImageUrls(prev => prev.filter((_, i) => i !== index));
     };
-
-    const handleBlur = (e) => {
-
-        const { name, value, dataset } = e.target;
-
-        let message = '';
-
-        if (name === 'name') {
-            if (value.length < 3 || value.length > 10) {
-                message = 'Name must be between 3 and 10 characters';
-            }
-        }
-
-        if (name === 'breed') {
-            if (value.length < 3 || value.length > 30) {
-                message = 'Breed must be between 3 and 30 characters';
-            }
-        }
-
-        if (name === 'age') {
-            if (Number(value) < 0 || !value.trim()) {
-                message = 'Age must be a valid non-negative number'
-            }
-        }
-
-        if (name === 'description') {
-            if (value.length < 10) {
-                message = 'Description must be at least 10 characters'
-            }
-        }
-
-        if (name === 'imageUrl') {
-            const index = parseInt(dataset.index);
-            const newImageUrlErrors = [...(errors.imageUrls || [])];
-
-            if (!value.match(/^https?:\/\//)) {
-                newImageUrlErrors[index] = 'Image URL must start with http:// or https://';
-            } else {
-                newImageUrlErrors[index] = '';
-            }
-
-            setErrors((prev) => ({
-                ...prev,
-                imageUrls: newImageUrlErrors,
-            }));
-
-            return;
-        }
-
-        if (message) {
-            setErrors((prev) => ({ ...prev, [name]: message }));
-        } else {
-            setErrors((prev) => ({ ...prev, [name]: '' }));
-        }
-
-    };
-
-    const validateAll = (data) => {
-        const newErrors = {};
-
-        if (!data.name || data.name.length < 3 || data.name.length > 10) {
-            newErrors.name = 'Name must be between 3 and 10 characters';
-        }
-        const validTypes = ['Dog', 'Cat', 'Bird', 'Rabbit', 'Hamster', 'Other'];
-        if (!validTypes.includes(data.type)) {
-            newErrors.type = 'Pet type must be one of the following: Dog, Cat, Bird, Rabbit, Hamster, Other';
-        }
-
-        if (!data.breed || data.breed.length < 3 || data.breed.length > 30) {
-            newErrors.breed = 'Breed must be between 3 and 30 characters';
-        }
-
-        if (!data.age || Number(data.age) < 0 || Number(data.age) > 20) {
-            newErrors.age = 'Age must be between 0 and 20 years';
-        }
-
-        if (!data.description || data.description.length < 10) {
-            newErrors.description = 'Description must be at least 10 characters';
-        }
-
-        const imageUrlErrors = data.imageUrls.map(url => {
-            if (!url.match(/^https?:\/\//)) {
-                return 'Invalid image URL';
-            }
-
-            return '';
-        });
-
-        if (imageUrlErrors.some(msg => msg !== '')) {
-            newErrors.imageUrls = imageUrlErrors;
-        }
-
-        return newErrors;
-    }
 
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', description: '' });
 
@@ -182,8 +90,7 @@ export default function CreatePet() {
                 <select
                     id="type"
                     name="type"
-                    className="w-full p-2 border border-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-                    required
+                    className={`w-full p-2 border ${errors['type'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     defaultValue={petData.type || ''}
                 >
                     <option value="" disabled>Select a Pet Type...</option>
@@ -195,6 +102,8 @@ export default function CreatePet() {
                     <option value="Other">Other</option>
                 </select>
 
+                {errors.type && <p className="text-red-900 text-sm mt-1">{errors.type}</p>}
+
                 <label htmlFor="breed" className="block text-lg font-semibold text-gray-900 mt-4">Breed:</label>
                 <input
                     type="text"
@@ -204,7 +113,6 @@ export default function CreatePet() {
                     defaultValue={petData.breed}
                     className={`w-full p-2 border ${errors['breed'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     onBlur={handleBlur}
-                    required
                 />
                 {errors.breed && <p className="text-red-900 text-sm mt-1">{errors.breed}</p>}
 
@@ -218,7 +126,6 @@ export default function CreatePet() {
                     defaultValue={petData.age}
                     className={`w-full p-2 border ${errors['age'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     onBlur={handleBlur}
-                    required
                 />
                 {errors.age && <p className="text-red-900 text-sm mt-1">{errors.age}</p>}
 
@@ -230,7 +137,6 @@ export default function CreatePet() {
                     defaultValue={petData.description}
                     className={`w-full p-2 border ${errors['description'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     onBlur={handleBlur}
-                    required
                 >
                 </textarea>
                 {errors.description && <p className="text-red-900 text-sm mt-1">{errors.description}</p>}
@@ -249,7 +155,6 @@ export default function CreatePet() {
                                 onChange={(e) => updateImageUrl(index, e.target.value)}
                                 onBlur={handleBlur}
                                 className={`w-full p-2 border ${errors.imageUrls?.[index] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
-                                required
                             />
 
                             {imageUrls.length > 1 && (
