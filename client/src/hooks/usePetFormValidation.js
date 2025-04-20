@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export function usePetFormValidations() {
 
-const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
     const handleBlur = (e) => {
 
@@ -27,14 +27,14 @@ const [errors, setErrors] = useState({});
         }
 
         if (name === 'age') {
-            if (Number(value) < 0 || !value.trim()) {
-                message = 'Age must be a valid non-negative number'
+            if (Number(value) < 0 || !value.trim() || Number(value) > 30) {
+                message = 'Age must be between 0 and 30 years';
             }
         }
 
         if (name === 'description') {
             if (value.length < 10) {
-                message = 'Description must be at least 10 characters'
+                message = 'Description must be at least 10 characters';
             }
         }
 
@@ -79,8 +79,8 @@ const [errors, setErrors] = useState({});
             newErrors.breed = 'Breed must be between 3 and 30 characters';
         }
 
-        if (!data.age || Number(data.age) < 0 || Number(data.age) > 20) {
-            newErrors.age = 'Age must be between 0 and 20 years';
+        if (!data.age || Number(data.age) < 0 || Number(data.age) > 30) {
+            newErrors.age = 'Age must be between 0 and 30 years';
         }
 
         if (!data.description || data.description.length < 10) {
@@ -88,6 +88,7 @@ const [errors, setErrors] = useState({});
         }
 
         const imageUrlErrors = data.imageUrls.map(url => {
+            
             if (!url.match(/^https?:\/\//)) {
                 return 'Invalid image URL';
             }

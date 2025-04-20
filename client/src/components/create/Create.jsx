@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 import { useCreatePet, } from "../../api/petsApi";
-import Spinner from "../spinner/Spinner";
 import { usePetFormValidations } from "../../hooks/usePetFormValidation";
+import Spinner from "../spinner/Spinner";
 
 
 export default function CreatePet() {
@@ -12,8 +12,8 @@ export default function CreatePet() {
     const { create, isLoading } = useCreatePet();
     const [petData, setPetData] = useState({});
     const [imageUrls, setImageUrls] = useState(['']);
-    const {errors, setErrors, handleBlur, validateAll} = usePetFormValidations();
-    
+    const { errors, setErrors, handleBlur, validateAll } = usePetFormValidations();
+
     const createHandler = async (_, formData) => {
 
         const formValues = Object.fromEntries(formData);
@@ -22,6 +22,7 @@ export default function CreatePet() {
             .filter(url => url !== '');
 
         const validationErrors = validateAll(formValues);
+
         if (Object.keys(validationErrors).length > 0) {
             toast.warning('Please fix validation errors');
             setPetData(formValues)
@@ -29,14 +30,10 @@ export default function CreatePet() {
             return;
         }
 
-        if (isLoading) {
-            return <Spinner />
-        }
-
         try {
             await create(formValues);
             navigate('/pets');
-            
+
             toast.success(`Pet ${formValues.name} was successfully created!`);
 
         } catch (err) {
@@ -63,6 +60,10 @@ export default function CreatePet() {
 
     const [_, formAction, isPending] = useActionState(createHandler, { name: '', breed: '', age: '', description: '' });
 
+    if (isLoading) {
+        return <Spinner />
+    }
+
     return (
         <section className="py-12 flex justify-center"
             style={{
@@ -81,8 +82,8 @@ export default function CreatePet() {
                     name="name"
                     placeholder="Enter pet name..."
                     defaultValue={petData.name}
-                    className={`w-full p-2 border ${errors['name'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     onBlur={handleBlur}
+                    className={`w-full p-2 border ${errors['name'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                 />
                 {errors.name && <p className="text-red-900 text-sm mt-1">{errors.name}</p>}
 
@@ -90,8 +91,8 @@ export default function CreatePet() {
                 <select
                     id="type"
                     name="type"
-                    className={`w-full p-2 border ${errors['type'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     defaultValue={petData.type || ''}
+                    className={`w-full p-2 border ${errors['type'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                 >
                     <option value="" disabled>Select a Pet Type...</option>
                     <option value="Dog">Dog</option>
@@ -111,8 +112,8 @@ export default function CreatePet() {
                     name="breed"
                     placeholder="Enter pet breed..."
                     defaultValue={petData.breed}
-                    className={`w-full p-2 border ${errors['breed'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     onBlur={handleBlur}
+                    className={`w-full p-2 border ${errors['breed'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                 />
                 {errors.breed && <p className="text-red-900 text-sm mt-1">{errors.breed}</p>}
 
@@ -124,8 +125,8 @@ export default function CreatePet() {
                     min="0"
                     placeholder="Enter pet age..."
                     defaultValue={petData.age}
-                    className={`w-full p-2 border ${errors['age'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     onBlur={handleBlur}
+                    className={`w-full p-2 border ${errors['age'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                 />
                 {errors.age && <p className="text-red-900 text-sm mt-1">{errors.age}</p>}
 
@@ -135,8 +136,8 @@ export default function CreatePet() {
                     name="description"
                     placeholder="Enter a short description..."
                     defaultValue={petData.description}
-                    className={`w-full p-2 border ${errors['description'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                     onBlur={handleBlur}
+                    className={`w-full p-2 border ${errors['description'] ? 'border-red-500' : 'border-gray-900'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300`}
                 >
                 </textarea>
                 {errors.description && <p className="text-red-900 text-sm mt-1">{errors.description}</p>}
