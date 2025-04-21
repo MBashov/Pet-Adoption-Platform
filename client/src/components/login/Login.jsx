@@ -11,16 +11,24 @@ export default function Login() {
     const { authHandler } = useUserContext();
     const { login } = useLogin();
     const [email, setEmail] = useState('');
-    const [mismatch, seMismatch] = useState(false);
+    const [inValidEmail, setInValidEmail] = useState(false);
+    const [mismatch, setMismatch] = useState(false);
 
     const handleFocus = () => {
-        seMismatch(false);
+        setMismatch(false);
+        setInValidEmail(false);
     }
 
     const loginHandler = async (_, formData) => {
 
         const { email, password } = Object.fromEntries(formData);
+
         setEmail(email);
+
+        if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/gm)) {
+            setInValidEmail(true);
+            return;
+        }
 
         try {
             const authData = await login(email, password);
@@ -28,7 +36,7 @@ export default function Login() {
             navigate('/');
             toast.success('Successful Login');
         } catch {
-            seMismatch(true);
+            setMismatch(true);
             toast.error('Email or password don\'t match');
 
         }
@@ -57,10 +65,10 @@ export default function Login() {
                             placeholder="your@email.com"
                             defaultValue={email}
                             onFocus={handleFocus}
-                            required
-                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${mismatch ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
+                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${mismatch || inValidEmail ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
                                 }`}
                         />
+                        {inValidEmail && <p className="text-red-900 text-sm mt-1">Invalid Email</p>}
                     </div>
 
                     <div>
@@ -70,8 +78,7 @@ export default function Login() {
                             name="password"
                             id="password"
                             onFocus={handleFocus}
-                            required
-                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${mismatch ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
+                                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${mismatch ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
                                 }`}
                         />
                     </div>
@@ -94,4 +101,3 @@ export default function Login() {
         </section>
     );
 }
-
