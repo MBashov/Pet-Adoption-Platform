@@ -1,23 +1,21 @@
-import { it, expect, beforeEach } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router'
+import { it, expect } from 'vitest'
+import { render, screen, fireEvent } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router'
 
 import PetTemplate from './PetTemplate'
 
-beforeEach(() => {
-    cleanup();
-});
+
+const mockPet = {
+    imageUrls: ['https://example.com/pet.jpg'],
+    name: 'Max',
+    breed: 'Labrador',
+    age: 3,
+    _id: 'abc123',
+};
 
 
 it('Should display pet item', () => {
 
-    const mockPet = {
-        imageUrls: ['https://example.com/pet.jpg'],
-        name: 'Max',
-        breed: 'Labrador',
-        age: 3,
-        _id: 'abc123',
-    };
     render(
         <MemoryRouter>
             <PetTemplate pet={mockPet} />
@@ -34,4 +32,22 @@ it('Should display pet item', () => {
     expect(p).toBeInTheDocument();
     expect(img).toHaveAttribute('src', mockPet.imageUrls[0]);
     expect(link).toHaveAttribute('href', `/pets/${mockPet._id}/details`);
+});
+
+it('Should navigate to details page on "View Details', () => {
+    const PetDetails = () => <div>Pet Details Page for {mockPet.name}</div>;
+
+    render(
+        <MemoryRouter initialEntries={['/']}>
+            <Routes>
+                <Route path='/' element={<PetTemplate pet={mockPet} />} />
+                <Route path={`/pets/${mockPet._id}/details`} element={<PetDetails />} />
+            </Routes>
+        </MemoryRouter>
+    );
+
+    const link = screen.getByRole('link', { name: 'View Details' });
+    fireEvent.click(link);
+
+    expect(screen.getByText(`Pet Details Page for ${mockPet.name}`)).toBeInTheDocument();
 });
