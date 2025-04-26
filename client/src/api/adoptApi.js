@@ -5,7 +5,7 @@ import request from "../utils/request";
 import { toast } from "react-toastify";
 
 
-const baseUrl = 'http://localhost:3030/data/applications';
+const baseUrl = `${import.meta.env.VITE_API_SERVER_URL}/data/applications`;
 
 export const useAdoptPet = () => {
 

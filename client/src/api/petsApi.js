@@ -5,7 +5,7 @@ import useAuthRequest from "../hooks/useAuthRequest";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
-const baseUrl = 'http://localhost:3030/data/pets';
+const baseUrl = `${import.meta.env.VITE_API_SERVER_URL}/data/pets`;
 
 export const usePets = (currentPage, petsPerPage, category) => {
 
