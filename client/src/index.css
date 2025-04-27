@@ -2,9 +2,7 @@
 
 .swiper-container img {
     width: 100%;
-    /* Ensures the image fills the width of the slide */
     height: auto;
-    /* Maintains the aspect ratio */
 }
 
 .swiper-slide img {

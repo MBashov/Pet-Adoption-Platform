@@ -27,26 +27,26 @@ function App() {
             <div className="flex flex-col min-h-screen">
                 <Header />
 
-                <Routes>
-                    <Route path='/' element={<Home />} />
+                    <Routes>
+                        <Route path='/' element={<Home />} />
 
-                    <Route path='/pets' element={<Catalog />} />
-                    <Route path='/pets/:petId/details' element={<PetDetails />} />
-                    <Route path='/about' element={<AdoptionProcess />} />
-                    <Route element={<AuthGuard />}>
-                        <Route path='/add-pet' element={<CreatePet />} />
-                        <Route path='/pets/:petId/edit' element={<EditPet />} />
-                        <Route path='/pets/:petId/adopt' element={<AdoptPet />} />
-                        <Route path='/succesfully-adopt' element={<AdoptionSuccess />} />
-                        <Route path='/profile' element={<Profile />} />
-                        <Route path='/logout' element={<Logout />} />
-                    </Route>
-                    <Route element={<GuestGuard />}>
-                        <Route path='/register' element={<Register />} />
-                        <Route path='/login' element={<Login />} />
-                    </Route>
-                    <Route path='*' element={<NotFound />} />
-                </Routes>
+                        <Route path='/pets' element={<Catalog />} />
+                        <Route path='/pets/:petId/details' element={<PetDetails />} />
+                        <Route path='/about' element={<AdoptionProcess />} />
+                        <Route element={<AuthGuard />}>
+                            <Route path='/add-pet' element={<CreatePet />} />
+                            <Route path='/pets/:petId/edit' element={<EditPet />} />
+                            <Route path='/pets/:petId/adopt' element={<AdoptPet />} />
+                            <Route path='/succesfully-adopt' element={<AdoptionSuccess />} />
+                            <Route path='/profile' element={<Profile />} />
+                            <Route path='/logout' element={<Logout />} />
+                        </Route>
+                        <Route element={<GuestGuard />}>
+                            <Route path='/register' element={<Register />} />
+                            <Route path='/login' element={<Login />} />
+                        </Route>
+                        <Route path='*' element={<NotFound />} />
+                    </Routes>
 
                 <Footer />
 
