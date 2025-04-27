@@ -19,6 +19,7 @@ export default function Register() {
 
     const handleFocus = () => {
         setEmailError(false);
+        setInValidEmail(false);
         setPassMismatch(false);
         setShortPass(false);
     };

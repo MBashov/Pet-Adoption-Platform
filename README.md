@@ -38,8 +38,49 @@ The **Pet Adoption Platform** is a web application that connects people with pet
 - **SoftUni Practice Server** – Used for backend functionality
   > ⚠️ **Note:** This database is **not persistent**, meaning all user data (registrations, pet listings, etc.) will be lost upon a server restart.
   
-🔗 Learn more about the SoftUni Practice Server [here](https://github.com/softuni-practice-server/softuni-practice-server)
+🔗 Learn more about the SoftUni Practice Server [here](https://github.com/softuni-practice-server/softuni-practice-server)   
 
+## 🧪 Testing
+
+Unit tests have been added to ensure the stability and correctness of key components.
+
+- **Testing Framework**: Vitest
+- **Test Coverage**: Includes tests for important functionality such as form validation, API requests, and component rendering
+### Running Tests
+
+To run the tests locally:
+
+```sh
+npm run test  
+``` 
+
+## ☁️ Deployment
+
+The application is deployed using **Google Cloud Run** with containerized infrastructure:
+
+- **Docker** – Used for containerizing the application.
+- **Artifact Registry** – Stores built container images.
+- **Google Cloud Run** – Hosts and runs the containerized application.
+
+The live app is accessible at:
+
+🌐 [View Live Application](https://decisive-studio-457917-s8.web.app/)
+
+---
+
+### 📦 Continuous Integration
+
+The project is configured with **GitHub Actions** for Continuous Integration (CI). On every merge to the main branch, the CI workflow automatically builds, tests, and deploys the latest changes to **Google Cloud Run**.
+
+---
+
+## 📦 Containerization & Deployment Process (Summary)
+
+- **Docker**: A Dockerfile was created to build the server container.
+- **Artifact Registry**: Container images are stored securely in Google Cloud Artifact Registry.
+- **Cloud Run**: The containerized app is deployed to Cloud Run for scalable, serverless execution.
+
+---
 
 ## 🏗 How to Run the Project
 ### 1️⃣ Clone the Repository
@@ -62,7 +103,12 @@ node server.js
 
 
 ## 🤝 Contributing
-Contributions are welcome! Feel free to open an issue or submit a pull request.
+Contributions are welcome! Here’s how you can contribute:
+1. Fork the repo and clone it locally.
+2. Create a new branch for your feature or fix.
+3. Run the tests locally with `npm run test` to ensure everything works.
+4. Submit a pull request for review.
+
 
 ## Screenshots
 
