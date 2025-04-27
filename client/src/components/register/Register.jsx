@@ -107,7 +107,6 @@ export default function Register() {
                             name="confirmPassword"
                             id="confirmPassword"
                             onFocus={handleFocus}
-                            required
                             className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${passMismatch ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"
                                 }`}
                         />

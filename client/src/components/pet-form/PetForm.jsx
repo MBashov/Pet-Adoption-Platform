@@ -89,7 +89,7 @@ export default function PetForm({
                 ></textarea>
                 {errors.description && <p className="text-red-900 text-sm mt-1">{errors.description}</p>}
 
-                <label className="block text-lg font-semibold text-gray-900 mt-4">Images: add up to 5 images</label>
+                <label className="block text-lg font-semibold text-gray-900 mt-4">Images: Add up to 5 images</label>
                 {imageUrls.map((url, index) => (
                     <div key={index} className="mt-1">
                         <div className="flex items-center gap-2">

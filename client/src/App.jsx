@@ -14,7 +14,7 @@ import Logout from './components/logout/Logout';
 import PetDetails from './components/pet-details/PetDetails';
 import EditPet from './components/edit/Edit';
 import AuthGuard from './components/guards/AuthGuard';
-import GuestGuard from './components/guards/guestGuard';
+import GuestGuard from './components/guards/GuestGuard';
 import AdoptionSuccess from './components/adoption-succsess/AdoptionSuccess';
 import Profile from './components/profile/Profile';
 import AdoptPet from './components/adopt-pet/AdoptPet';
