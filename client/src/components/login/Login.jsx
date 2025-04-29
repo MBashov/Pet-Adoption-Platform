@@ -55,7 +55,7 @@ export default function Login() {
             <div className="shadow-lg rounded-lg mb-30 p-8 w-96">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Login</h1>
 
-                <form action={action} id="login" className="space-y-4">
+                <form action={action} id="login" data-testid="login-form" className="space-y-4">
                     <div>
                         <label htmlFor="email" className="block text-gray-900 font-semibold">Email:</label>
                         <input
@@ -83,7 +83,7 @@ export default function Login() {
                         />
                     </div>
 
-                    <div className="text-center  items-center">
+                    <div className="text-center items-center">
                         <button
                             className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition cursor-pointer min-w-[120px] flex justify-center items-center"
                             type="submit"
